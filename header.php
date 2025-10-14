@@ -8,18 +8,18 @@
 <body <?php body_class('bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-mono transition-colors duration-200'); ?>>
 <?php wp_body_open(); ?>
 
-<div id="top-header" class="bg-kp-gradient text-white transition-transform duration-300">
+<div id="top-header" class="text-white transition-transform duration-300">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center py-2 text-xs md:text-sm">
             <div class="flex items-center space-x-4">
-                <a href="mailto:me@kpirnie.com" class="hover:text-kp-orange transition-colors flex items-center">
+                <a href="mailto:me@kpirnie.com" class="hover:text-[#fd6a4f] transition-colors flex items-center">
                     <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                     </svg>
                     <span class="hidden sm:inline">me@kpirnie.com</span>
                 </a>
-                <a href="tel:4138880068" class="hover:text-kp-orange transition-colors flex items-center">
+                <a href="tel:4138880068" class="hover:text-[#fd6a4f] transition-colors flex items-center">
                     <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                     </svg>
@@ -42,7 +42,7 @@
                     'depth' => 1,
                 ));
                 ?>
-                <button id="dark-mode-toggle" class="hover:text-kp-orange transition-colors" aria-label="Toggle dark mode">
+                <button id="dark-mode-toggle" class="hover:text-[#fd6a4f] transition-colors" aria-label="Toggle dark mode">
                     <svg id="sun-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
                     </svg>
@@ -63,7 +63,7 @@
                     <?php if (has_custom_logo()): ?>
                         <?php the_custom_logo(); ?>
                     <?php else: ?>
-                        <span class="text-2xl font-bold text-kp-brand">
+                        <span class="text-2xl font-bold kp-gradient-text">
                             <?php bloginfo('name'); ?>
                         </span>
                     <?php endif; ?>
@@ -101,7 +101,7 @@
         <div class="container mx-auto px-4 py-4">
             <form role="search" method="get" action="<?php echo home_url('/'); ?>" class="flex gap-2">
                 <input type="search" name="s" placeholder="Search..." class="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-[#599bb8]" value="<?php echo get_search_query(); ?>">
-                <button type="submit" class="px-6 py-2 bg-kp-gradient hover:bg-kp-gradient-hover text-white rounded-lg transition-all">Search</button>
+                <button type="submit" class="px-6 py-2 text-white rounded-lg transition-all kp-gradient-bg">Search</button>
             </form>
         </div>
     </div>

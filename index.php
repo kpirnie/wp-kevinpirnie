@@ -1,10 +1,12 @@
 <?php get_header(); ?>
 
+<?php get_header(); ?>
+
 <div class="container mx-auto px-4 py-8">
     <?php kp_breadcrumbs(); ?>
     
     <div class="mb-8">
-        <h1 class="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r bg-kp-gradient dark:from-blue-400 dark:to-teal-400">
+        <h1 class="text-4xl font-bold mb-2 kp-gradient-text">
             <?php
             if (is_home() && !is_front_page()) {
                 echo 'Blog';
