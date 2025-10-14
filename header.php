@@ -121,3 +121,4 @@
 </header>
 
 <main id="content" class="min-h-screen">
+    <div class="container max-w-xl mx-auto px-4">

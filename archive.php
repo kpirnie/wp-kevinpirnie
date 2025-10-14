@@ -1,6 +1,5 @@
 <?php get_header(); ?>
 
-<div class="container mx-auto px-4 py-8">
     <?php kp_breadcrumbs(); ?>
     
     <div class="mb-8">
@@ -64,6 +63,5 @@
             <p class="text-xl text-gray-600 dark:text-gray-400">No posts found.</p>
         </div>
     <?php endif; ?>
-</div>
 
 <?php get_footer(); ?>

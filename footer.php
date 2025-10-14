@@ -1,3 +1,4 @@
+    </div>
 </main>
 
 <footer class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12">

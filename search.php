@@ -1,6 +1,5 @@
 <?php get_header(); ?>
 
-<div class="container mx-auto px-4 py-8">
     <?php kp_breadcrumbs(); ?>
     
     <div class="mb-8">
@@ -72,6 +71,5 @@
             </form>
         </div>
     <?php endif; ?>
-</div>
 
 <?php get_footer(); ?>

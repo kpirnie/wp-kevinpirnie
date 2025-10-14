@@ -1,6 +1,5 @@
 <?php get_header(); ?>
 
-<div class="container mx-auto px-4 py-8">
     <?php kp_breadcrumbs(); ?>
     
     <div class="max-w-2xl mx-auto text-center py-16">
@@ -45,6 +44,5 @@
             </form>
         </div>
     </div>
-</div>
 
 <?php get_footer(); ?>

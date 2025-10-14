@@ -1,6 +1,5 @@
 <?php get_header(); ?>
 
-<div class="container mx-auto px-4 py-8">
     <?php kp_breadcrumbs(); ?>
     
     <?php while (have_posts()): the_post(); ?>
@@ -22,6 +21,5 @@
             </div>
         </article>
     <?php endwhile; ?>
-</div>
 
 <?php get_footer(); ?>
