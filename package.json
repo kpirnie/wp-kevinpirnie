@@ -2,8 +2,7 @@
     "name": "kp-portfolio-theme",
     "version": "1.0.0",
     "scripts": {
-        "build": "tailwindcss -i ./assets/css/main.css -o ./style.css --minify",
-        "watch": "tailwindcss -i ./assets/css/main.css -o ./style.css --watch"
+        "build": "tailwindcss -i ./assets/css/main.css -o ./assets/css/tailwind.css && cat ./assets/css/style.css ./assets/css/tailwind.css > ./style.css"
     },
     "devDependencies": {
         "tailwindcss": "^3.4.0"

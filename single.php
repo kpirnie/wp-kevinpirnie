@@ -17,7 +17,7 @@
                     ?>
                 </div>
                 
-                <h1 class="text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r bg-kp-gradient dark:from-blue-400 dark:to-teal-400">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 kp-gradient-text">
                     <?php the_title(); ?>
                 </h1>
                 

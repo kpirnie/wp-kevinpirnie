@@ -6,7 +6,7 @@
     <?php while (have_posts()): the_post(); ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class('max-w-4xl mx-auto'); ?>>
             <header class="mb-8">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r bg-kp-gradient dark:from-blue-400 dark:to-teal-400">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 kp-gradient-text">
                     <?php the_title(); ?>
                 </h1>
             </header>

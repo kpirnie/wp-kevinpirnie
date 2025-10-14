@@ -60,7 +60,7 @@ function kp_breadcrumbs() {
     $separator = ' <span class="text-gray-400 dark:text-gray-600">/</span> ';
     $home_title = 'Home';
     
-    echo '<nav class="breadcrumbs text-sm py-4 text-gray-600 dark:text-gray-400" aria-label="Breadcrumb"><div class="container">';
+    echo '<nav class="breadcrumbs text-sm py-4 text-gray-600 dark:text-gray-400 text-right" aria-label="Breadcrumb"><div class="container">';
     
     echo '<a href="' . get_home_url() . '" class="text-blue-600 dark:text-blue-400 hover:underline">' . $home_title . '</a>';
     echo $separator;

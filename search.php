@@ -4,7 +4,7 @@
     <?php kp_breadcrumbs(); ?>
     
     <div class="mb-8">
-        <h1 class="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r bg-kp-gradient dark:from-blue-400 dark:to-teal-400">
+        <h1 class="text-4xl font-bold mb-2 kp-gradient-text">
             Search Results for: <?php echo get_search_query(); ?>
         </h1>
         <p class="text-gray-600 dark:text-gray-400">
