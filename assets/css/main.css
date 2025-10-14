@@ -14,7 +14,12 @@
     }
 
     .btn-primary {
-        @apply px-6 py-2 bg-gradient-to-r bg-kp-gradient hover:from-blue-700 hover:to-teal-700 text-white rounded-lg transition-all font-medium;
+        @apply px-6 py-2 text-white rounded-lg transition-all font-medium;
+        background: linear-gradient(to right, #599bb8, #2d7696);
+    }
+    
+    .btn-primary:hover {
+        background: linear-gradient(to right, #1d4ed8, #0f766e);
     }
 
     .btn-secondary {
@@ -23,6 +28,11 @@
 
     .article-content {
         @apply max-w-none w-full;
+    }
+    
+    /* Define kp-gradient as a component class */
+    .bg-kp-gradient {
+        background: linear-gradient(to right, #599bb8, #2d7696);
     }
 }
 

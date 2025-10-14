@@ -1,6 +1,8 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
+require_once get_template_directory() . '/inc/theme-settings.php';
+
 function kp_theme_setup() {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
