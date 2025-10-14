@@ -1,0 +1,11 @@
+{
+    "name": "kp-portfolio-theme",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "tailwindcss -i ./assets/css/main.css -o ./style.css --minify",
+        "watch": "tailwindcss -i ./assets/css/main.css -o ./style.css --watch"
+    },
+    "devDependencies": {
+        "tailwindcss": "^3.4.0"
+    }
+}

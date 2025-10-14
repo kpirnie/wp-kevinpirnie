@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        font-family: 'Source Code Pro', monospace;
+    }
+}
+
+@layer components {
+    .container {
+        @apply max-w-7xl mx-auto px-4;
+    }
+
+    .btn-primary {
+        @apply px-6 py-2 bg-gradient-to-r bg-kp-gradient hover:from-blue-700 hover:to-teal-700 text-white rounded-lg transition-all font-medium;
+    }
+
+    .btn-secondary {
+        @apply px-6 py-2 border-2 border-blue-600 dark:border-blue-400 text-[#599bb8] dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-800 rounded-lg transition-all font-medium;
+    }
+}
