@@ -69,18 +69,24 @@
                     'container' => false,
                     'menu_class' => 'flex space-x-6 items-center',
                     'fallback_cb' => false,
+                    'walker' => new KP_Hierarchical_Menu_Walker(),
                 ));
                 ?>
-            </nav>
-            
-            <div class="flex items-center space-x-4">
                 <button id="search-toggle" class="p-2 rounded-lg hover:bg-gray-800 transition-colors" aria-label="Toggle search">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
                 </button>
+            </nav>
+            
+            <div class="flex items-center space-x-4 lg:hidden">
+                <button id="search-toggle-mobile" class="p-2 rounded-lg hover:bg-gray-800 transition-colors" aria-label="Toggle search">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </button>
                 
-                <button id="mobile-menu-toggle" class="lg:hidden p-2 rounded-lg hover:bg-gray-800 transition-colors" aria-label="Toggle menu">
+                <button id="mobile-menu-toggle" class="p-2 rounded-lg hover:bg-gray-800 transition-colors" aria-label="Toggle menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -108,8 +114,9 @@
             wp_nav_menu(array(
                 'theme_location' => 'primary',
                 'container' => false,
-                'menu_class' => 'space-y-2',
+                'menu_class' => 'mobile-menu-list',
                 'fallback_cb' => false,
+                'walker' => new KP_Mobile_Menu_Walker(),
             ));
             ?>
         </div>

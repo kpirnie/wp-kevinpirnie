@@ -19,12 +19,85 @@ document.addEventListener('DOMContentLoaded', function () {
         lastScroll = currentScroll;
     });
 
-    // Search toggle
+    // Desktop dropdown menu toggles
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const parentLi = this.closest('li');
+            const submenu = parentLi.querySelector('.submenu');
+            const arrow = this.querySelector('svg');
+            const isOpen = submenu && !submenu.classList.contains('hidden');
+
+            // Close all other dropdowns
+            document.querySelectorAll('.submenu').forEach(menu => {
+                if (menu !== submenu) {
+                    menu.classList.add('hidden');
+                }
+            });
+
+            document.querySelectorAll('.dropdown-toggle svg').forEach(otherArrow => {
+                if (otherArrow !== arrow) {
+                    otherArrow.classList.remove('rotate-180');
+                }
+            });
+
+            document.querySelectorAll('.dropdown-toggle').forEach(otherToggle => {
+                if (otherToggle !== toggle) {
+                    otherToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Toggle current dropdown
+            if (submenu) {
+                if (isOpen) {
+                    submenu.classList.add('hidden');
+                    arrow.classList.remove('rotate-180');
+                    this.setAttribute('aria-expanded', 'false');
+                } else {
+                    submenu.classList.remove('hidden');
+                    arrow.classList.add('rotate-180');
+                    this.setAttribute('aria-expanded', 'true');
+                }
+            }
+        });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('.has-dropdown')) {
+            document.querySelectorAll('.submenu').forEach(menu => {
+                menu.classList.add('hidden');
+            });
+            document.querySelectorAll('.dropdown-toggle svg').forEach(arrow => {
+                arrow.classList.remove('rotate-180');
+            });
+            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                toggle.setAttribute('aria-expanded', 'false');
+            });
+        }
+    });
+
+    // Search toggle - Desktop
     const searchToggle = document.getElementById('search-toggle');
     const searchForm = document.getElementById('search-form');
 
     if (searchToggle && searchForm) {
         searchToggle.addEventListener('click', function () {
+            searchForm.classList.toggle('hidden');
+            if (!searchForm.classList.contains('hidden')) {
+                searchForm.querySelector('input[type="search"]').focus();
+            }
+        });
+    }
+
+    // Search toggle - Mobile
+    const searchToggleMobile = document.getElementById('search-toggle-mobile');
+    if (searchToggleMobile && searchForm) {
+        searchToggleMobile.addEventListener('click', function () {
             searchForm.classList.toggle('hidden');
             if (!searchForm.classList.contains('hidden')) {
                 searchForm.querySelector('input[type="search"]').focus();
@@ -39,14 +112,56 @@ document.addEventListener('DOMContentLoaded', function () {
     if (mobileMenuToggle && mobileMenu) {
         mobileMenuToggle.addEventListener('click', function () {
             mobileMenu.classList.toggle('hidden');
+            
+            // Ensure all mobile submenus are hidden when menu opens
+            if (!mobileMenu.classList.contains('hidden')) {
+                document.querySelectorAll('.submenu-mobile').forEach(submenu => {
+                    submenu.classList.add('hidden');
+                });
+                document.querySelectorAll('.submenu-toggle svg').forEach(arrow => {
+                    arrow.classList.remove('rotate-180');
+                });
+            }
         });
     }
+
+    // Mobile submenu toggles - both button and parent link
+    const submenuToggles = document.querySelectorAll('.submenu-toggle');
+    submenuToggles.forEach(toggle => {
+        toggle.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const submenu = this.closest('li').querySelector('.submenu-mobile');
+            const arrow = this.querySelector('svg');
+            
+            if (submenu) {
+                submenu.classList.toggle('hidden');
+                arrow.classList.toggle('rotate-180');
+            }
+        });
+    });
+    
+    // Make parent links in mobile menu toggle submenus instead of navigating
+    const mobileParentLinks = document.querySelectorAll('.mobile-menu-list .has-submenu > div > a');
+    mobileParentLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const submenu = this.closest('li').querySelector('.submenu-mobile');
+            const arrow = this.closest('div').querySelector('.submenu-toggle svg');
+            
+            if (submenu) {
+                submenu.classList.toggle('hidden');
+                if (arrow) {
+                    arrow.classList.toggle('rotate-180');
+                }
+            }
+        });
+    });
 
     // Scroll to top button
     const scrollToTopBtn = document.getElementById('scroll-to-top');
 
     if (scrollToTopBtn) {
-        // Show/hide button based on scroll position
         window.addEventListener('scroll', function () {
             if (window.pageYOffset > 300) {
                 scrollToTopBtn.classList.remove('opacity-0', 'invisible');
@@ -57,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Scroll to top when clicked
         scrollToTopBtn.addEventListener('click', function () {
             window.scrollTo({
                 top: 0,
