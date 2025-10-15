@@ -21,7 +21,7 @@ composer update;
 composer dumpautoload -o -n;
 
 # Reinstall node_modules with correct permissions
-rm -rf $PWD/node_modules && npm install
+rm -rf $PWD/node_modules && npm install && npx update-browserslist-db@latest
 
 # now refresh NPM
 npm run build;

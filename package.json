@@ -2,9 +2,11 @@
     "name": "kevinpirnie-theme",
     "version": "1.0.0",
     "scripts": {
-        "build:css": "tailwindcss -i ./assets/css/theme.css -o ./assets/css/theme.min.css --minify",
+        "build:tw": "tailwindcss -i ./assets/css/main.css -o ./assets/css/tw.css",
+        "build:concat": "cat ./assets/css/tw.css ./assets/css/theme.css > ./assets/css/theme.debug.css && rm -f ./assets/css/tw.css",
+        "build:css": "tailwindcss -i ./assets/css/theme.debug.css -o ./assets/css/theme.min.css --minify",
         "build:js": "terser ./assets/js/theme.js -o ./assets/js/theme.min.js -c -m",
-        "build": "npm run build:css && npm run build:js"
+        "build": "npm run build:tw && npm run build:concat && npm run build:css && npm run build:js"
     },
     "devDependencies": {
         "tailwindcss": "^3.4.0",

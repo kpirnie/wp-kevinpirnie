@@ -67,48 +67,31 @@ if( ! class_exists( 'KPT_Assets' ) ) {
         */
         private function pull_css( ) : void {
 
-            // setup an array to hold them
-            $_css = [
-                'debug' => [
-                    'kpt_font' => [ '//fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&display=swap&_=' . time( ), '' ],
-                    'kpt_theme' => [ get_stylesheet_directory_uri( ) . '/assets/css/theme.css?_=' . time( ), 'kpt_font' ],
-                    'custom' => [ get_stylesheet_directory_uri( ) . '/style.css?_=' . time( ), 'kpt_theme' ],
-                ],
-                'production' => [
-                    'kpt_font' => [ '//fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&display=swap', '' ],
-                    'kpt_theme' => [ get_stylesheet_directory_uri( ) . '/assets/css/theme.min.css', 'kpt_font' ],
-                    'custom' => [ get_stylesheet_directory_uri( ) . '/style.css', 'kpt_theme' ],
-                ],
-            ];
+            $is_debug = defined('KPT_DEBUG') && KPT_DEBUG;
 
-            // if we're in debug mode
-            if( defined( 'WP_DEBUG' ) && WP_DEBUG ) {   
+            // Google Fonts
+            wp_enqueue_style(
+                'kpt_font',
+                'https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&display=swap',
+                array(),
+                null
+            );
 
-                // loop over the debug css
-                foreach( $_css['debug' ] as $_key => $_val ) {
+            // Theme CSS
+            wp_enqueue_style(
+                'kpt_theme',
+                get_stylesheet_directory_uri() . '/assets/css/theme' . ($is_debug ? '' : '.min') . '.css',
+                array('kpt_font'),
+                $is_debug ? time() : null
+            );
 
-                    // register the style, then enqueue it
-                    wp_register_style( $_key, $_val[0], [ $_val[1] ], null );
-                    wp_enqueue_style( $_key );
-
-                }
-
-            // nope, we're on production
-            } else {
-
-                // loop over the debug css
-                foreach( $_css['production' ] as $_key => $_val ) {
-                    var_dump($_key);
-                    var_dump($_val);
-                    echo '<hr />';
-
-                    // register the style, then enqueue it
-                    wp_register_style( $_key, $_val[0], [ $_val[1] ], null );
-                    wp_enqueue_style( $_key );
-
-                }
-
-            }
+            // Custom CSS - style.css
+            wp_enqueue_style(
+                'kpt_custom',
+                get_stylesheet_uri(),
+                array('kpt_theme'),
+                $is_debug ? time() : null
+            );
 
         }
 
@@ -125,14 +108,22 @@ if( ! class_exists( 'KPT_Assets' ) ) {
         */
         private function pull_js( ) : void {
 
+            $is_debug = defined('KPT_DEBUG') && KPT_DEBUG;
 
+            wp_enqueue_script(
+                'kpt_theme',
+                get_stylesheet_directory_uri() . '/assets/js/theme' . ($is_debug ? '' : '.min') . '.js',
+                array(),
+                $is_debug ? time() : null,
+                true
+            );
 
         }
 
         /** 
          * remove_frontend_jquery
          * 
-         * Properly remove jquery from teh front-end of the site
+         * Properly remove jquery from the front-end of the site
          * 
          * @since 8.4
          * @access private
@@ -157,7 +148,7 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                         // loop over this array and properly remove them
                         foreach( $_remove as $_hndl ) {
 
-                            // dequeueu it first
+                            // dequeue it first
                             wp_dequeue_script( $_hndl );
 
                             // now unregister it
@@ -165,13 +156,13 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                             
                         }
 
-                        // do the same for unecessary CSS
-                        $_remove = array( 'wp-block-library' );
+                        // do the same for unnecessary CSS
+                        $_remove = array( 'wp-block-library', 'classic-themes-styles', 'global-styles' );
 
                         // loop over this array and properly remove them
                         foreach( $_remove as $_hndl ) {
 
-                            // dequeueu it first
+                            // dequeue it first
                             wp_dequeue_style( $_hndl );
 
                             // now unregister it
