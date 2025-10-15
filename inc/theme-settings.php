@@ -274,9 +274,18 @@ function kp_display_cookie_notice() {
     if (empty($content)) {
         return;
     }
+    
+    // Get the modal page title
+    $modal_page_title = 'Privacy Policy'; // Default
+    if ($modal_page) {
+        $page = get_post($modal_page);
+        if ($page) {
+            $modal_page_title = $page->post_title;
+        }
+    }
     ?>
     <!-- Cookie Notice Overlay -->
-    <div id="kp-cookie-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden" style="display: none; z-index: 9998;"></div>
+    <div id="kp-cookie-overlay" class="fixed inset-0 bg-black bg-opacity-75 hidden" style="display: none; z-index: 9998;"></div>
     
     <!-- Cookie Notice -->
     <div id="kp-cookie-notice" class="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-6 shadow-lg hidden" style="display: none; z-index: 9999;">
@@ -311,7 +320,7 @@ function kp_display_cookie_notice() {
         
         <div class="absolute top-0 bottom-0 <?php echo $modal_position === 'left' ? 'left-0' : 'right-0'; ?> w-full md:w-1/2 bg-white dark:bg-gray-900 overflow-y-auto shadow-2xl">
             <div class="sticky top-0 bg-gray-800 p-4 flex justify-between items-center z-10">
-                <h3 class="text-lg font-bold text-white">Privacy Policy</h3>
+                <h3 class="text-lg font-bold text-white"><?php echo esc_html($modal_page_title); ?></h3>
                 <button id="kp-modal-close" class="text-white hover:text-gray-300">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
