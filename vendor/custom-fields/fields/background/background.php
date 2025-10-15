@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CSF_Field_background' ) ) {
-  class CSF_Field_background extends CSF_Fields {
+if ( ! class_exists( 'KPT_FW_Field_background' ) ) {
+  class KPT_FW_Field_background extends KPT_FW_Fields {
 
     public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
       parent::__construct( $field, $value, $unique, $where, $parent );
@@ -33,7 +33,7 @@ if ( ! class_exists( 'CSF_Field_background' ) ) {
         'background_auto_attributes'    => false,
         'compact'                       => false,
         'background_image_library'      => 'image',
-        'background_image_placeholder'  => esc_html__( 'Not selected', 'csf' ),
+        'background_image_placeholder'  => esc_html__( 'Not selected', 'kpt_fw' ),
       ) );
 
       if ( $args['compact'] ) {
@@ -61,17 +61,17 @@ if ( ! class_exists( 'CSF_Field_background' ) ) {
 
       echo $this->field_before();
 
-      echo '<div class="csf--background-colors">';
+      echo '<div class="kpt_fw--background-colors">';
 
       //
       // Background Color
       if ( ! empty( $args['background_color'] ) ) {
 
-        echo '<div class="csf--color">';
+        echo '<div class="kpt_fw--color">';
 
-        echo ( ! empty( $args['background_gradient'] ) ) ? '<div class="csf--title">'. esc_html__( 'From', 'csf' ) .'</div>' : '';
+        echo ( ! empty( $args['background_gradient'] ) ) ? '<div class="kpt_fw--title">'. esc_html__( 'From', 'kpt_fw' ) .'</div>' : '';
 
-        CSF::field( array(
+        KPT_FW::field( array(
           'id'      => 'background-color',
           'type'    => 'color',
           'default' => $default_value['background-color'],
@@ -85,11 +85,11 @@ if ( ! class_exists( 'CSF_Field_background' ) ) {
       // Background Gradient Color
       if ( ! empty( $args['background_gradient_color'] ) && ! empty( $args['background_gradient'] ) ) {
 
-        echo '<div class="csf--color">';
+        echo '<div class="kpt_fw--color">';
 
-        echo ( ! empty( $args['background_gradient'] ) ) ? '<div class="csf--title">'. esc_html__( 'To', 'csf' ) .'</div>' : '';
+        echo ( ! empty( $args['background_gradient'] ) ) ? '<div class="kpt_fw--title">'. esc_html__( 'To', 'kpt_fw' ) .'</div>' : '';
 
-        CSF::field( array(
+        KPT_FW::field( array(
           'id'      => 'background-gradient-color',
           'type'    => 'color',
           'default' => $default_value['background-gradient-color'],
@@ -103,19 +103,19 @@ if ( ! class_exists( 'CSF_Field_background' ) ) {
       // Background Gradient Direction
       if ( ! empty( $args['background_gradient_direction'] ) && ! empty( $args['background_gradient'] ) ) {
 
-        echo '<div class="csf--color">';
+        echo '<div class="kpt_fw--color">';
 
-        echo ( ! empty( $args['background_gradient'] ) ) ? '<div class="csf---title">'. esc_html__( 'Direction', 'csf' ) .'</div>' : '';
+        echo ( ! empty( $args['background_gradient'] ) ) ? '<div class="kpt_fw---title">'. esc_html__( 'Direction', 'kpt_fw' ) .'</div>' : '';
 
-        CSF::field( array(
+        KPT_FW::field( array(
           'id'          => 'background-gradient-direction',
           'type'        => 'select',
           'options'     => array(
-            ''          => esc_html__( 'Gradient Direction', 'csf' ),
-            'to bottom' => esc_html__( '&#8659; top to bottom', 'csf' ),
-            'to right'  => esc_html__( '&#8658; left to right', 'csf' ),
-            '135deg'    => esc_html__( '&#8664; corner top to right', 'csf' ),
-            '-135deg'   => esc_html__( '&#8665; corner top to left', 'csf' ),
+            ''          => esc_html__( 'Gradient Direction', 'kpt_fw' ),
+            'to bottom' => esc_html__( '&#8659; top to bottom', 'kpt_fw' ),
+            'to right'  => esc_html__( '&#8658; left to right', 'kpt_fw' ),
+            '135deg'    => esc_html__( '&#8664; corner top to right', 'kpt_fw' ),
+            '-135deg'   => esc_html__( '&#8665; corner top to left', 'kpt_fw' ),
           ),
         ), $this->value['background-gradient-direction'], $this->field_name(), 'field/background' );
 
@@ -129,12 +129,12 @@ if ( ! class_exists( 'CSF_Field_background' ) ) {
       // Background Image
       if ( ! empty( $args['background_image'] ) ) {
 
-        echo '<div class="csf--background-image">';
+        echo '<div class="kpt_fw--background-image">';
 
-        CSF::field( array(
+        KPT_FW::field( array(
           'id'          => 'background-image',
           'type'        => 'media',
-          'class'       => 'csf-assign-field-background',
+          'class'       => 'kpt_fw-assign-field-background',
           'library'     => $args['background_image_library'],
           'preview'     => $args['background_image_preview'],
           'placeholder' => $args['background_image_placeholder'],
@@ -145,29 +145,29 @@ if ( ! class_exists( 'CSF_Field_background' ) ) {
 
       }
 
-      $auto_class   = ( ! empty( $args['background_auto_attributes'] ) ) ? ' csf--auto-attributes' : '';
-      $hidden_class = ( ! empty( $args['background_auto_attributes'] ) && empty( $this->value['background-image']['url'] ) ) ? ' csf--attributes-hidden' : '';
+      $auto_class   = ( ! empty( $args['background_auto_attributes'] ) ) ? ' kpt_fw--auto-attributes' : '';
+      $hidden_class = ( ! empty( $args['background_auto_attributes'] ) && empty( $this->value['background-image']['url'] ) ) ? ' kpt_fw--attributes-hidden' : '';
 
-      echo '<div class="csf--background-attributes'. esc_attr( $auto_class . $hidden_class ) .'">';
+      echo '<div class="kpt_fw--background-attributes'. esc_attr( $auto_class . $hidden_class ) .'">';
 
       //
       // Background Position
       if ( ! empty( $args['background_position'] ) ) {
 
-        CSF::field( array(
+        KPT_FW::field( array(
           'id'              => 'background-position',
           'type'            => 'select',
           'options'         => array(
-            ''              => esc_html__( 'Background Position', 'csf' ),
-            'left top'      => esc_html__( 'Left Top', 'csf' ),
-            'left center'   => esc_html__( 'Left Center', 'csf' ),
-            'left bottom'   => esc_html__( 'Left Bottom', 'csf' ),
-            'center top'    => esc_html__( 'Center Top', 'csf' ),
-            'center center' => esc_html__( 'Center Center', 'csf' ),
-            'center bottom' => esc_html__( 'Center Bottom', 'csf' ),
-            'right top'     => esc_html__( 'Right Top', 'csf' ),
-            'right center'  => esc_html__( 'Right Center', 'csf' ),
-            'right bottom'  => esc_html__( 'Right Bottom', 'csf' ),
+            ''              => esc_html__( 'Background Position', 'kpt_fw' ),
+            'left top'      => esc_html__( 'Left Top', 'kpt_fw' ),
+            'left center'   => esc_html__( 'Left Center', 'kpt_fw' ),
+            'left bottom'   => esc_html__( 'Left Bottom', 'kpt_fw' ),
+            'center top'    => esc_html__( 'Center Top', 'kpt_fw' ),
+            'center center' => esc_html__( 'Center Center', 'kpt_fw' ),
+            'center bottom' => esc_html__( 'Center Bottom', 'kpt_fw' ),
+            'right top'     => esc_html__( 'Right Top', 'kpt_fw' ),
+            'right center'  => esc_html__( 'Right Center', 'kpt_fw' ),
+            'right bottom'  => esc_html__( 'Right Bottom', 'kpt_fw' ),
           ),
         ), $this->value['background-position'], $this->field_name(), 'field/background' );
 
@@ -177,15 +177,15 @@ if ( ! class_exists( 'CSF_Field_background' ) ) {
       // Background Repeat
       if ( ! empty( $args['background_repeat'] ) ) {
 
-        CSF::field( array(
+        KPT_FW::field( array(
           'id'          => 'background-repeat',
           'type'        => 'select',
           'options'     => array(
-            ''          => esc_html__( 'Background Repeat', 'csf' ),
-            'repeat'    => esc_html__( 'Repeat', 'csf' ),
-            'no-repeat' => esc_html__( 'No Repeat', 'csf' ),
-            'repeat-x'  => esc_html__( 'Repeat Horizontally', 'csf' ),
-            'repeat-y'  => esc_html__( 'Repeat Vertically', 'csf' ),
+            ''          => esc_html__( 'Background Repeat', 'kpt_fw' ),
+            'repeat'    => esc_html__( 'Repeat', 'kpt_fw' ),
+            'no-repeat' => esc_html__( 'No Repeat', 'kpt_fw' ),
+            'repeat-x'  => esc_html__( 'Repeat Horizontally', 'kpt_fw' ),
+            'repeat-y'  => esc_html__( 'Repeat Vertically', 'kpt_fw' ),
           ),
         ), $this->value['background-repeat'], $this->field_name(), 'field/background' );
 
@@ -195,13 +195,13 @@ if ( ! class_exists( 'CSF_Field_background' ) ) {
       // Background Attachment
       if ( ! empty( $args['background_attachment'] ) ) {
 
-        CSF::field( array(
+        KPT_FW::field( array(
           'id'       => 'background-attachment',
           'type'     => 'select',
           'options'  => array(
-            ''       => esc_html__( 'Background Attachment', 'csf' ),
-            'scroll' => esc_html__( 'Scroll', 'csf' ),
-            'fixed'  => esc_html__( 'Fixed', 'csf' ),
+            ''       => esc_html__( 'Background Attachment', 'kpt_fw' ),
+            'scroll' => esc_html__( 'Scroll', 'kpt_fw' ),
+            'fixed'  => esc_html__( 'Fixed', 'kpt_fw' ),
           ),
         ), $this->value['background-attachment'], $this->field_name(), 'field/background' );
 
@@ -211,14 +211,14 @@ if ( ! class_exists( 'CSF_Field_background' ) ) {
       // Background Size
       if ( ! empty( $args['background_size'] ) ) {
 
-        CSF::field( array(
+        KPT_FW::field( array(
           'id'        => 'background-size',
           'type'      => 'select',
           'options'   => array(
-            ''        => esc_html__( 'Background Size', 'csf' ),
-            'cover'   => esc_html__( 'Cover', 'csf' ),
-            'contain' => esc_html__( 'Contain', 'csf' ),
-            'auto'    => esc_html__( 'Auto', 'csf' ),
+            ''        => esc_html__( 'Background Size', 'kpt_fw' ),
+            'cover'   => esc_html__( 'Cover', 'kpt_fw' ),
+            'contain' => esc_html__( 'Contain', 'kpt_fw' ),
+            'auto'    => esc_html__( 'Auto', 'kpt_fw' ),
           ),
         ), $this->value['background-size'], $this->field_name(), 'field/background' );
 
@@ -228,14 +228,14 @@ if ( ! class_exists( 'CSF_Field_background' ) ) {
       // Background Origin
       if ( ! empty( $args['background_origin'] ) ) {
 
-        CSF::field( array(
+        KPT_FW::field( array(
           'id'            => 'background-origin',
           'type'          => 'select',
           'options'       => array(
-            ''            => esc_html__( 'Background Origin', 'csf' ),
-            'padding-box' => esc_html__( 'Padding Box', 'csf' ),
-            'border-box'  => esc_html__( 'Border Box', 'csf' ),
-            'content-box' => esc_html__( 'Content Box', 'csf' ),
+            ''            => esc_html__( 'Background Origin', 'kpt_fw' ),
+            'padding-box' => esc_html__( 'Padding Box', 'kpt_fw' ),
+            'border-box'  => esc_html__( 'Border Box', 'kpt_fw' ),
+            'content-box' => esc_html__( 'Content Box', 'kpt_fw' ),
           ),
         ), $this->value['background-origin'], $this->field_name(), 'field/background' );
 
@@ -245,14 +245,14 @@ if ( ! class_exists( 'CSF_Field_background' ) ) {
       // Background Clip
       if ( ! empty( $args['background_clip'] ) ) {
 
-        CSF::field( array(
+        KPT_FW::field( array(
           'id'            => 'background-clip',
           'type'          => 'select',
           'options'       => array(
-            ''            => esc_html__( 'Background Clip', 'csf' ),
-            'border-box'  => esc_html__( 'Border Box', 'csf' ),
-            'padding-box' => esc_html__( 'Padding Box', 'csf' ),
-            'content-box' => esc_html__( 'Content Box', 'csf' ),
+            ''            => esc_html__( 'Background Clip', 'kpt_fw' ),
+            'border-box'  => esc_html__( 'Border Box', 'kpt_fw' ),
+            'padding-box' => esc_html__( 'Padding Box', 'kpt_fw' ),
+            'content-box' => esc_html__( 'Content Box', 'kpt_fw' ),
           ),
         ), $this->value['background-clip'], $this->field_name(), 'field/background' );
 
@@ -262,21 +262,21 @@ if ( ! class_exists( 'CSF_Field_background' ) ) {
       // Background Blend Mode
       if ( ! empty( $args['background_blend_mode'] ) ) {
 
-        CSF::field( array(
+        KPT_FW::field( array(
           'id'            => 'background-blend-mode',
           'type'          => 'select',
           'options'       => array(
-            ''            => esc_html__( 'Background Blend Mode', 'csf' ),
-            'normal'      => esc_html__( 'Normal', 'csf' ),
-            'multiply'    => esc_html__( 'Multiply', 'csf' ),
-            'screen'      => esc_html__( 'Screen', 'csf' ),
-            'overlay'     => esc_html__( 'Overlay', 'csf' ),
-            'darken'      => esc_html__( 'Darken', 'csf' ),
-            'lighten'     => esc_html__( 'Lighten', 'csf' ),
-            'color-dodge' => esc_html__( 'Color Dodge', 'csf' ),
-            'saturation'  => esc_html__( 'Saturation', 'csf' ),
-            'color'       => esc_html__( 'Color', 'csf' ),
-            'luminosity'  => esc_html__( 'Luminosity', 'csf' ),
+            ''            => esc_html__( 'Background Blend Mode', 'kpt_fw' ),
+            'normal'      => esc_html__( 'Normal', 'kpt_fw' ),
+            'multiply'    => esc_html__( 'Multiply', 'kpt_fw' ),
+            'screen'      => esc_html__( 'Screen', 'kpt_fw' ),
+            'overlay'     => esc_html__( 'Overlay', 'kpt_fw' ),
+            'darken'      => esc_html__( 'Darken', 'kpt_fw' ),
+            'lighten'     => esc_html__( 'Lighten', 'kpt_fw' ),
+            'color-dodge' => esc_html__( 'Color Dodge', 'kpt_fw' ),
+            'saturation'  => esc_html__( 'Saturation', 'kpt_fw' ),
+            'color'       => esc_html__( 'Color', 'kpt_fw' ),
+            'luminosity'  => esc_html__( 'Luminosity', 'kpt_fw' ),
           ),
         ), $this->value['background-blend-mode'], $this->field_name(), 'field/background' );
 

@@ -1,13 +1,13 @@
 /**
  * 10. Helper
  */
-.csf-subtitle-text{
+.kpt_fw-subtitle-text{
   margin-top: 6px;
   font-weight: 400;
   color: #999;
 }
 
-.csf-desc-text{
+.kpt_fw-desc-text{
   clear: both;
   float: left;
   width: 100%;
@@ -16,32 +16,32 @@
   color: #999;
 }
 
-.csf-error-text{
+.kpt_fw-error-text{
   margin-top: 6px;
   color: #d02c21;
 }
 
-.csf-before-text{
+.kpt_fw-before-text{
   margin-bottom: 6px;
 }
 
-.csf-after-text{
+.kpt_fw-after-text{
   margin-top: 6px;
 }
 
-.csf-metabox-hide{
+.kpt_fw-metabox-hide{
   display: none !important;
 }
 
-.csf-metabox-show{
+.kpt_fw-metabox-show{
   display: block !important;
 }
 
-.csf-depend-hidden.csf-depend-on{
+.kpt_fw-depend-hidden.kpt_fw-depend-on{
   display: none;
 }
 
-.csf-depend-visible.csf-depend-on{
+.kpt_fw-depend-visible.kpt_fw-depend-on{
   display: block;
   opacity: 0.75;
   filter: grayscale(1);
@@ -61,7 +61,7 @@
   }
 }
 
-.csf-warning-primary{
+.kpt_fw-warning-primary{
   color: #fff !important;
   border-color: #dc3545 !important;
   background: #dc3545 !important;
@@ -82,7 +82,7 @@
   }
 }
 
-.csf-form-result{
+.kpt_fw-form-result{
   display: none;
   float: left;
   padding: 0 8px;
@@ -93,21 +93,21 @@
   border-radius: 2px;
 }
 
-.csf-form-show{
+.kpt_fw-form-show{
   display: block;
 }
 
-.csf-form-success{
+.kpt_fw-form-success{
   color: #fff;
   background-color: #46b450;
 }
 
-.csf-form-warning{
+.kpt_fw-form-warning{
   color: #8a6d3b;
   background-color: #faebcc;
 }
 
-.csf-label-error{
+.kpt_fw-label-error{
   position: relative;
   top: -2px;
   display: inline-block;
@@ -124,23 +124,23 @@
   border-radius: 2px;
 }
 
-.csf-no-option{
+.kpt_fw-no-option{
   padding: 30px;
 }
 
-.csf-input-number{
+.kpt_fw-input-number{
   -moz-appearance:textfield;
 }
 
-.csf-input-number::-webkit-inner-spin-button,
-.csf-input-number::-webkit-outer-spin-button{
+.kpt_fw-input-number::-webkit-inner-spin-button,
+.kpt_fw-input-number::-webkit-outer-spin-button{
   -webkit-appearance: none;
   margin: 0;
 }
 
-.csf-fa5-shims{
+.kpt_fw-fa5-shims{
 
-  .csf{
+  .kpt_fw{
 
     .fas,
     .far,

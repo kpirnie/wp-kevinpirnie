@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CSF_Field_icon' ) ) {
-  class CSF_Field_icon extends CSF_Fields {
+if ( ! class_exists( 'KPT_FW_Field_icon' ) ) {
+  class KPT_FW_Field_icon extends KPT_FW_Fields {
 
     public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
       parent::__construct( $field, $value, $unique, $where, $parent );
@@ -17,20 +17,20 @@ if ( ! class_exists( 'CSF_Field_icon' ) ) {
     public function render() {
 
       $args = wp_parse_args( $this->field, array(
-        'button_title' => esc_html__( 'Add Icon', 'csf' ),
-        'remove_title' => esc_html__( 'Remove Icon', 'csf' ),
+        'button_title' => esc_html__( 'Add Icon', 'kpt_fw' ),
+        'remove_title' => esc_html__( 'Remove Icon', 'kpt_fw' ),
       ) );
 
       echo $this->field_before();
 
-      $nonce  = wp_create_nonce( 'csf_icon_nonce' );
+      $nonce  = wp_create_nonce( 'kpt_fw_icon_nonce' );
       $hidden = ( empty( $this->value ) ) ? ' hidden' : '';
 
-      echo '<div class="csf-icon-select">';
-      echo '<span class="csf-icon-preview'. esc_attr( $hidden ) .'"><i class="'. esc_attr( $this->value ) .'"></i></span>';
-      echo '<a href="#" class="button button-primary csf-icon-add" data-nonce="'. esc_attr( $nonce ) .'">'. $args['button_title'] .'</a>';
-      echo '<a href="#" class="button csf-warning-primary csf-icon-remove'. esc_attr( $hidden ) .'">'. $args['remove_title'] .'</a>';
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'" class="csf-icon-value"'. $this->field_attributes() .' />';
+      echo '<div class="kpt_fw-icon-select">';
+      echo '<span class="kpt_fw-icon-preview'. esc_attr( $hidden ) .'"><i class="'. esc_attr( $this->value ) .'"></i></span>';
+      echo '<a href="#" class="button button-primary kpt_fw-icon-add" data-nonce="'. esc_attr( $nonce ) .'">'. $args['button_title'] .'</a>';
+      echo '<a href="#" class="button kpt_fw-warning-primary kpt_fw-icon-remove'. esc_attr( $hidden ) .'">'. $args['remove_title'] .'</a>';
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'" class="kpt_fw-icon-value"'. $this->field_attributes() .' />';
       echo '</div>';
 
       echo $this->field_after();
@@ -38,27 +38,27 @@ if ( ! class_exists( 'CSF_Field_icon' ) ) {
     }
 
     public function enqueue() {
-      add_action( 'admin_footer', array( 'CSF_Field_icon', 'add_footer_modal_icon' ) );
-      add_action( 'customize_controls_print_footer_scripts', array( 'CSF_Field_icon', 'add_footer_modal_icon' ) );
+      add_action( 'admin_footer', array( 'KPT_FW_Field_icon', 'add_footer_modal_icon' ) );
+      add_action( 'customize_controls_print_footer_scripts', array( 'KPT_FW_Field_icon', 'add_footer_modal_icon' ) );
     }
 
     public static function add_footer_modal_icon() {
     ?>
-      <div id="csf-modal-icon" class="csf-modal csf-modal-icon hidden">
-        <div class="csf-modal-table">
-          <div class="csf-modal-table-cell">
-            <div class="csf-modal-overlay"></div>
-            <div class="csf-modal-inner">
-              <div class="csf-modal-title">
-                <?php esc_html_e( 'Add Icon', 'csf' ); ?>
-                <div class="csf-modal-close csf-icon-close"></div>
+      <div id="kpt_fw-modal-icon" class="kpt_fw-modal kpt_fw-modal-icon hidden">
+        <div class="kpt_fw-modal-table">
+          <div class="kpt_fw-modal-table-cell">
+            <div class="kpt_fw-modal-overlay"></div>
+            <div class="kpt_fw-modal-inner">
+              <div class="kpt_fw-modal-title">
+                <?php esc_html_e( 'Add Icon', 'kpt_fw' ); ?>
+                <div class="kpt_fw-modal-close kpt_fw-icon-close"></div>
               </div>
-              <div class="csf-modal-header">
-                <input type="text" placeholder="<?php esc_html_e( 'Search...', 'csf' ); ?>" class="csf-icon-search" />
+              <div class="kpt_fw-modal-header">
+                <input type="text" placeholder="<?php esc_html_e( 'Search...', 'kpt_fw' ); ?>" class="kpt_fw-icon-search" />
               </div>
-              <div class="csf-modal-content">
-                <div class="csf-modal-loading"><div class="csf-loading"></div></div>
-                <div class="csf-modal-load"></div>
+              <div class="kpt_fw-modal-content">
+                <div class="kpt_fw-modal-loading"><div class="kpt_fw-loading"></div></div>
+                <div class="kpt_fw-modal-load"></div>
               </div>
             </div>
           </div>

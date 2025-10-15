@@ -2,7 +2,7 @@
  *
  * -----------------------------------------------------------
  *
- * Codestar Framework Gutenberg Block
+ * Kpt_fw Framework Gutenberg Block
  * A Simple and Lightweight WordPress Option Framework
  *
  * -----------------------------------------------------------
@@ -10,9 +10,9 @@
  */
 ( function( blocks, blockEditor, element, components ) {
 
-  if ( !window.csf_gutenberg_blocks ) { return; }
+  if ( !window.kpt_fw_gutenberg_blocks ) { return; }
 
-  Object.values(window.csf_gutenberg_blocks).forEach( function( block ) {
+  Object.values(window.kpt_fw_gutenberg_blocks).forEach( function( block ) {
 
     var registerBlockType = blocks.registerBlockType;
     var PlainText         = blockEditor.PlainText;
@@ -39,14 +39,14 @@
       },
       edit: function (props) {
         return (
-          createElement('div', {className: 'csf-shortcode-block'},
+          createElement('div', {className: 'kpt_fw-shortcode-block'},
 
             createElement(Button, {
               'data-modal-id': block.modal_id,
               'data-gutenberg-id': block.name,
-              className: 'is-secondary csf-shortcode-button',
+              className: 'is-secondary kpt_fw-shortcode-button',
               onClick: function () {
-                window.csf_gutenberg_props = props;
+                window.kpt_fw_gutenberg_props = props;
               },
             }, block.button_title ),
 

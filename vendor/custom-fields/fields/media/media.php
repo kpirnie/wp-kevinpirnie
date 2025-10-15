@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CSF_Field_media' ) ) {
-  class CSF_Field_media extends CSF_Fields {
+if ( ! class_exists( 'KPT_FW_Field_media' ) ) {
+  class KPT_FW_Field_media extends KPT_FW_Fields {
 
     public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
       parent::__construct( $field, $value, $unique, $where, $parent );
@@ -22,8 +22,8 @@ if ( ! class_exists( 'CSF_Field_media' ) ) {
         'preview_width'  => '',
         'preview_height' => '',
         'library'        => array(),
-        'button_title'   => esc_html__( 'Upload', 'csf' ),
-        'remove_title'   => esc_html__( 'Remove', 'csf' ),
+        'button_title'   => esc_html__( 'Upload', 'kpt_fw' ),
+        'remove_title'   => esc_html__( 'Remove', 'kpt_fw' ),
         'preview_size'   => 'thumbnail',
       ) );
 
@@ -56,7 +56,7 @@ if ( ! class_exists( 'CSF_Field_media' ) ) {
       $preview_src = ( $args['preview_size'] !== 'thumbnail' ) ? $this->value['url'] : $this->value['thumbnail'];
       $hidden_url  = ( empty( $args['url'] ) ) ? ' hidden' : '';
       $hidden_auto = ( empty( $this->value['url'] ) ) ? ' hidden' : '';
-      $placeholder = ( empty( $this->field['placeholder'] ) ) ? ' placeholder="'.  esc_html__( 'Not selected', 'csf' ) .'"' : '';
+      $placeholder = ( empty( $this->field['placeholder'] ) ) ? ' placeholder="'.  esc_html__( 'Not selected', 'kpt_fw' ) .'"' : '';
 
       echo $this->field_before();
 
@@ -66,27 +66,27 @@ if ( ! class_exists( 'CSF_Field_media' ) ) {
         $preview_height = ( ! empty( $args['preview_height'] ) ) ? 'max-height:'. esc_attr( $args['preview_height'] ) .'px;' : '';
         $preview_style  = ( ! empty( $preview_width ) || ! empty( $preview_height ) ) ? ' style="'. esc_attr( $preview_width . $preview_height ) .'"': '';
 
-        echo '<div class="csf--preview'. esc_attr( $hidden_auto ) .'">';
-        echo '<div class="csf-image-preview"'. $preview_style .'>';
-        echo '<i class="csf--remove fas fa-times"></i><span><img src="'. esc_url( $preview_src ) .'" class="csf--src" /></span>';
+        echo '<div class="kpt_fw--preview'. esc_attr( $hidden_auto ) .'">';
+        echo '<div class="kpt_fw-image-preview"'. $preview_style .'>';
+        echo '<i class="kpt_fw--remove fas fa-times"></i><span><img src="'. esc_url( $preview_src ) .'" class="kpt_fw--src" /></span>';
         echo '</div>';
         echo '</div>';
 
       }
 
-      echo '<div class="csf--placeholder">';
-      echo '<input type="text" name="'. esc_attr( $this->field_name( '[url]' ) ) .'" value="'. esc_attr( $this->value['url'] ) .'" class="csf--url'. esc_attr( $hidden_url ) .'" readonly="readonly"'. $this->field_attributes() . $placeholder .' />';
-      echo '<a href="#" class="button button-primary csf--button" data-library="'. esc_attr( $library ) .'" data-preview-size="'. esc_attr( $args['preview_size'] ) .'">'. $args['button_title'] .'</a>';
-      echo ( empty( $args['preview'] ) ) ? '<a href="#" class="button button-secondary csf-warning-primary csf--remove'. esc_attr( $hidden_auto ) .'">'. $args['remove_title'] .'</a>' : '';
+      echo '<div class="kpt_fw--placeholder">';
+      echo '<input type="text" name="'. esc_attr( $this->field_name( '[url]' ) ) .'" value="'. esc_attr( $this->value['url'] ) .'" class="kpt_fw--url'. esc_attr( $hidden_url ) .'" readonly="readonly"'. $this->field_attributes() . $placeholder .' />';
+      echo '<a href="#" class="button button-primary kpt_fw--button" data-library="'. esc_attr( $library ) .'" data-preview-size="'. esc_attr( $args['preview_size'] ) .'">'. $args['button_title'] .'</a>';
+      echo ( empty( $args['preview'] ) ) ? '<a href="#" class="button button-secondary kpt_fw-warning-primary kpt_fw--remove'. esc_attr( $hidden_auto ) .'">'. $args['remove_title'] .'</a>' : '';
       echo '</div>';
 
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[id]' ) ) .'" value="'. esc_attr( $this->value['id'] ) .'" class="csf--id"/>';
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[width]' ) ) .'" value="'. esc_attr( $this->value['width'] ) .'" class="csf--width"/>';
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[height]' ) ) .'" value="'. esc_attr( $this->value['height'] ) .'" class="csf--height"/>';
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[thumbnail]' ) ) .'" value="'. esc_attr( $this->value['thumbnail'] ) .'" class="csf--thumbnail"/>';
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[alt]' ) ) .'" value="'. esc_attr( $this->value['alt'] ) .'" class="csf--alt"/>';
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[title]' ) ) .'" value="'. esc_attr( $this->value['title'] ) .'" class="csf--title"/>';
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[description]' ) ) .'" value="'. esc_attr( $this->value['description'] ) .'" class="csf--description"/>';
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[id]' ) ) .'" value="'. esc_attr( $this->value['id'] ) .'" class="kpt_fw--id"/>';
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[width]' ) ) .'" value="'. esc_attr( $this->value['width'] ) .'" class="kpt_fw--width"/>';
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[height]' ) ) .'" value="'. esc_attr( $this->value['height'] ) .'" class="kpt_fw--height"/>';
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[thumbnail]' ) ) .'" value="'. esc_attr( $this->value['thumbnail'] ) .'" class="kpt_fw--thumbnail"/>';
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[alt]' ) ) .'" value="'. esc_attr( $this->value['alt'] ) .'" class="kpt_fw--alt"/>';
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[title]' ) ) .'" value="'. esc_attr( $this->value['title'] ) .'" class="kpt_fw--title"/>';
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[description]' ) ) .'" value="'. esc_attr( $this->value['description'] ) .'" class="kpt_fw--description"/>';
 
       echo $this->field_after();
 

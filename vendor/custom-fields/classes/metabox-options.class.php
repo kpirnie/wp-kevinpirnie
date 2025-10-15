@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CSF_Metabox' ) ) {
-  class CSF_Metabox extends CSF_Abstract{
+if ( ! class_exists( 'KPT_FW_Metabox' ) ) {
+  class KPT_FW_Metabox extends KPT_FW_Abstract{
 
     // constans
     public $unique         = '';
@@ -40,8 +40,8 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
     public function __construct( $key, $params = array() ) {
 
       $this->unique         = $key;
-      $this->args           = apply_filters( "csf_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
-      $this->sections       = apply_filters( "csf_{$this->unique}_sections", $params['sections'], $this );
+      $this->args           = apply_filters( "kpt_fw_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
+      $this->sections       = apply_filters( "kpt_fw_{$this->unique}_sections", $params['sections'], $this );
       $this->post_type      = ( is_array( $this->args['post_type'] ) ) ? $this->args['post_type'] : array_filter( (array) $this->args['post_type'] );
       $this->post_formats   = ( is_array( $this->args['post_formats'] ) ) ? $this->args['post_formats'] : array_filter( (array) $this->args['post_formats'] );
       $this->page_templates = ( is_array( $this->args['page_templates'] ) ) ? $this->args['page_templates'] : array_filter( (array) $this->args['page_templates'] );
@@ -76,7 +76,7 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
         $saved_post_format = ( is_object( $post ) ) ? get_post_format( $post ) : false;
         $saved_post_format = ( ! empty( $saved_post_format ) ) ? $saved_post_format : 'default';
 
-        $classes[] = 'csf-post-formats';
+        $classes[] = 'kpt_fw-post-formats';
 
         // Sanitize post format for standard to default
         if ( ( $key = array_search( 'standard', $this->post_formats ) ) !== false ) {
@@ -84,13 +84,13 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
         }
 
         foreach ( $this->post_formats as $format ) {
-          $classes[] = 'csf-post-format-'. $format;
+          $classes[] = 'kpt_fw-post-format-'. $format;
         }
 
         if ( ! in_array( $saved_post_format, $this->post_formats ) ) {
-          $classes[] = 'csf-metabox-hide';
+          $classes[] = 'kpt_fw-metabox-hide';
         } else {
-          $classes[] = 'csf-metabox-show';
+          $classes[] = 'kpt_fw-metabox-show';
         }
 
       }
@@ -99,16 +99,16 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
 
         $saved_template = ( is_object( $post ) && ! empty( $post->page_template ) ) ? $post->page_template : 'default';
 
-        $classes[] = 'csf-page-templates';
+        $classes[] = 'kpt_fw-page-templates';
 
         foreach ( $this->page_templates as $template ) {
-          $classes[] = 'csf-page-'. preg_replace( '/[^a-zA-Z0-9]+/', '-', strtolower( $template ) );
+          $classes[] = 'kpt_fw-page-'. preg_replace( '/[^a-zA-Z0-9]+/', '-', strtolower( $template ) );
         }
 
         if ( ! in_array( $saved_template, $this->page_templates ) ) {
-          $classes[] = 'csf-metabox-hide';
+          $classes[] = 'kpt_fw-metabox-hide';
         } else {
-          $classes[] = 'csf-metabox-show';
+          $classes[] = 'kpt_fw-metabox-show';
         }
 
       }
@@ -172,26 +172,26 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
       global $post;
 
       $has_nav   = ( count( $this->sections ) > 1 && $this->args['context'] !== 'side' ) ? true : false;
-      $show_all  = ( ! $has_nav ) ? ' csf-show-all' : '';
+      $show_all  = ( ! $has_nav ) ? ' kpt_fw-show-all' : '';
       $post_type = ( is_object ( $post ) ) ? $post->post_type : '';
-      $errors    = ( is_object ( $post ) ) ? get_post_meta( $post->ID, '_csf_errors_'. $this->unique, true ) : array();
+      $errors    = ( is_object ( $post ) ) ? get_post_meta( $post->ID, '_kpt_fw_errors_'. $this->unique, true ) : array();
       $errors    = ( ! empty( $errors ) ) ? $errors : array();
-      $theme     = ( $this->args['theme'] ) ? ' csf-theme-'. $this->args['theme'] : '';
+      $theme     = ( $this->args['theme'] ) ? ' kpt_fw-theme-'. $this->args['theme'] : '';
       $nav_type  = ( $this->args['nav'] === 'inline' ) ? 'inline' : 'normal';
 
       if ( is_object ( $post ) && ! empty( $errors ) ) {
-        delete_post_meta( $post->ID, '_csf_errors_'. $this->unique );
+        delete_post_meta( $post->ID, '_kpt_fw_errors_'. $this->unique );
       }
 
-      wp_nonce_field( 'csf_metabox_nonce', 'csf_metabox_nonce'. $this->unique );
+      wp_nonce_field( 'kpt_fw_metabox_nonce', 'kpt_fw_metabox_nonce'. $this->unique );
 
-      echo '<div class="csf csf-metabox'. esc_attr( $theme ) .'">';
+      echo '<div class="kpt_fw kpt_fw-metabox'. esc_attr( $theme ) .'">';
 
-        echo '<div class="csf-wrapper'. esc_attr( $show_all ) .'">';
+        echo '<div class="kpt_fw-wrapper'. esc_attr( $show_all ) .'">';
 
           if ( $has_nav ) {
 
-            echo '<div class="csf-nav csf-nav-'. esc_attr( $nav_type ) .' csf-nav-metabox">';
+            echo '<div class="kpt_fw-nav kpt_fw-nav-'. esc_attr( $nav_type ) .' kpt_fw-nav-metabox">';
 
               echo '<ul>';
 
@@ -203,8 +203,8 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
                   continue;
                 }
 
-                $tab_error = ( ! empty( $errors['sections'][$tab_key] ) ) ? '<i class="csf-label-error csf-error">!</i>' : '';
-                $tab_icon  = ( ! empty( $section['icon'] ) ) ? '<i class="csf-tab-icon '. esc_attr( $section['icon'] ) .'"></i>' : '';
+                $tab_error = ( ! empty( $errors['sections'][$tab_key] ) ) ? '<i class="kpt_fw-label-error kpt_fw-error">!</i>' : '';
+                $tab_icon  = ( ! empty( $section['icon'] ) ) ? '<i class="kpt_fw-tab-icon '. esc_attr( $section['icon'] ) .'"></i>' : '';
 
                 echo '<li><a href="#">'. $tab_icon . $section['title'] . $tab_error .'</a></li>';
 
@@ -218,9 +218,9 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
 
           }
 
-          echo '<div class="csf-content">';
+          echo '<div class="kpt_fw-content">';
 
-            echo '<div class="csf-sections">';
+            echo '<div class="kpt_fw-sections">';
 
             $section_key = 0;
 
@@ -230,15 +230,15 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
                 continue;
               }
 
-              $section_onload = ( ! $has_nav ) ? ' csf-onload' : '';
+              $section_onload = ( ! $has_nav ) ? ' kpt_fw-onload' : '';
               $section_class  = ( ! empty( $section['class'] ) ) ? ' '. $section['class'] : '';
               $section_title  = ( ! empty( $section['title'] ) ) ? $section['title'] : '';
-              $section_icon   = ( ! empty( $section['icon'] ) ) ? '<i class="csf-section-icon '. esc_attr( $section['icon'] ) .'"></i>' : '';
+              $section_icon   = ( ! empty( $section['icon'] ) ) ? '<i class="kpt_fw-section-icon '. esc_attr( $section['icon'] ) .'"></i>' : '';
 
-              echo '<div class="csf-section hidden'. esc_attr( $section_onload . $section_class ) .'">';
+              echo '<div class="kpt_fw-section hidden'. esc_attr( $section_onload . $section_class ) .'">';
 
-              echo ( $section_title || $section_icon ) ? '<div class="csf-section-title"><h3>'. $section_icon . $section_title .'</h3></div>' : '';
-              echo ( ! empty( $section['description'] ) ) ? '<div class="csf-field csf-section-description">'. $section['description'] .'</div>' : '';
+              echo ( $section_title || $section_icon ) ? '<div class="kpt_fw-section-title"><h3>'. $section_icon . $section_title .'</h3></div>' : '';
+              echo ( ! empty( $section['description'] ) ) ? '<div class="kpt_fw-field kpt_fw-section-description">'. $section['description'] .'</div>' : '';
 
               if ( ! empty( $section['fields'] ) ) {
 
@@ -252,13 +252,13 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
                     $field['default'] = $this->get_default( $field );
                   }
 
-                  CSF::field( $field, $this->get_meta_value( $field ), $this->unique, 'metabox' );
+                  KPT_FW::field( $field, $this->get_meta_value( $field ), $this->unique, 'metabox' );
 
                 }
 
               } else {
 
-                echo '<div class="csf-no-option">'. esc_html__( 'No data available.', 'csf' ) .'</div>';
+                echo '<div class="kpt_fw-no-option">'. esc_html__( 'No data available.', 'kpt_fw' ) .'</div>';
 
               }
 
@@ -272,11 +272,11 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
 
             if ( ! empty( $this->args['show_restore'] ) || ! empty( $this->args['show_reset'] ) ) {
 
-              echo '<div class="csf-sections-reset">';
+              echo '<div class="kpt_fw-sections-reset">';
               echo '<label>';
               echo '<input type="checkbox" name="'. esc_attr( $this->unique ) .'[_reset]" />';
-              echo '<span class="button csf-button-reset">'. esc_html__( 'Reset', 'csf' ) .'</span>';
-              echo '<span class="button csf-button-cancel">'. sprintf( '<small>( %s )</small> %s', esc_html__( 'update post', 'csf' ), esc_html__( 'Cancel', 'csf' ) ) .'</span>';
+              echo '<span class="button kpt_fw-button-reset">'. esc_html__( 'Reset', 'kpt_fw' ) .'</span>';
+              echo '<span class="button kpt_fw-button-cancel">'. sprintf( '<small>( %s )</small> %s', esc_html__( 'update post', 'kpt_fw' ), esc_html__( 'Cancel', 'kpt_fw' ) ) .'</span>';
               echo '</label>';
               echo '</div>';
 
@@ -284,7 +284,7 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
 
           echo '</div>';
 
-          echo ( $has_nav && $nav_type === 'normal' ) ? '<div class="csf-nav-background"></div>' : '';
+          echo ( $has_nav && $nav_type === 'normal' ) ? '<div class="kpt_fw-nav-background"></div>' : '';
 
           echo '<div class="clear"></div>';
 
@@ -300,10 +300,10 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
       $count    = 1;
       $data     = array();
       $errors   = array();
-      $noncekey = 'csf_metabox_nonce'. $this->unique;
+      $noncekey = 'kpt_fw_metabox_nonce'. $this->unique;
       $nonce    = ( ! empty( $_POST[ $noncekey ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ $noncekey ] ) ) : '';
 
-      if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ! wp_verify_nonce( $nonce, 'csf_metabox_nonce' ) ) {
+      if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ! wp_verify_nonce( $nonce, 'kpt_fw_metabox_nonce' ) ) {
         return $post_id;
       }
 
@@ -370,9 +370,9 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
 
       }
 
-      $data = apply_filters( "csf_{$this->unique}_save", $data, $post_id, $this );
+      $data = apply_filters( "kpt_fw_{$this->unique}_save", $data, $post_id, $this );
 
-      do_action( "csf_{$this->unique}_save_before", $data, $post_id, $this );
+      do_action( "kpt_fw_{$this->unique}_save_before", $data, $post_id, $this );
 
       if ( empty( $data ) || ! empty( $request['_reset'] ) ) {
 
@@ -397,14 +397,14 @@ if ( ! class_exists( 'CSF_Metabox' ) ) {
         }
 
         if ( ! empty( $errors ) ) {
-          update_post_meta( $post_id, '_csf_errors_'. $this->unique, $errors );
+          update_post_meta( $post_id, '_kpt_fw_errors_'. $this->unique, $errors );
         }
 
       }
 
-      do_action( "csf_{$this->unique}_saved", $data, $post_id, $this );
+      do_action( "kpt_fw_{$this->unique}_saved", $data, $post_id, $this );
 
-      do_action( "csf_{$this->unique}_save_after", $data, $post_id, $this );
+      do_action( "kpt_fw_{$this->unique}_save_after", $data, $post_id, $this );
 
     }
   }

@@ -1,28 +1,28 @@
 /**
  * 06. Taxonomy
  */
-.csf-taxonomy{
+.kpt_fw-taxonomy{
   max-width: 95%;
 
-  > .csf-field{
+  > .kpt_fw-field{
     border-top: none !important;
   }
 
-  > .csf-field-heading{
+  > .kpt_fw-field-heading{
     font-size: 1.1em;
     padding: 20px !important;
     border: 1px solid #ddd;
   }
 
-  > .csf-field-subheading{
+  > .kpt_fw-field-subheading{
     font-size: 12px;
     padding: 15px !important;
     border: 1px solid #ddd;
   }
 
-  > .csf-field-submessage{
+  > .kpt_fw-field-submessage{
 
-    .csf-submessage{
+    .kpt_fw-submessage{
       padding: 15px;
       border-left-width: 1px;
       border-left-style: solid;
@@ -31,11 +31,11 @@
     }
   }
 
-  > .csf-field-notice{
+  > .kpt_fw-field-notice{
     background-color: transparent;
   }
 
-  .csf-section-title{
+  .kpt_fw-section-title{
     display: block;
     padding: 15px ;
     background-color: #f9f9f9;
@@ -44,12 +44,12 @@
   }
 }
 
-.csf-taxonomy-add-fields{
+.kpt_fw-taxonomy-add-fields{
 
-  > .csf-field{
+  > .kpt_fw-field{
     padding: 8px 0;
 
-    > .csf-title{
+    > .kpt_fw-title{
       float: none;
       width: 100%;
       padding: 2px 2px 4px 0;
@@ -60,11 +60,11 @@
       }
     }
 
-    > .csf-fieldset{
+    > .kpt_fw-fieldset{
       float: none;
       width: 100%;
 
-      > .csf-help{
+      > .kpt_fw-help{
         right: -5px;
       }
     }
@@ -75,12 +75,12 @@
   }
 }
 
-.csf-taxonomy-edit-fields{
+.kpt_fw-taxonomy-edit-fields{
 
-  > .csf-field{
+  > .kpt_fw-field{
     padding: 20px 0;
 
-    > .csf-title{
+    > .kpt_fw-title{
       width: 200px;
 
       h4{
@@ -92,22 +92,22 @@
       }
     }
 
-    > .csf-fieldset{
+    > .kpt_fw-fieldset{
       width: calc(100% - 220px);
 
-      > .csf-help{
+      > .kpt_fw-help{
         top: -5px;
         right: -5px;
       }
     }
   }
 
-  > .csf-field-submessage{
+  > .kpt_fw-field-submessage{
     margin: 20px 0;
   }
 
-  > .csf-field-subheading,
-  > .csf-field-heading{
+  > .kpt_fw-field-subheading,
+  > .kpt_fw-field-heading{
     margin: 20px 0;
     border: 1px solid #ddd;
   }

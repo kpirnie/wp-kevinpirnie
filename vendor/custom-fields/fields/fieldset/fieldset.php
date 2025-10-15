@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CSF_Field_fieldset' ) ) {
-  class CSF_Field_fieldset extends CSF_Fields {
+if ( ! class_exists( 'KPT_FW_Field_fieldset' ) ) {
+  class KPT_FW_Field_fieldset extends KPT_FW_Fields {
 
     public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
       parent::__construct( $field, $value, $unique, $where, $parent );
@@ -18,7 +18,7 @@ if ( ! class_exists( 'CSF_Field_fieldset' ) ) {
 
       echo $this->field_before();
 
-      echo '<div class="csf-fieldset-content" data-depend-id="'. esc_attr( $this->field['id'] ) .'">';
+      echo '<div class="kpt_fw-fieldset-content" data-depend-id="'. esc_attr( $this->field['id'] ) .'">';
 
       foreach ( $this->field['fields'] as $field ) {
 
@@ -27,7 +27,7 @@ if ( ! class_exists( 'CSF_Field_fieldset' ) ) {
         $field_value   = ( isset( $this->value[$field_id] ) ) ? $this->value[$field_id] : $field_default;
         $unique_id     = ( ! empty( $this->unique ) ) ? $this->unique .'['. $this->field['id'] .']' : $this->field['id'];
 
-        CSF::field( $field, $field_value, $unique_id, 'field/fieldset' );
+        KPT_FW::field( $field, $field_value, $unique_id, 'field/fieldset' );
 
       }
 

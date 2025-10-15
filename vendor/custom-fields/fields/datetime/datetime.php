@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CSF_Field_datetime' ) ) {
-  class CSF_Field_datetime extends CSF_Fields {
+if ( ! class_exists( 'KPT_FW_Field_datetime' ) ) {
+  class KPT_FW_Field_datetime extends KPT_FW_Fields {
 
     public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
       parent::__construct( $field, $value, $unique, $where, $parent );
@@ -33,8 +33,8 @@ if ( ! class_exists( 'CSF_Field_datetime' ) ) {
       if ( ! empty( $this->field['from_to'] ) ) {
 
         $args = wp_parse_args( $this->field, array(
-          'text_from' => esc_html__( 'From', 'csf' ),
-          'text_to'   => esc_html__( 'To', 'csf' ),
+          'text_from' => esc_html__( 'From', 'kpt_fw' ),
+          'text_to'   => esc_html__( 'To', 'kpt_fw' ),
         ) );
 
         $value = wp_parse_args( $this->value, array(
@@ -42,8 +42,8 @@ if ( ! class_exists( 'CSF_Field_datetime' ) ) {
           'to'   => '',
         ) );
 
-        echo '<label class="csf--from">'. esc_attr( $args['text_from'] ) .' <input type="text" name="'. esc_attr( $this->field_name( '[from]' ) ) .'" value="'. esc_attr( $value['from'] ) .'"'. $this->field_attributes() .' data-type="from" /></label>';
-        echo '<label class="csf--to">'. esc_attr( $args['text_to'] ) .' <input type="text" name="'. esc_attr( $this->field_name( '[to]' ) ) .'" value="'. esc_attr( $value['to'] ) .'"'. $this->field_attributes() .' data-type="to" /></label>';
+        echo '<label class="kpt_fw--from">'. esc_attr( $args['text_from'] ) .' <input type="text" name="'. esc_attr( $this->field_name( '[from]' ) ) .'" value="'. esc_attr( $value['from'] ) .'"'. $this->field_attributes() .' data-type="from" /></label>';
+        echo '<label class="kpt_fw--to">'. esc_attr( $args['text_to'] ) .' <input type="text" name="'. esc_attr( $this->field_name( '[to]' ) ) .'" value="'. esc_attr( $value['to'] ) .'"'. $this->field_attributes() .' data-type="to" /></label>';
 
       } else {
 
@@ -51,7 +51,7 @@ if ( ! class_exists( 'CSF_Field_datetime' ) ) {
 
       }
 
-      echo '<div class="csf-datetime-settings" data-settings="'. esc_attr( json_encode( $settings ) ) .'"></div>';
+      echo '<div class="kpt_fw-datetime-settings" data-settings="'. esc_attr( json_encode( $settings ) ) .'"></div>';
 
       echo $this->field_after();
 

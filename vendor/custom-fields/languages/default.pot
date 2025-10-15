@@ -1,10 +1,10 @@
-# Copyright (C) 2021 Codestar
-# This file is distributed under the same license as the Codestar Framework package.
+# Copyright (C) 2021 Kpt_fw
+# This file is distributed under the same license as the Kpt_fw Framework package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Codestar Framework 2.2.3\n"
+"Project-Id-Version: Kpt_fw Framework 2.2.3\n"
 "Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/codestar-framework\n"
+"https://wordpress.org/support/plugin/kpt_fw-framework\n"
 "POT-Creation-Date: 2021-06-25 12:32:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -653,11 +653,11 @@ msgid "Please enter a valid URL."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-msgid "Codestar Framework"
+msgid "Kpt_fw Framework"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "http://codestarframework.com/"
+msgid "http://kpt_fwframework.com/"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -665,9 +665,9 @@ msgid "A Simple and Lightweight WordPress Option Framework for Themes and Plugin
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Codestar"
+msgid "Kpt_fw"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://codestarthemes.com/"
+msgid "http://kpt_fwthemes.com/"
 msgstr ""

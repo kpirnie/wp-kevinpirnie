@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CSF_Field_slider' ) ) {
-  class CSF_Field_slider extends CSF_Fields {
+if ( ! class_exists( 'KPT_FW_Field_slider' ) ) {
+  class KPT_FW_Field_slider extends KPT_FW_Fields {
 
     public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
       parent::__construct( $field, $value, $unique, $where, $parent );
@@ -23,15 +23,15 @@ if ( ! class_exists( 'CSF_Field_slider' ) ) {
         'unit' => '',
       ) );
 
-      $is_unit = ( ! empty( $args['unit'] ) ) ? ' csf--is-unit' : '';
+      $is_unit = ( ! empty( $args['unit'] ) ) ? ' kpt_fw--is-unit' : '';
 
       echo $this->field_before();
 
-      echo '<div class="csf--wrap">';
-      echo '<div class="csf-slider-ui"></div>';
-      echo '<div class="csf--input">';
-      echo '<input type="number" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'"'. $this->field_attributes( array( 'class' => 'csf-input-number'. esc_attr( $is_unit ) ) ) .' data-min="'. esc_attr( $args['min'] ) .'" data-max="'. esc_attr( $args['max'] ) .'" data-step="'. esc_attr( $args['step'] ) .'" step="any" />';
-      echo ( ! empty( $args['unit'] ) ) ? '<span class="csf--unit">'. esc_attr( $args['unit'] ) .'</span>' : '';
+      echo '<div class="kpt_fw--wrap">';
+      echo '<div class="kpt_fw-slider-ui"></div>';
+      echo '<div class="kpt_fw--input">';
+      echo '<input type="number" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'"'. $this->field_attributes( array( 'class' => 'kpt_fw-input-number'. esc_attr( $is_unit ) ) ) .' data-min="'. esc_attr( $args['min'] ) .'" data-max="'. esc_attr( $args['max'] ) .'" data-step="'. esc_attr( $args['step'] ) .'" step="any" />';
+      echo ( ! empty( $args['unit'] ) ) ? '<span class="kpt_fw--unit">'. esc_attr( $args['unit'] ) .'</span>' : '';
       echo '</div>';
       echo '</div>';
 

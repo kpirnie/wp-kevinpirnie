@@ -1,42 +1,42 @@
 /**
  * 08. Nav Menu
  */
-.csf-nav-menu-options{
+.kpt_fw-nav-menu-options{
   clear: both;
   float: left;
   width: 100%;
 
-  > .csf-fields{
+  > .kpt_fw-fields{
     margin: 10px -10px;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
 
-    > .csf-field{
+    > .kpt_fw-field{
       padding: 12px;
 
-      .csf-title{
+      .kpt_fw-title{
         float: none;
         width: 100%;
         margin-bottom: 5px;
       }
 
-      .csf-fieldset{
+      .kpt_fw-fieldset{
         float: none;
         width: 100%;
       }
     }
   }
 
-  .csf-field-text input{
+  .kpt_fw-field-text input{
     width: 100%;
   }
 
-  .csf-field-notice .csf-notice{
+  .kpt_fw-field-notice .kpt_fw-notice{
     padding: 15px;
   }
 }
 
-.csf-nav-menu-title{
+.kpt_fw-nav-menu-title{
   padding: 12px;
   background-color: #f5f5f5;
   border-top: 1px solid #eee;
@@ -53,6 +53,6 @@
   }
 }
 
-.csf-nav-menu-icon{
+.kpt_fw-nav-menu-icon{
   margin-right: 5px;
 }

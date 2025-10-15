@@ -1,18 +1,18 @@
 /**
  * 06. Profile
  */
-.csf-profile-options{
+.kpt_fw-profile-options{
 
   > h2 > .fa {
     padding-right: 7px;
   }
 
-  > .csf-field{
+  > .kpt_fw-field{
     max-width: 750px;
     padding: 15px 0;
     border-top: none !important;
 
-    > .csf-title{
+    > .kpt_fw-title{
       width: 200px;
 
       h4{
@@ -24,35 +24,35 @@
       }
     }
 
-    > .csf-fieldset{
+    > .kpt_fw-fieldset{
       width: calc(100% - 220px);
 
-      > .csf-help{
+      > .kpt_fw-help{
         top: -15px;
         right: -5px;
       }
     }
   }
 
-  > .csf-field-heading{
+  > .kpt_fw-field-heading{
     font-size: 1.1em;
   }
 
-  > .csf-field-subheading{
+  > .kpt_fw-field-subheading{
     font-size: 12px;
   }
 
-  > .csf-field-subheading,
-  > .csf-field-heading{
+  > .kpt_fw-field-subheading,
+  > .kpt_fw-field-heading{
     margin: 10px 0;
     padding: 15px !important;
     border: 1px solid #ddd;
   }
 
-  > .csf-field-submessage{
+  > .kpt_fw-field-submessage{
     margin: 20px 0;
 
-    .csf-submessage{
+    .kpt_fw-submessage{
       padding: 10px;
       border-left-width: 1px;
       border-left-style: solid;
@@ -61,7 +61,7 @@
     }
   }
 
-  > .csf-field-notice{
+  > .kpt_fw-field-notice{
     background-color: transparent;
   }
 }

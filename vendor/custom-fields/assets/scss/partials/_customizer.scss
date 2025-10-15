@@ -3,10 +3,10 @@
  */
 .control-section{
 
-  .csf-field{
+  .kpt_fw-field{
     padding: 0;
 
-    .csf-title{
+    .kpt_fw-title{
       float: none;
       width: 100%;
       margin-bottom: 6px;
@@ -20,22 +20,22 @@
       }
     }
 
-    .csf-fieldset{
+    .kpt_fw-fieldset{
       float: none;
       width: 100%;
     }
   }
 
-  .csf-help{
+  .kpt_fw-help{
     top: -5px;
     right: -5px;
   }
 
-  .csf-field-select select{
+  .kpt_fw-field-select select{
     width: 100%;
   }
 
-  .csf-field-heading{
+  .kpt_fw-field-heading{
     color: inherit;
     font-size: 14px;
     line-height: 1em;
@@ -44,7 +44,7 @@
     padding: 15px;
   }
 
-  .csf-field-subheading{
+  .kpt_fw-field-subheading{
     color: inherit;
     font-size: 11px;
     margin-right: -15px;
@@ -52,73 +52,73 @@
     padding: 10px 15px;
   }
 
-  .csf-subtitle-text{
+  .kpt_fw-subtitle-text{
     margin-top: 4px;
     font-size: 12px;
   }
 
-  .csf-field-submessage .csf-submessage{
+  .kpt_fw-field-submessage .kpt_fw-submessage{
     margin-right: -15px;
     margin-left: -15px;
     padding: 15px;
   }
 
-  .csf-fieldset{
+  .kpt_fw-fieldset{
 
-    .csf-field-submessage .csf-submessage,
-    .csf-field-heading,
-    .csf-field-subheading{
+    .kpt_fw-field-submessage .kpt_fw-submessage,
+    .kpt_fw-field-heading,
+    .kpt_fw-field-subheading{
       margin-left: 0;
       margin-right: 0;
     }
   }
 
-  .csf-field-date,
-  .csf-field-datetime{
+  .kpt_fw-field-date,
+  .kpt_fw-field-datetime{
 
     label{
       display: block;
     }
 
-    .csf--to{
+    .kpt_fw--to{
       margin-top: 4px;
       margin-left: 0;
     }
   }
 
-  .csf-field-sorter{
+  .kpt_fw-field-sorter{
 
     ul li{
       padding: 5px;
     }
 
-    .csf-modules{
+    .kpt_fw-modules{
       float: none;
       width: 100%;
     }
 
-    .csf-modules:first-child{
+    .kpt_fw-modules:first-child{
       padding-right: 0;
       padding-bottom: 15px;
     }
   }
 
-  .csf-field-background{
+  .kpt_fw-field-background{
 
-    .csf--background-attributes{
+    .kpt_fw--background-attributes{
       flex-direction: column;
     }
   }
 
-  .csf-field-spacing{
+  .kpt_fw-field-spacing{
     input{
       width: 90px;
     }
   }
 
-  .csf-field-border{
+  .kpt_fw-field-border{
 
-    .csf--input{
+    .kpt_fw--input{
       flex: 1 50%;
     }
 
@@ -128,44 +128,44 @@
     }
   }
 
-  .csf-field-spinner{
+  .kpt_fw-field-spinner{
     input{
       width: 50px;
     }
   }
 
-  .csf-field-number{
+  .kpt_fw-field-number{
 
-    .csf--wrap{
+    .kpt_fw--wrap{
       width: 100%;
     }
   }
 
-  .csf-field-backup{
+  .kpt_fw-field-backup{
 
-    .csf-export-data{
+    .kpt_fw-export-data{
       display: none;
     }
   }
 
-  .csf-field-fieldset{
+  .kpt_fw-field-fieldset{
 
-    .csf-fieldset-content{
+    .kpt_fw-fieldset-content{
       border-color: #e5e5e5;
     }
   }
 
-  .csf-tabbed-content,
-  .csf-sortable-content,
-  .csf-repeater-content,
-  .csf-fieldset-content,
-  .csf-cloneable-content,
-  .csf-accordion-content{
+  .kpt_fw-tabbed-content,
+  .kpt_fw-sortable-content,
+  .kpt_fw-repeater-content,
+  .kpt_fw-fieldset-content,
+  .kpt_fw-cloneable-content,
+  .kpt_fw-accordion-content{
 
-    > .csf-field{
+    > .kpt_fw-field{
       padding: 10px;
 
-      .csf-title{
+      .kpt_fw-title{
         margin-bottom: 5px;
       }
 
@@ -175,11 +175,11 @@
     }
   }
 
-  .csf-depend-hidden.csf-depend-on{
+  .kpt_fw-depend-hidden.kpt_fw-depend-on{
     display: none !important;
   }
 
-  .csf-depend-visible.csf-depend-on{
+  .kpt_fw-depend-visible.kpt_fw-depend-on{
     border-top: 0 !important;
   }
 }

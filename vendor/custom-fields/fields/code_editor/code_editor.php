@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CSF_Field_code_editor' ) ) {
-  class CSF_Field_code_editor extends CSF_Fields {
+if ( ! class_exists( 'KPT_FW_Field_code_editor' ) ) {
+  class KPT_FW_Field_code_editor extends KPT_FW_Fields {
 
     public $version = '6.65.7';
     public $cdn_url = 'https://cdn.jsdelivr.net/npm/codemirror@';
@@ -43,13 +43,13 @@ if ( ! class_exists( 'CSF_Field_code_editor' ) ) {
       // Do not loads CodeMirror in revslider page.
       if ( in_array( $page, array( 'revslider' ) ) ) { return; }
 
-      if ( ! wp_script_is( 'csf-codemirror' ) ) {
-        wp_enqueue_script( 'csf-codemirror', esc_url( $this->cdn_url . $this->version .'/lib/codemirror.min.js' ), array( 'csf' ), $this->version, true );
-        wp_enqueue_script( 'csf-codemirror-loadmode', esc_url( $this->cdn_url . $this->version .'/addon/mode/loadmode.min.js' ), array( 'csf-codemirror' ), $this->version, true );
+      if ( ! wp_script_is( 'kpt_fw-codemirror' ) ) {
+        wp_enqueue_script( 'kpt_fw-codemirror', esc_url( $this->cdn_url . $this->version .'/lib/codemirror.min.js' ), array( 'kpt_fw' ), $this->version, true );
+        wp_enqueue_script( 'kpt_fw-codemirror-loadmode', esc_url( $this->cdn_url . $this->version .'/addon/mode/loadmode.min.js' ), array( 'kpt_fw-codemirror' ), $this->version, true );
       }
 
-      if ( ! wp_style_is( 'csf-codemirror' ) ) {
-        wp_enqueue_style( 'csf-codemirror', esc_url( $this->cdn_url . $this->version .'/lib/codemirror.min.css' ), array(), $this->version );
+      if ( ! wp_style_is( 'kpt_fw-codemirror' ) ) {
+        wp_enqueue_style( 'kpt_fw-codemirror', esc_url( $this->cdn_url . $this->version .'/lib/codemirror.min.css' ), array(), $this->version );
       }
 
     }

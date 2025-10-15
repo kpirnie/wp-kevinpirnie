@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CSF_Shortcoder' ) ) {
-  class CSF_Shortcoder extends CSF_Abstract{
+if ( ! class_exists( 'KPT_FW_Shortcoder' ) ) {
+  class KPT_FW_Shortcoder extends KPT_FW_Abstract{
 
     // constans
     public $unique       = '';
@@ -26,11 +26,11 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
       'defaults'         => array(),
       'class'            => '',
       'gutenberg'        => array(
-        'title'          => 'CSF Shortcodes',
-        'description'    => 'CSF Shortcode Block',
+        'title'          => 'KPT_FW Shortcodes',
+        'description'    => 'KPT_FW Shortcode Block',
         'icon'           => 'screenoptions',
         'category'       => 'widgets',
-        'keywords'       => array( 'shortcode', 'csf', 'insert' ),
+        'keywords'       => array( 'shortcode', 'kpt_fw', 'insert' ),
         'placeholder'    => 'Write shortcode here...',
       ),
     );
@@ -39,25 +39,25 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
     public function __construct( $key, $params = array() ) {
 
       $this->unique       = $key;
-      $this->args         = apply_filters( "csf_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
-      $this->sections     = apply_filters( "csf_{$this->unique}_sections", $params['sections'], $this );
+      $this->args         = apply_filters( "kpt_fw_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
+      $this->sections     = apply_filters( "kpt_fw_{$this->unique}_sections", $params['sections'], $this );
       $this->pre_tabs     = $this->pre_tabs( $this->sections );
       $this->pre_sections = $this->pre_sections( $this->sections );
 
       add_action( 'admin_footer', array( $this, 'add_footer_modal_shortcode' ) );
       add_action( 'customize_controls_print_footer_scripts', array( $this, 'add_footer_modal_shortcode' ) );
-      add_action( 'wp_ajax_csf-get-shortcode-'. $this->unique, array( $this, 'get_shortcode' ) );
+      add_action( 'wp_ajax_kpt_fw-get-shortcode-'. $this->unique, array( $this, 'get_shortcode' ) );
 
       if ( ! empty( $this->args['show_in_editor'] ) ) {
 
         $name = str_replace( '_', '-', sanitize_title( $this->unique ) );
 
-        CSF::$shortcode_instances[] = wp_parse_args( array( 'name' => 'csf/'. $name, 'modal_id' => $this->unique ), $this->args );
+        KPT_FW::$shortcode_instances[] = wp_parse_args( array( 'name' => 'kpt_fw/'. $name, 'modal_id' => $this->unique ), $this->args );
 
         // elementor editor support
-        if ( CSF::is_active_plugin( 'elementor/elementor.php' ) ) {
-          add_action( 'elementor/editor/before_enqueue_scripts', array( 'CSF', 'add_admin_enqueue_scripts' ) );
-          add_action( 'elementor/editor/footer', array( 'CSF_Field_icon', 'add_footer_modal_icon' ) );
+        if ( KPT_FW::is_active_plugin( 'elementor/elementor.php' ) ) {
+          add_action( 'elementor/editor/before_enqueue_scripts', array( 'KPT_FW', 'add_admin_enqueue_scripts' ) );
+          add_action( 'elementor/editor/footer', array( 'KPT_FW_Field_icon', 'add_footer_modal_icon' ) );
           add_action( 'elementor/editor/footer', array( $this, 'add_footer_modal_shortcode' ) );
         }
 
@@ -82,28 +82,28 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
 
     public function add_footer_modal_shortcode() {
 
-      if( ! wp_script_is( 'csf' ) ) {
+      if( ! wp_script_is( 'kpt_fw' ) ) {
         return;
       }
 
       $class        = ( $this->args['class'] ) ? ' '. esc_attr( $this->args['class'] ) : '';
       $has_select   = ( count( $this->pre_tabs ) > 1 ) ? true : false;
-      $single_usage = ( ! $has_select ) ? ' csf-shortcode-single' : '';
+      $single_usage = ( ! $has_select ) ? ' kpt_fw-shortcode-single' : '';
       $hide_header  = ( ! $has_select ) ? ' hidden' : '';
 
     ?>
-      <div id="csf-modal-<?php echo esc_attr( $this->unique ); ?>" class="wp-core-ui csf-modal csf-shortcode hidden<?php echo esc_attr( $single_usage . $class ); ?>" data-modal-id="<?php echo esc_attr( $this->unique ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'csf_shortcode_nonce' ) ); ?>">
-        <div class="csf-modal-table">
-          <div class="csf-modal-table-cell">
-            <div class="csf-modal-overlay"></div>
-            <div class="csf-modal-inner">
-              <div class="csf-modal-title">
+      <div id="kpt_fw-modal-<?php echo esc_attr( $this->unique ); ?>" class="wp-core-ui kpt_fw-modal kpt_fw-shortcode hidden<?php echo esc_attr( $single_usage . $class ); ?>" data-modal-id="<?php echo esc_attr( $this->unique ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'kpt_fw_shortcode_nonce' ) ); ?>">
+        <div class="kpt_fw-modal-table">
+          <div class="kpt_fw-modal-table-cell">
+            <div class="kpt_fw-modal-overlay"></div>
+            <div class="kpt_fw-modal-inner">
+              <div class="kpt_fw-modal-title">
                 <?php echo $this->args['button_title']; ?>
-                <div class="csf-modal-close"></div>
+                <div class="kpt_fw-modal-close"></div>
               </div>
               <?php
 
-                echo '<div class="csf-modal-header'. esc_attr( $hide_header ) .'">';
+                echo '<div class="kpt_fw-modal-header'. esc_attr( $hide_header ) .'">';
                 echo '<select>';
                 echo ( $has_select ) ? '<option value="">'. esc_attr( $this->args['select_title'] ) .'</option>' : '';
 
@@ -147,11 +147,11 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
                 echo '</div>';
 
               ?>
-              <div class="csf-modal-content">
-                <div class="csf-modal-loading"><div class="csf-loading"></div></div>
-                <div class="csf-modal-load"></div>
+              <div class="kpt_fw-modal-content">
+                <div class="kpt_fw-modal-loading"><div class="kpt_fw-loading"></div></div>
+                <div class="kpt_fw-modal-load"></div>
               </div>
-              <div class="csf-modal-insert-wrapper hidden"><a href="#" class="button button-primary csf-modal-insert"><?php echo $this->args['insert_title']; ?></a></div>
+              <div class="kpt_fw-modal-insert-wrapper hidden"><a href="#" class="button button-primary kpt_fw-modal-insert"><?php echo $this->args['insert_title']; ?></a></div>
             </div>
           </div>
         </div>
@@ -166,7 +166,7 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
       $nonce         = ( ! empty( $_POST[ 'nonce' ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ 'nonce' ] ) ) : '';
       $shortcode_key = ( ! empty( $_POST[ 'shortcode_key' ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ 'shortcode_key' ] ) ) : '';
 
-      if ( ! empty( $shortcode_key ) && wp_verify_nonce( $nonce, 'csf_shortcode_nonce' ) ) {
+      if ( ! empty( $shortcode_key ) && wp_verify_nonce( $nonce, 'kpt_fw_shortcode_nonce' ) ) {
 
         $unallows  = array( 'group', 'repeater', 'sorter' );
         $section   = $this->pre_sections[$shortcode_key-1];
@@ -179,9 +179,9 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
           // View: normal
           if ( ! empty( $section['fields'] ) && $view !== 'repeater' ) {
 
-            echo '<div class="csf-fields">';
+            echo '<div class="kpt_fw-fields">';
 
-            echo ( ! empty( $section['description'] ) ) ? '<div class="csf-field csf-section-description">'. $section['description'] .'</div>' : '';
+            echo ( ! empty( $section['description'] ) ) ? '<div class="kpt_fw-field kpt_fw-section-description">'. $section['description'] .'</div>' : '';
 
             foreach ( $section['fields'] as $field ) {
 
@@ -192,7 +192,7 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
 
               $field_default = ( isset( $field['id'] ) ) ? $this->get_default( $field ) : '';
 
-              CSF::field( $field, $field_default, $shortcode, 'shortcode' );
+              KPT_FW::field( $field, $field_default, $shortcode, 'shortcode' );
 
             }
 
@@ -207,16 +207,16 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
 
           if ( ! empty( $repeatable_fields ) ) {
 
-            $button_title    = ( ! empty( $section['button_title'] ) ) ? ' '. $section['button_title'] : esc_html__( 'Add New', 'csf' );
+            $button_title    = ( ! empty( $section['button_title'] ) ) ? ' '. $section['button_title'] : esc_html__( 'Add New', 'kpt_fw' );
             $inner_shortcode = ( ! empty( $section['group_shortcode'] ) ) ? $section['group_shortcode'] : $shortcode;
 
-            echo '<div class="csf--repeatable">';
+            echo '<div class="kpt_fw--repeatable">';
 
-              echo '<div class="csf--repeat-shortcode">';
+              echo '<div class="kpt_fw--repeat-shortcode">';
 
-                echo '<div class="csf-repeat-remove fas fa-times"></div>';
+                echo '<div class="kpt_fw-repeat-remove fas fa-times"></div>';
 
-                echo '<div class="csf-fields">';
+                echo '<div class="kpt_fw-fields">';
 
                 foreach ( $repeatable_fields as $field ) {
 
@@ -227,7 +227,7 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
 
                   $field_default = ( isset( $field['id'] ) ) ? $this->get_default( $field ) : '';
 
-                  CSF::field( $field, $field_default, $inner_shortcode.'[0]', 'shortcode' );
+                  KPT_FW::field( $field, $field_default, $inner_shortcode.'[0]', 'shortcode' );
 
                 }
 
@@ -237,14 +237,14 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
 
             echo '</div>';
 
-            echo '<div class="csf--repeat-button-block"><a class="button csf--repeat-button" href="#"><i class="fas fa-plus-circle"></i> '. $button_title .'</a></div>';
+            echo '<div class="kpt_fw--repeat-button-block"><a class="button kpt_fw--repeat-button" href="#"><i class="fas fa-plus-circle"></i> '. $button_title .'</a></div>';
 
           }
 
         }
 
       } else {
-        echo '<div class="csf-field csf-error-text">'. esc_html__( 'Error: Invalid nonce verification.', 'csf' ) .'</div>';
+        echo '<div class="kpt_fw-field kpt_fw-error-text">'. esc_html__( 'Error: Invalid nonce verification.', 'kpt_fw' ) .'</div>';
       }
 
       wp_send_json_success( array( 'content' => ob_get_clean() ) );
@@ -255,11 +255,11 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
     public static function once_editor_setup() {
 
       if ( function_exists( 'register_block_type' ) ) {
-        add_action( 'enqueue_block_editor_assets', array( 'CSF_Shortcoder', 'add_guteberg_blocks' ) );
+        add_action( 'enqueue_block_editor_assets', array( 'KPT_FW_Shortcoder', 'add_guteberg_blocks' ) );
       }
 
-      if ( csf_wp_editor_api() ) {
-        add_action( 'media_buttons', array( 'CSF_Shortcoder', 'add_media_buttons' ) );
+      if ( kpt_fw_wp_editor_api() ) {
+        add_action( 'media_buttons', array( 'KPT_FW_Shortcoder', 'add_media_buttons' ) );
       }
 
     }
@@ -275,14 +275,14 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
         $depends[] = 'wp-edit-post';
       }
 
-      wp_enqueue_script( 'csf-gutenberg-block', CSF::include_plugin_url( 'assets/js/gutenberg.js' ), $depends );
+      wp_enqueue_script( 'kpt_fw-gutenberg-block', KPT_FW::include_plugin_url( 'assets/js/gutenberg.js' ), $depends );
 
-      wp_localize_script( 'csf-gutenberg-block', 'csf_gutenberg_blocks', CSF::$shortcode_instances );
+      wp_localize_script( 'kpt_fw-gutenberg-block', 'kpt_fw_gutenberg_blocks', KPT_FW::$shortcode_instances );
 
-      foreach ( CSF::$shortcode_instances as $block ) {
+      foreach ( KPT_FW::$shortcode_instances as $block ) {
 
         register_block_type( $block['name'], array(
-          'editor_script' => 'csf-gutenberg-block',
+          'editor_script' => 'kpt_fw-gutenberg-block',
         ) );
 
       }
@@ -292,8 +292,8 @@ if ( ! class_exists( 'CSF_Shortcoder' ) ) {
     // Add media buttons
     public static function add_media_buttons( $editor_id ) {
 
-      foreach ( CSF::$shortcode_instances as $value ) {
-        echo '<a href="#" class="button button-primary csf-shortcode-button" data-editor-id="'. esc_attr( $editor_id ) .'" data-modal-id="'. esc_attr( $value['modal_id'] ) .'">'. esc_html( $value['button_title'] ) .'</a>';
+      foreach ( KPT_FW::$shortcode_instances as $value ) {
+        echo '<a href="#" class="button button-primary kpt_fw-shortcode-button" data-editor-id="'. esc_attr( $editor_id ) .'" data-modal-id="'. esc_attr( $value['modal_id'] ) .'">'. esc_html( $value['button_title'] ) .'</a>';
       }
 
     }
