@@ -136,7 +136,9 @@ return array(
     'Carbon_Fields\\Widget' => $vendorDir . '/htmlburger/carbon-fields/core/Widget.php',
     'Carbon_Fields\\Widget\\Widget' => $vendorDir . '/htmlburger/carbon-fields/core/Widget/Widget.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'KPT_Assets' => $baseDir . '/work/inc/assets.php',
+    'KPT_Assets' => $baseDir . '/work/inc/theme-assets.php',
     'KPT_Main_Nav_Walker' => $baseDir . '/work/inc/walker.php',
     'KPT_Mobile_Nav_Walker' => $baseDir . '/work/inc/walker.php',
+    'KPT_Performance' => $baseDir . '/work/inc/theme-performance.php',
+    'KPT_Supports' => $baseDir . '/work/inc/theme-supports.php',
 );

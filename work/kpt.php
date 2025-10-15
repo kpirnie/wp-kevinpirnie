@@ -45,7 +45,6 @@ if( ! class_exists( 'KPT' ) ) {
 
             } );
 
-                
         }
 
         /** 
@@ -61,7 +60,54 @@ if( ! class_exists( 'KPT' ) ) {
         */
         public function init( ) : void {
 
+            // hold our classes and the public method we'll be using
+            $theme_classes = array(
+                array( 'class' => 'KPT_Assets', 'method' => 'enqueue' ),
+                array( 'class' => 'KPT_Supports', 'method' => 'the_theme_supports' ),
+                array( 'class' => 'KPT_Performance', 'method' => 'manage_performance' ),
+                //[ 'class' => '', 'method' => ''],
+            );
+
+            // loop over each item
+            foreach ( $theme_classes as $item ) {
+
+                // make sure the class actually exists
+                if ( class_exists( $item['class'] ) ) {
+                    
+                    // fire it up
+                    $instance = new $item['class']( );
+                    
+                    // make sure the method exists
+                    if ( method_exists( $instance, $item['method'] ) ) {
+                        
+                        // fire it up
+                        $instance -> {$item['method']}( );
+                    }
+                    
+                    // now clean up the instance
+                    unset( $instance );
+
+                }
+
+            }
+
+            // now we can clean up the class array
+            unset( $theme_classes );
+            
+            // toss in menus we want
+            register_nav_menus(array(
+                'primary' => __( 'Primary Menu', 'kp-portfolio' ),
+                'top' => __( 'Top Header Menu', 'kp-portfolio' ),
+                'bottom' => __( 'Footer Bottem Menu', 'kp-portfolio' ),
+            ));
+
+            // modify our excerpt length
+            add_filter( 'excerpt_length', function( $length ) : int {
+                return 20;
+            } );
+
         }
+
 
     }
 

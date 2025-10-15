@@ -155,9 +155,11 @@ class ComposerStaticInit24e41bbaee1332276f826502c7093d78
         'Carbon_Fields\\Widget' => __DIR__ . '/..' . '/htmlburger/carbon-fields/core/Widget.php',
         'Carbon_Fields\\Widget\\Widget' => __DIR__ . '/..' . '/htmlburger/carbon-fields/core/Widget/Widget.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'KPT_Assets' => __DIR__ . '/../..' . '/work/inc/assets.php',
+        'KPT_Assets' => __DIR__ . '/../..' . '/work/inc/theme-assets.php',
         'KPT_Main_Nav_Walker' => __DIR__ . '/../..' . '/work/inc/walker.php',
         'KPT_Mobile_Nav_Walker' => __DIR__ . '/../..' . '/work/inc/walker.php',
+        'KPT_Performance' => __DIR__ . '/../..' . '/work/inc/theme-performance.php',
+        'KPT_Supports' => __DIR__ . '/../..' . '/work/inc/theme-supports.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
