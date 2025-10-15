@@ -26,7 +26,7 @@ add_action( 'after_setup_theme', function( ) {
 
 function kp_widgets_init() {
     register_sidebar(array(
-        'name' => __('Footer Column 1', 'kp-portfolio'),
+        'name' => __('Footer Column 1', 'kpt'),
         'id' => 'footer-1',
         'before_widget' => '<div id="%1$s" class="widget %2$s mb-6">',
         'after_widget' => '</div>',
@@ -35,7 +35,7 @@ function kp_widgets_init() {
     ));
     
     register_sidebar(array(
-        'name' => __('Footer Column 2', 'kp-portfolio'),
+        'name' => __('Footer Column 2', 'kpt'),
         'id' => 'footer-2',
         'before_widget' => '<div id="%1$s" class="widget %2$s mb-6">',
         'after_widget' => '</div>',
@@ -44,7 +44,7 @@ function kp_widgets_init() {
     ));
     
     register_sidebar(array(
-        'name' => __('Footer Column 3', 'kp-portfolio'),
+        'name' => __('Footer Column 3', 'kpt'),
         'id' => 'footer-3',
         'before_widget' => '<div id="%1$s" class="widget %2$s mb-6">',
         'after_widget' => '</div>',

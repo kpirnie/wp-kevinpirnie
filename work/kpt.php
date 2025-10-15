@@ -96,9 +96,9 @@ if( ! class_exists( 'KPT' ) ) {
             
             // toss in menus we want
             register_nav_menus(array(
-                'primary' => __( 'Primary Menu', 'kp-portfolio' ),
-                'top' => __( 'Top Header Menu', 'kp-portfolio' ),
-                'bottom' => __( 'Footer Bottem Menu', 'kp-portfolio' ),
+                'primary' => __( 'Primary Menu', 'kpt' ),
+                'top' => __( 'Top Header Menu', 'kpt' ),
+                'bottom' => __( 'Footer Bottem Menu', 'kpt' ),
             ));
 
             // modify our excerpt length
