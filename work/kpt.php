@@ -65,6 +65,7 @@ if( ! class_exists( 'KPT' ) ) {
                 array( 'class' => 'KPT_Assets', 'method' => 'enqueue' ),
                 array( 'class' => 'KPT_Supports', 'method' => 'the_theme_supports' ),
                 array( 'class' => 'KPT_Performance', 'method' => 'manage_performance' ),
+                array( 'class' => 'KPT_Settings', 'method' => 'add_settings' ),
                 //[ 'class' => '', 'method' => ''],
             );
 
@@ -93,21 +94,8 @@ if( ! class_exists( 'KPT' ) ) {
 
             // now we can clean up the class array
             unset( $theme_classes );
-            
-            // toss in menus we want
-            register_nav_menus(array(
-                'primary' => __( 'Primary Menu', 'kpt' ),
-                'top' => __( 'Top Header Menu', 'kpt' ),
-                'bottom' => __( 'Footer Bottem Menu', 'kpt' ),
-            ));
-
-            // modify our excerpt length
-            add_filter( 'excerpt_length', function( $length ) : int {
-                return 20;
-            } );
 
         }
-
 
     }
 

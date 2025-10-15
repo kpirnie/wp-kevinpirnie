@@ -16,11 +16,11 @@
         }
     ],
     "require": {
-        "php": ">=8.2",
-        "htmlburger/carbon-fields": ">=3"
+        "php": ">=8.2"
     },
     "autoload": {
         "classmap": [
+            "vendor/custom-fields/",
             "work/inc/"
         ],
         "files": [

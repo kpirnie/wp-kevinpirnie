@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-    <?php kp_breadcrumbs(); ?>
+    <?php echo KPT_BreadCrumbs::get_base_breadcrumbs(); ?>
     
     <div class="mb-8">
         <h1 class="text-4xl font-bold mb-2 kp-gradient-text">

@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-    <?php kp_breadcrumbs(); ?>
+    <?php echo KPT_BreadCrumbs::get_base_breadcrumbs(); ?>
     
     <?php while (have_posts()): the_post(); ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class('w-full'); ?>>

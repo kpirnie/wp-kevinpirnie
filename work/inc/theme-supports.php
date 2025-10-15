@@ -47,6 +47,18 @@ if( ! class_exists( 'KPT_Supports' ) ) {
             $this -> theme_supports( );
             $this -> theme_cleanup( );
 
+            // toss in menus we want
+            register_nav_menus( array(
+                'primary' => __( 'Primary Menu', 'kpt' ),
+                'top' => __( 'Top Header Menu', 'kpt' ),
+                'bottom' => __( 'Footer Bottem Menu', 'kpt' ),
+            ) );
+
+            // modify our excerpt length
+            add_filter( 'excerpt_length', function( $length ) : int {
+                return 20;
+            } );
+
         }
 
         /** 

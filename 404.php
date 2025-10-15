@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-    <?php kp_breadcrumbs(); ?>
+    <?php echo KPT_BreadCrumbs::get_base_breadcrumbs(); ?>
     
     <div class="max-w-2xl mx-auto text-center py-16">
         <div class="mb-8">

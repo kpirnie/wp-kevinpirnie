@@ -43,6 +43,11 @@ if( ! class_exists( 'KPT_Assets' ) ) {
         */
         public function enqueue( ) {
 
+            // only run on the frontend, not in wp-admin
+            if ( is_admin() ) {
+                return;
+            }
+
             // remove jquery from front-end
             $this -> remove_frontend_jquery( );
 

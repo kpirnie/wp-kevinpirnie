@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-    <?php kp_breadcrumbs(); ?>
+    <?php echo KPT_BreadCrumbs::get_base_breadcrumbs(); ?>
     
     <?php while (have_posts()): the_post(); ?>
         <div class="w-full flex flex-col lg:flex-row gap-8">
