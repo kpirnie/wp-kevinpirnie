@@ -31,8 +31,19 @@ if( ! class_exists( 'KPT' ) ) {
         // fire us up
         public function __construct( ) {
 
-            // pull in our assets
-            // $this -> kpt_assets( );
+            // hook into the style/script enqueuer as soon as possible
+            add_action( 'wp_enqueue_scripts', function( ) {
+
+                // fire up the assets class
+                $_assets = new KPT_Assets( );
+
+                // DO IT!
+                $_assets -> enqueue( );
+
+                // clean up
+                unset( $_assets );
+
+            } );
 
                 
         }

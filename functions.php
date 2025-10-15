@@ -37,12 +37,6 @@ function kp_theme_setup() {
 }
 add_action('after_setup_theme', 'kp_theme_setup');
 
-function kp_theme_scripts() {
-    wp_enqueue_style('kp-style', get_stylesheet_uri(), array(), '1.0.0');
-    wp_enqueue_script('kp-theme-js', get_template_directory_uri() . '/assets/js/theme.js', array(), '1.0.0', true);
-}
-add_action('wp_enqueue_scripts', 'kp_theme_scripts');
-
 function kp_widgets_init() {
     register_sidebar(array(
         'name' => __('Footer Column 1', 'kp-portfolio'),

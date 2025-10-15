@@ -10,8 +10,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: kp-portfolio
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&display=swap');
-
 :root {
     --kp-light-blue: #599bb8;
     --kp-lightish-blue: #43819c;
