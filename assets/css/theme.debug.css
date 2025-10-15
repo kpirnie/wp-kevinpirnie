@@ -151,8 +151,7 @@ html,
   /* 2 */
   -moz-tab-size: 4;
   /* 3 */
-  -o-tab-size: 4;
-     tab-size: 4;
+  tab-size: 4;
   /* 3 */
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   /* 4 */
@@ -196,8 +195,7 @@ Add the correct text decoration in Chrome, Edge, and Safari.
 */
 
 abbr:where([title]) {
-  -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
+  text-decoration: underline dotted;
 }
 
 /*
@@ -486,7 +484,8 @@ textarea {
 2. Set the default placeholder color to the user's configured gray 400 color.
 */
 
-input::-moz-placeholder, textarea::-moz-placeholder {
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
   opacity: 1;
   /* 1 */
   color: #9ca3af;
@@ -798,10 +797,12 @@ body {
 }
 
 .flex {
+  display: -ms-flexbox;
   display: flex;
 }
 
 .inline-flex {
+  display: -ms-inline-flexbox;
   display: inline-flex;
 }
 
@@ -810,6 +811,7 @@ body {
 }
 
 .grid {
+  display: -ms-grid;
   display: grid;
 }
 
@@ -890,11 +892,13 @@ body {
 }
 
 .flex-1 {
-  flex: 1 1 0%;
+  -ms-flex: 1 1 0%;
+      flex: 1 1 0%;
 }
 
 .flex-shrink-0 {
-  flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }
 
 .rotate-180 {
@@ -915,35 +919,43 @@ body {
 }
 
 .grid-cols-1 {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
+  -ms-grid-columns: (minmax(0, 1fr))[1];
+      grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
 .flex-col {
-  flex-direction: column;
+  -ms-flex-direction: column;
+      flex-direction: column;
 }
 
 .flex-wrap {
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .items-start {
-  align-items: flex-start;
+  -ms-flex-align: start;
+      align-items: flex-start;
 }
 
 .items-center {
-  align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
 }
 
 .justify-end {
-  justify-content: flex-end;
+  -ms-flex-pack: end;
+      justify-content: flex-end;
 }
 
 .justify-center {
-  justify-content: center;
+  -ms-flex-pack: center;
+      justify-content: center;
 }
 
 .justify-between {
-  justify-content: space-between;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
 }
 
 .gap-1 {
@@ -1127,8 +1139,7 @@ body {
 }
 
 .object-cover {
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .p-2 {
@@ -1331,7 +1342,8 @@ body {
 }
 
 .underline {
-  text-decoration-line: underline;
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
 }
 
 .opacity-0 {
@@ -1371,7 +1383,6 @@ body {
 
 .backdrop-blur-sm {
   --tw-backdrop-blur: blur(4px);
-  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
@@ -1382,7 +1393,9 @@ body {
 }
 
 .transition-colors {
+  transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -1489,7 +1502,8 @@ body {
 }
 
 .hover\:underline:hover {
-  text-decoration-line: underline;
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
 }
 
 .hover\:shadow-xl:hover {
@@ -1600,7 +1614,8 @@ body {
   }
 
   .sm\:flex-row {
-    flex-direction: row;
+    -ms-flex-direction: row;
+        flex-direction: row;
   }
 
   .sm\:px-8 {
@@ -1619,6 +1634,7 @@ body {
   }
 
   .md\:flex {
+    display: -ms-flexbox;
     display: flex;
   }
 
@@ -1627,19 +1643,23 @@ body {
   }
 
   .md\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    -ms-grid-columns: (minmax(0, 1fr))[2];
+        grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .md\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    -ms-grid-columns: (minmax(0, 1fr))[3];
+        grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .md\:flex-row {
-    flex-direction: row;
+    -ms-flex-direction: row;
+        flex-direction: row;
   }
 
   .md\:items-center {
-    align-items: center;
+    -ms-flex-align: center;
+        align-items: center;
   }
 
   .md\:p-3 {
@@ -1682,6 +1702,7 @@ body {
   }
 
   .lg\:flex {
+    display: -ms-flexbox;
     display: flex;
   }
 
@@ -1702,11 +1723,13 @@ body {
   }
 
   .lg\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    -ms-grid-columns: (minmax(0, 1fr))[3];
+        grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .lg\:flex-row {
-    flex-direction: row;
+    -ms-flex-direction: row;
+        flex-direction: row;
   }
 }*, ::before, ::after {
   --tw-border-spacing-x: 0;

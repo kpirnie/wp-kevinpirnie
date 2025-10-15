@@ -4,12 +4,15 @@
     "scripts": {
         "build:tw": "tailwindcss -i ./assets/css/main.css -o ./assets/css/tw.css",
         "build:concat": "cat ./assets/css/tw.css ./assets/css/theme.css > ./assets/css/theme.debug.css && rm -f ./assets/css/tw.css",
-        "build:css": "tailwindcss -i ./assets/css/theme.debug.css -o ./assets/css/theme.min.css --minify",
-        "build:js": "terser ./assets/js/theme.js -o ./assets/js/theme.min.js -c -m",
-        "build": "npm run build:tw && npm run build:concat && npm run build:css && npm run build:js"
+        "build:minify": "cssnano ./assets/css/theme.debug.css ./assets/css/theme.min.css",
+        "build:js": "terser ./assets/js/theme.debug.js -o ./assets/js/theme.min.js -c -m",
+        "build": "npm run build:tw && npm run build:concat && npm run build:minify && npm run build:js"
     },
     "devDependencies": {
-        "tailwindcss": "^3.4.0",
-        "terser": "^5.36.0"
+        "tailwindcss": "^3",
+        "terser": "^5",
+        "cssnano": "^7",
+        "cssnano-cli": "^1",
+        "postcss": "^8"
     }
 }

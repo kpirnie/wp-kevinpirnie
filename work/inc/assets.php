@@ -80,7 +80,7 @@ if( ! class_exists( 'KPT_Assets' ) ) {
             // Theme CSS
             wp_enqueue_style(
                 'kpt_theme',
-                get_stylesheet_directory_uri() . '/assets/css/theme' . ($is_debug ? '' : '.min') . '.css',
+                get_stylesheet_directory_uri() . '/assets/css/theme.' . ($is_debug ? 'debug' : 'min') . '.css',
                 array('kpt_font'),
                 $is_debug ? time() : null
             );
@@ -112,8 +112,16 @@ if( ! class_exists( 'KPT_Assets' ) ) {
 
             wp_enqueue_script(
                 'kpt_theme',
-                get_stylesheet_directory_uri() . '/assets/js/theme' . ($is_debug ? '' : '.min') . '.js',
+                get_stylesheet_directory_uri() . '/assets/js/theme.' . ($is_debug ? 'debug' : 'min') . '.js',
                 array(),
+                $is_debug ? time() : null,
+                true
+            );
+
+            wp_enqueue_script(
+                'kpt_custom',
+                get_stylesheet_directory_uri() . '/script.js',
+                array('kpt_theme'),
                 $is_debug ? time() : null,
                 true
             );
