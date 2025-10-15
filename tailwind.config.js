@@ -1,8 +1,9 @@
 module.exports = {
     content: [
         './*.php',
-        './template-parts/**/*.php',
-        './inc/**/*.php',
+        './partials/**/*.php',
+        './work/kpt.php',
+        './work/inc/**/*.php',
         './assets/js/**/*.js',
     ],
     darkMode: 'class',

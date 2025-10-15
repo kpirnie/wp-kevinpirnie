@@ -69,7 +69,7 @@
                     'container' => false,
                     'menu_class' => 'flex space-x-6 items-center',
                     'fallback_cb' => false,
-                    'walker' => new KP_Hierarchical_Menu_Walker(),
+                    'walker' => new KPT_Main_Nav_Walker(),
                 ));
                 ?>
                 <button id="search-toggle" class="p-2 rounded-lg hover:bg-gray-800 transition-colors" aria-label="Toggle search">
@@ -116,7 +116,7 @@
                 'container' => false,
                 'menu_class' => 'mobile-menu-list',
                 'fallback_cb' => false,
-                'walker' => new KP_Mobile_Menu_Walker(),
+                'walker' => new KPT_Mobile_Nav_Walker(),
             ));
             ?>
         </div>
