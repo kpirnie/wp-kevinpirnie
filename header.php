@@ -8,6 +8,15 @@
 <body <?php body_class('bg-gray-900 text-gray-100 font-mono'); ?>>
 <?php wp_body_open(); ?>
 
+<svg style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true">
+    <defs>
+        <filter id="fa-thin-filter">
+            <feMorphology operator="erode" radius="0.5"/>
+            <feGaussianBlur stdDeviation="0.1"/>
+        </filter>
+    </defs>
+</svg>
+
 <div id="top-header" class="text-white transition-transform duration-300">
     <div class="w-full px-4 sm:px-8 md:px-16">
         <div class="flex justify-between items-center py-2 text-xs md:text-sm">

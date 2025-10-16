@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "scripts": {
         "build:tw": "tailwindcss -i ./assets/css/main.css -o ./assets/css/tw.css",
-        "build:concat": "cat ./assets/css/tw.css ./assets/css/fa.css ./assets/css/theme.css > ./assets/css/theme.debug.css",
+        "build:concat": "cat ./assets/css/tw.css ./assets/css/fa-svg-icons.css ./assets/css/theme.css > ./assets/css/theme.debug.css",
         "build:minify": "cssnano ./assets/css/theme.debug.css ./assets/css/theme.min.css",
         "build:js": "node esbuild.config.js",
         "build:clean": "rm -f ./assets/css/tw.css",

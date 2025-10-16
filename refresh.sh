@@ -20,6 +20,9 @@ composer update;
 # dump the composer autoloader and force it to regenerate
 composer dumpautoload -o -n;
 
+# regen the icon css
+php fa-generator.php
+
 # Clean up & Reinstall node_modules with correct permissions
 rm -rf $PWD/node_modules && npm install && npx update-browserslist-db@latest
 npm run build;

@@ -3,3 +3,4 @@ package-lock.json
 composer.lock
 auth.json
 assets/fonts/fontawesome/
+fa-generator.php
