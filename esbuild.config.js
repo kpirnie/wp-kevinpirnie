@@ -7,13 +7,5 @@ esbuild.build({
     outfile: './assets/js/theme.min.js',
     format: 'esm',
     platform: 'browser',
-    loader: {
-        '.woff': 'file',
-        '.woff2': 'file',
-        '.ttf': 'file',
-        '.eot': 'file',
-        '.svg': 'file'
-    },
-    assetNames: '/fonts/[name]',
-    publicPath: '/wp-content/themes/kevinpirnie/assets'
+    logLevel: 'info'
 }).catch(() => process.exit(1));

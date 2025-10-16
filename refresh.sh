@@ -20,10 +20,8 @@ composer update;
 # dump the composer autoloader and force it to regenerate
 composer dumpautoload -o -n;
 
-# Reinstall node_modules with correct permissions
-rm -rf $PWD/node_modules && npm install && npx update-browserslist-db@latest
-
-# now refresh NPM
+# Clean up & Reinstall node_modules with correct permissions
+rm -rf $PWD/node_modules && rm -rf $PWD/assets/fonts/* && npm install && npx update-browserslist-db@latest
 npm run build;
 
 # just inn case php is caching
