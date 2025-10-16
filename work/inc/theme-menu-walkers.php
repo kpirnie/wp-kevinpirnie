@@ -179,3 +179,107 @@ if( ! class_exists( 'KPT_Mobile_Nav_Walker' ) ) {
     }
 
 }
+
+if( ! class_exists( 'KPT_Top_Header_Nav_Walker' ) ) {
+
+    // Custom Walker for Top Header Menu
+    class KPT_Top_Header_Nav_Walker extends Walker_Nav_Menu {
+
+        // Method to get Lucide icon for menu item
+        private function get_menu_icon($item) {
+            
+            // Separate classes
+            $classes = $item->classes;
+            
+            // Determine icon behavior
+            $is_symbol_only = in_array('symbol-only', $classes);
+            $symbol_position = in_array('symbol-left', $classes) ? 'left' : 'right';
+
+            // Find explicit icon specification
+            $explicit_icon_classes = array_filter($classes, function($class) {
+                return strpos($class, 'icon-') === 0 
+                    && $class !== 'symbol-only' 
+                    && $class !== 'symbol-left' 
+                    && $class !== 'symbol-right';
+            });
+
+            // Extract icon name, removing the 'icon-' prefix
+            $icon = !empty($explicit_icon_classes) 
+                ? str_replace('icon-', '', reset($explicit_icon_classes)) 
+                : 'link'; // Fallback to generic link icon
+
+            // Build icon classes
+            $icon_class = 'ph w-4 h-4 ' . ($symbol_position === 'left' ? 'mr-1' : 'ml-1');
+
+            // Render the icon
+            return [
+                'icon' => sprintf(
+                    '<i class="ph ph-%s %s" aria-hidden="true"></i>', 
+                    esc_attr($icon),
+                    esc_attr($icon_class)
+                ),
+                'is_symbol_only' => $is_symbol_only,
+                'symbol_position' => $symbol_position
+            ];
+        }
+
+        function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+            $indent = ($depth) ? str_repeat("\t", $depth) : '';
+            $classes = empty($item->classes) ? array() : (array) $item->classes;
+            $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args, $depth));
+            
+            $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
+            
+            $output .= $indent . '<li' . $class_names . '>';
+            
+            // Create link attributes
+            $atts = array();
+            $atts['title'] = !empty($item->attr_title) ? $item->attr_title : '';
+            $atts['target'] = !empty($item->target) ? $item->target : '_blank';
+            $atts['rel'] = !empty($item->xfn) ? $item->xfn : 'noopener noreferrer';
+            $atts['href'] = !empty($item->url) ? $item->url : '';
+            
+            // Add icon and styling
+            $menu_icon_data = $this->get_menu_icon($item);
+            
+            $atts['class'] = 'hover:text-[#fd6a4f] transition-colors flex items-center gap-1';
+            
+            $atts = apply_filters('nav_menu_link_attributes', $atts, $item, $args, $depth);
+            
+            $attributes = '';
+            foreach ($atts as $attr => $value) {
+                if (!empty($value)) {
+                    $value = ('href' === $attr) ? esc_url($value) : esc_attr($value);
+                    $attributes .= ' ' . $attr . '="' . $value . '"';
+                }
+            }
+            
+            // For symbol-only, override the title to be empty
+            $title = $menu_icon_data['is_symbol_only'] 
+                ? '' 
+                : apply_filters('the_title', $item->title, $item->ID);
+            $title = apply_filters('nav_menu_item_title', $title, $item, $args, $depth);
+            
+            $item_output = $args->before;
+            $item_output .= '<a' . $attributes . '>';
+            
+            // Determine rendering based on symbol behavior
+            if ($menu_icon_data['is_symbol_only']) {
+                // Symbol only mode
+                $item_output .= $menu_icon_data['icon'];
+            } elseif ($menu_icon_data['symbol_position'] === 'left') {
+                // Symbol on the left
+                $item_output .= $menu_icon_data['icon'] . $args->link_before . $title . $args->link_after;
+            } else {
+                // Symbol on the right (default)
+                $item_output .= $args->link_before . $title . $menu_icon_data['icon'] . $args->link_after;
+            }
+            
+            $item_output .= '</a>';
+            $item_output .= $args->after;
+            
+            $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+        }
+        
+    }
+}

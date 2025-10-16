@@ -1,4 +1,12 @@
+import '@phosphor-icons/web/bold';
+import '@phosphor-icons/web/duotone';
+import '@phosphor-icons/web/fill';
+import '@phosphor-icons/web/light';
+import '@phosphor-icons/web/regular';
+import '@phosphor-icons/web/thin';
+
 document.addEventListener('DOMContentLoaded', function () {
+
     // ========================================
     // Cookie Notice Functions
     // ========================================
@@ -7,23 +15,23 @@ document.addEventListener('DOMContentLoaded', function () {
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
-    
+
     function setCookie(name, value, days) {
         const date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
     }
-    
+
     function disableScroll() {
         document.body.style.overflow = 'hidden';
         document.body.style.paddingRight = (window.innerWidth - document.documentElement.clientWidth) + 'px';
     }
-    
+
     function enableScroll() {
         document.body.style.overflow = '';
         document.body.style.paddingRight = '';
     }
-    
+
     // Cookie Notice Elements
     const notice = document.getElementById('kp-cookie-notice');
     const overlay = document.getElementById('kp-cookie-overlay');
@@ -33,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('kp-cookie-modal');
     const modalClose = document.getElementById('kp-modal-close');
     const modalOverlay = document.getElementById('kp-modal-overlay');
-    
+
     // Show cookie notice ONLY if NOT accepted (check for 'accepted' value specifically)
     if (notice && overlay && getCookie('kp_cookie_consent') !== 'accepted') {
         notice.style.display = 'block';
@@ -42,43 +50,43 @@ document.addEventListener('DOMContentLoaded', function () {
         overlay.classList.remove('hidden');
         disableScroll();
     }
-    
+
     // Accept cookies - ONLY this hides the notice permanently
     if (acceptBtn) {
-        acceptBtn.addEventListener('click', function() {
+        acceptBtn.addEventListener('click', function () {
             setCookie('kp_cookie_consent', 'accepted', 365);
             notice.style.display = 'none';
             overlay.style.display = 'none';
             enableScroll();
         });
     }
-    
+
     // Decline cookies - redirect WITHOUT setting any cookie
     if (declineBtn) {
-        declineBtn.addEventListener('click', function() {
+        declineBtn.addEventListener('click', function () {
             // Do NOT set a cookie - notice will show again on next visit
             window.location.href = 'https://www.google.com/search?q=why+do+I+need+cookies';
         });
     }
-    
+
     // Learn more modal
     if (learnMoreBtn && modal) {
-        learnMoreBtn.addEventListener('click', function(e) {
+        learnMoreBtn.addEventListener('click', function (e) {
             e.preventDefault();
             modal.classList.remove('hidden');
         });
     }
-    
+
     // Close modal
     if (modalClose && modal) {
-        modalClose.addEventListener('click', function() {
+        modalClose.addEventListener('click', function () {
             modal.classList.add('hidden');
         });
     }
-    
+
     // Close modal on overlay click
     if (modalOverlay && modal) {
-        modalOverlay.addEventListener('click', function() {
+        modalOverlay.addEventListener('click', function () {
             modal.classList.add('hidden');
         });
     }
@@ -204,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (mobileMenuToggle && mobileMenu) {
         mobileMenuToggle.addEventListener('click', function () {
             mobileMenu.classList.toggle('hidden');
-            
+
             // Ensure all mobile submenus are hidden when menu opens
             if (!mobileMenu.classList.contains('hidden')) {
                 document.querySelectorAll('.submenu-mobile').forEach(submenu => {
@@ -227,14 +235,14 @@ document.addEventListener('DOMContentLoaded', function () {
             e.stopPropagation();
             const submenu = this.closest('li').querySelector('.submenu-mobile');
             const arrow = this.querySelector('svg');
-            
+
             if (submenu) {
                 submenu.classList.toggle('hidden');
                 arrow.classList.toggle('rotate-180');
             }
         });
     });
-    
+
     // Make parent links in mobile menu toggle submenus instead of navigating
     const mobileParentLinks = document.querySelectorAll('.mobile-menu-list .has-submenu > div > a');
     mobileParentLinks.forEach(link => {
@@ -242,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             const submenu = this.closest('li').querySelector('.submenu-mobile');
             const arrow = this.closest('div').querySelector('.submenu-toggle svg');
-            
+
             if (submenu) {
                 submenu.classList.toggle('hidden');
                 if (arrow) {

@@ -51,6 +51,7 @@ if( ! class_exists( 'KPT_Supports' ) ) {
             register_nav_menus( array(
                 'primary' => __( 'Primary Menu', 'kpt' ),
                 'top' => __( 'Top Header Menu', 'kpt' ),
+                'social' => __( 'Social Menu', 'kpt' ),
                 'bottom' => __( 'Footer Bottem Menu', 'kpt' ),
             ) );
 

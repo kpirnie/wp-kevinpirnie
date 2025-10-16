@@ -77,7 +77,7 @@ if( ! class_exists( 'KPT_Assets' ) ) {
             // Google Fonts
             wp_enqueue_style(
                 'kpt_font',
-                'https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&display=swap',
+                '//fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&display=swap',
                 array(),
                 null
             );
