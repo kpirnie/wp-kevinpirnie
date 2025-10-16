@@ -3840,7 +3840,46 @@ nav ul li a {
   display: none !important;
 }
 
-.lucide {
-  stroke-width: 1.75;
-  /* Adjust this value as needed */
+/* FontAwesome Icon Adjustments */
+.fa-brands,
+.fa-solid,
+.fa-regular {
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* Ensure proper sizing in flex containers */
+.flex .fa-brands,
+.flex .fa-solid,
+.flex .fa-regular,
+.inline-flex .fa-brands,
+.inline-flex .fa-solid,
+.inline-flex .fa-regular {
+  flex-shrink: 0;
+}
+
+/* Smooth transitions for icon colors */
+a .fa-brands,
+a .fa-solid,
+a .fa-regular,
+button .fa-brands,
+button .fa-solid,
+button .fa-regular {
+  transition: color 0.15s ease-in-out;
+}
+
+/* CSS-only thin approximation (visual effect only) */
+.fa-thin {
+  font-weight: 100 !important;
+  -webkit-text-stroke: 0.5px currentColor;
+  text-stroke: 0.5px currentColor;
+  opacity: 0.9;
+}
+
+/* Alternative lighter approach without stroke */
+.fa-light-effect {
+  font-weight: 300 !important;
+  opacity: 0.85;
+  letter-spacing: 0.5px;
 }

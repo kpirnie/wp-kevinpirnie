@@ -21,7 +21,7 @@ composer update;
 composer dumpautoload -o -n;
 
 # Clean up & Reinstall node_modules with correct permissions
-rm -rf $PWD/node_modules && rm -rf $PWD/assets/fonts/* && npm install && npx update-browserslist-db@latest
+rm -rf $PWD/node_modules && npm install && npx update-browserslist-db@latest
 npm run build;
 
 # just inn case php is caching

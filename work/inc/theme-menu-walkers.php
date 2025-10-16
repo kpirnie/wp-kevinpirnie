@@ -185,7 +185,7 @@ if( ! class_exists( 'KPT_Top_Header_Nav_Walker' ) ) {
     // Custom Walker for Top Header Menu
     class KPT_Top_Header_Nav_Walker extends Walker_Nav_Menu {
 
-        // Method to get Lucide icon for menu item
+        // Method to get FontAwesome icon for menu item
         private function get_menu_icon($item) {
             
             // Separate classes
@@ -208,13 +208,23 @@ if( ! class_exists( 'KPT_Top_Header_Nav_Walker' ) ) {
                 ? str_replace('icon-', '', reset($explicit_icon_classes)) 
                 : 'link'; // Fallback to generic link icon
 
-            // Build icon classes
-            $icon_class = 'ph w-4 h-4 ' . ($symbol_position === 'left' ? 'mr-1' : 'ml-1');
+            // Determine icon style from classes (fa-solid, fa-brands, fa-regular)
+            // Default to solid if not specified
+            $icon_style = 'fa-regular';
+            if (in_array('fa-brands', $classes)) {
+                $icon_style = 'fa-brands';
+            } elseif (in_array('fa-solid', $classes)) {
+                $icon_style = 'fa-solid';
+            }
 
-            // Render the icon
+            // Build icon classes
+            $icon_class = 'inline-block w-4 h-4 ' . ($symbol_position === 'left' ? 'mr-1' : 'ml-1');
+
+            // Render the icon using span instead of i for better semantics
             return [
                 'icon' => sprintf(
-                    '<i class="ph ph-%s %s" aria-hidden="true"></i>', 
+                    '<span class="%s fa-%s %s" aria-hidden="true"></span>', 
+                    esc_attr($icon_style),
                     esc_attr($icon),
                     esc_attr($icon_class)
                 ),
