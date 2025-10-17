@@ -81,6 +81,8 @@ class ComposerStaticInit24e41bbaee1332276f826502c7093d78
         'KPT_Supports' => __DIR__ . '/../..' . '/work/inc/theme-supports.php',
         'KPT_Top_Header_Nav_Walker' => __DIR__ . '/../..' . '/work/inc/theme-menu-walkers.php',
         'KPT_Widgets' => __DIR__ . '/../..' . '/work/inc/theme-widgets.php',
+        'Tailwind_Menu_Walker' => __DIR__ . '/../..' . '/work/inc/theme-menu.php',
+        'Tailwind_Responsive_Menu_Walker' => __DIR__ . '/../..' . '/work/inc/theme-menu.php',
         'WP_Customize_Control_KPT_FW' => __DIR__ . '/..' . '/custom-fields/functions/customize.php',
         'WP_Customize_Panel_KPT_FW' => __DIR__ . '/..' . '/custom-fields/functions/customize.php',
         'WP_Customize_Section_KPT_FW' => __DIR__ . '/..' . '/custom-fields/functions/customize.php',

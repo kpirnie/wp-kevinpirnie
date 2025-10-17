@@ -25,7 +25,7 @@ if( ! class_exists( 'KPT_Main_Nav_Walker' ) ) {
             if ($depth === 0) {
                 $output .= "\n$indent<ul class=\"submenu submenu-depth-0 absolute left-0 top-full mt-2 bg-gray-800 rounded-lg shadow-lg py-2 min-w-[200px] hidden z-50\">\n";
             } else {
-                $output .= "\n$indent<ul class=\"submenu submenu-depth-{$depth} absolute left-full top-0 ml-1 bg-gray-800 rounded-lg shadow-lg py-2 min-w-[200px] hidden z-50\">\n";
+                $output .= "\n$indent<ul class=\"submenu submenu-depth-{$depth} absolute left-full top-0 ml-2 bg-gray-800 rounded-lg shadow-lg py-2 min-w-[200px] hidden z-50\">\n";
             }
         }
         
@@ -53,7 +53,12 @@ if( ! class_exists( 'KPT_Main_Nav_Walker' ) ) {
             
             // For parent items at ANY depth, create a clickable toggle
             if ($has_children) {
-                $button_classes = 'dropdown-toggle hover:bg-gray-700 transition-colors flex items-center justify-between w-full text-left px-4 py-2';
+
+                if ($depth > 0) {
+                    $button_classes = 'dropdown-toggle block px-4 py-2 hover:bg-gray-700 transition-colors text-sm whitespace-nowrap w-full text-left flex items-center justify-between';
+                } else {
+                    $button_classes = 'dropdown-toggle hover:bg-gray-700 transition-colors flex items-center justify-between w-full text-left px-4 py-2';
+                }
                 
                 $output .= '<button class="' . $button_classes . '"';
                 $output .= ' data-depth="' . $depth . '"';
@@ -103,6 +108,10 @@ if( ! class_exists( 'KPT_Main_Nav_Walker' ) ) {
                 $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
             }
 
+        }
+
+        function end_el(&$output, $item, $depth = 0, $args = null) {
+            $output .= "</li>\n";
         }
 
     }

@@ -129,4 +129,21 @@ button .ph {
         opacity: 0.5;
     }
 
+    /* Nested dropdown button styling */
+    .submenu .dropdown-toggle {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.875rem;
+    }
+
+    .submenu .dropdown-toggle span {
+        font-size: 0.875rem;
+    }
+
+    /* Hide top header on mobile/tablet */
+    @media (max-width: 1023px) {
+        #top-header {
+            display: none;
+        }
+    }
+
 }

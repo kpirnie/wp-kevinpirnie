@@ -68,7 +68,7 @@
                     'container' => false,
                     'menu_class' => 'flex space-x-6 items-center',
                     'fallback_cb' => false,
-                    'depth' => 2,
+                    'depth' => 5,
                     'walker' => new KPT_Main_Nav_Walker(),
                 ));
                 ?>
