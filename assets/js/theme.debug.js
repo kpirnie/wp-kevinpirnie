@@ -109,50 +109,37 @@ document.addEventListener('DOMContentLoaded', function () {
     // ========================================
     // Desktop dropdown menu toggles
     // ========================================
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function (e) {
+    document.addEventListener('click', function(e) {
+        const toggle = e.target.closest('.dropdown-toggle');
+        
+        if (toggle) {
             e.preventDefault();
             e.stopPropagation();
-
-            const parentLi = this.closest('li');
-            const submenu = parentLi.querySelector('.submenu');
-            const arrow = this.querySelector('svg');
-            const isOpen = submenu && !submenu.classList.contains('hidden');
-
-            // Close all other dropdowns
-            document.querySelectorAll('.submenu').forEach(menu => {
-                if (menu !== submenu) {
-                    menu.classList.add('hidden');
-                }
-            });
-
-            document.querySelectorAll('.dropdown-toggle svg').forEach(otherArrow => {
-                if (otherArrow !== arrow) {
-                    otherArrow.classList.remove('rotate-180');
-                }
-            });
-
-            document.querySelectorAll('.dropdown-toggle').forEach(otherToggle => {
-                if (otherToggle !== toggle) {
-                    otherToggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-
-            // Toggle current dropdown
+            
+            const parentLi = toggle.closest('li.has-dropdown');
+            const submenu = parentLi.querySelector(':scope > .submenu');
+            const arrow = toggle.querySelector('.fa-solid');
+            
             if (submenu) {
+                const isOpen = !submenu.classList.contains('hidden');
+                
                 if (isOpen) {
                     submenu.classList.add('hidden');
                     arrow.classList.remove('rotate-180');
-                    this.setAttribute('aria-expanded', 'false');
                 } else {
                     submenu.classList.remove('hidden');
                     arrow.classList.add('rotate-180');
-                    this.setAttribute('aria-expanded', 'true');
                 }
             }
-        });
+        } else if (!e.target.closest('.submenu')) {
+            // Close all dropdowns if clicking outside
+            document.querySelectorAll('.submenu').forEach(menu => {
+                menu.classList.add('hidden');
+            });
+            document.querySelectorAll('.dropdown-toggle .fa-solid').forEach(arrow => {
+                arrow.classList.remove('rotate-180');
+            });
+        }
     });
 
     // Close dropdowns when clicking outside
@@ -161,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.submenu').forEach(menu => {
                 menu.classList.add('hidden');
             });
-            document.querySelectorAll('.dropdown-toggle svg').forEach(arrow => {
+            document.querySelectorAll('.dropdown-toggle .fa-chevron-down, .dropdown-toggle .fa-chevron-right').forEach(arrow => {
                 arrow.classList.remove('rotate-180');
             });
             document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
@@ -169,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
-
+    
     // ========================================
     // Search toggle - Desktop
     // ========================================

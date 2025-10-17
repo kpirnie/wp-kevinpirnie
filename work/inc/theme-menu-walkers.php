@@ -19,10 +19,14 @@ if( ! class_exists( 'KPT_Main_Nav_Walker' ) ) {
     // Custom Walker for Desktop Hierarchical Menu (Click-based)
     class KPT_Main_Nav_Walker extends Walker_Nav_Menu {
 
-
         function start_lvl(&$output, $depth = 0, $args = null) {
             $indent = str_repeat("\t", $depth);
-            $output .= "\n$indent<ul class=\"submenu absolute left-0 top-full mt-2 bg-gray-800 rounded-lg shadow-lg py-2 min-w-[200px] hidden z-50\">\n";
+            // For nested submenus (depth > 0), position them to the right
+            if ($depth === 0) {
+                $output .= "\n$indent<ul class=\"submenu submenu-depth-0 absolute left-0 top-full mt-2 bg-gray-800 rounded-lg shadow-lg py-2 min-w-[200px] hidden z-50\">\n";
+            } else {
+                $output .= "\n$indent<ul class=\"submenu submenu-depth-{$depth} absolute left-full top-0 ml-1 bg-gray-800 rounded-lg shadow-lg py-2 min-w-[200px] hidden z-50\">\n";
+            }
         }
         
 
@@ -37,21 +41,31 @@ if( ! class_exists( 'KPT_Main_Nav_Walker' ) ) {
             $classes = empty($item->classes) ? array() : (array) $item->classes;
             $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args, $depth));
             
-            // Add class to parent items
+            // Add class to parent items at any depth
             $has_children = in_array('menu-item-has-children', $classes);
-            if ($has_children && $depth == 0) {
-                $class_names .= ' has-dropdown relative';
+            if ($has_children) {
+                $class_names .= ' has-dropdown relative group';
             }
             
             $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
             
             $output .= $indent . '<li' . $class_names . '>';
             
-            // For parent items, create a clickable toggle
-            if ($has_children && $depth == 0) {
-                $output .= '<button class="dropdown-toggle hover:text-[#599bb8] transition-colors flex items-center gap-1" aria-expanded="false" aria-label="Toggle ' . esc_attr($item->title) . ' menu">';
-                $output .= '<span>' . esc_html($item->title) . '</span>';
-                $output .= '<svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
+            // For parent items at ANY depth, create a clickable toggle
+            if ($has_children) {
+                $button_classes = 'dropdown-toggle hover:bg-gray-700 transition-colors flex items-center justify-between w-full text-left px-4 py-2';
+                
+                $output .= '<button class="' . $button_classes . '"';
+                $output .= ' data-depth="' . $depth . '"';
+                $output .= ' aria-expanded="false" aria-label="Toggle ' . esc_attr($item->title) . ' menu">';
+                $output .= '<span class="whitespace-nowrap text-gray-100 hover:text-[#599bb8]">' . esc_html($item->title) . '</span>';
+                
+                // Use right arrow for all nested menus
+                if ($depth > 0) {
+                    $output .= '<span class="fa-solid fa-chevron-right ml-auto text-xs transition-transform text-gray-400"></span>';
+                } else {
+                    $output .= '<span class="fa-solid fa-chevron-down ml-auto text-xs transition-transform text-gray-400"></span>';
+                }
                 $output .= '</button>';
             } else {
                 // Regular link for items without children
@@ -62,9 +76,9 @@ if( ! class_exists( 'KPT_Main_Nav_Walker' ) ) {
                 $atts['href'] = !empty($item->url) ? $item->url : '';
                 
                 if ($depth == 0) {
-                    $atts['class'] = 'hover:text-[#599bb8] transition-colors flex items-center gap-1';
+                    $atts['class'] = 'hover:text-[#599bb8] transition-colors flex items-center gap-1 text-gray-100';
                 } else {
-                    $atts['class'] = 'block px-4 py-2 hover:bg-gray-700 transition-colors text-sm whitespace-nowrap';
+                    $atts['class'] = 'block px-4 py-2 hover:bg-gray-700 transition-colors text-sm whitespace-nowrap w-full text-left text-gray-100 hover:text-[#599bb8]';
                 }
                 
                 $atts = apply_filters('nav_menu_link_attributes', $atts, $item, $args, $depth);
@@ -98,12 +112,13 @@ if( ! class_exists( 'KPT_Main_Nav_Walker' ) ) {
 
 if( ! class_exists( 'KPT_Mobile_Nav_Walker' ) ) {
 
-
     // Custom Walker for Mobile Hierarchical Menu
     class KPT_Mobile_Nav_Walker extends Walker_Nav_Menu {
         function start_lvl(&$output, $depth = 0, $args = null) {
             $indent = str_repeat("\t", $depth);
-            $output .= "\n$indent<ul class=\"submenu-mobile ml-4 mt-2 space-y-2 hidden\">\n";
+            // Add more indentation for deeper levels
+            $ml_class = 'ml-' . (4 * ($depth + 1));
+            $output .= "\n$indent<ul class=\"submenu-mobile {$ml_class} mt-2 space-y-2 hidden\">\n";
         }
         
 
@@ -128,7 +143,7 @@ if( ! class_exists( 'KPT_Mobile_Nav_Walker' ) ) {
             $output .= $indent . '<li' . $class_names . '>';
             
             // Create container for parent items with children
-            if ($has_children && $depth == 0) {
+            if ($has_children) {
                 $output .= '<div class="flex items-center justify-between w-full">';
             }
             
@@ -139,7 +154,7 @@ if( ! class_exists( 'KPT_Mobile_Nav_Walker' ) ) {
             $atts['rel'] = !empty($item->xfn) ? $item->xfn : '';
             $atts['href'] = !empty($item->url) ? $item->url : '';
             
-            if ($has_children && $depth == 0) {
+            if ($has_children) {
                 $atts['class'] = 'flex-1 block py-2 hover:text-[#599bb8] transition-colors';
             } else {
                 $atts['class'] = 'block py-2 hover:text-[#599bb8] transition-colors w-full';
@@ -167,9 +182,9 @@ if( ! class_exists( 'KPT_Mobile_Nav_Walker' ) ) {
             $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
             
             // Add toggle button for parent items
-            if ($has_children && $depth == 0) {
+            if ($has_children) {
                 $output .= '<button class="submenu-toggle p-2 hover:text-[#599bb8] transition-colors flex-shrink-0" aria-label="Toggle submenu for ' . esc_attr($title) . '" type="button">';
-                $output .= '<svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
+                $output .= '<span class="fa-solid fa-chevron-down transform transition-transform"></span>';
                 $output .= '</button>';
                 $output .= '</div>';
             }
