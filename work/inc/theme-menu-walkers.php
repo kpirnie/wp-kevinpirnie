@@ -206,10 +206,9 @@ if( ! class_exists( 'KPT_Top_Header_Nav_Walker' ) ) {
             // Extract icon name, removing the 'icon-' prefix
             $icon = !empty($explicit_icon_classes) 
                 ? str_replace('icon-', '', reset($explicit_icon_classes)) 
-                : 'link'; // Fallback to generic link icon
+                : 'link';
 
-            // Determine icon style from classes (fa-solid, fa-brands, fa-regular)
-            // Default to solid if not specified
+            // Determine icon style from classes
             $icon_style = 'fa-regular';
             if (in_array('fa-brands', $classes)) {
                 $icon_style = 'fa-brands';
@@ -218,9 +217,8 @@ if( ! class_exists( 'KPT_Top_Header_Nav_Walker' ) ) {
             }
 
             // Build icon classes
-            $icon_class = 'inline-block w-4 h-4 ' . ($symbol_position === 'left' ? 'mr-1' : 'ml-1');
+            $icon_class = 'inline-block w-4 h-4';
 
-            // Render the icon using span instead of i for better semantics
             return [
                 'icon' => sprintf(
                     '<span class="%s fa-%s %s" aria-hidden="true"></span>', 
@@ -234,25 +232,37 @@ if( ! class_exists( 'KPT_Top_Header_Nav_Walker' ) ) {
         }
 
         function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+
             $indent = ($depth) ? str_repeat("\t", $depth) : '';
+           
             $classes = empty($item->classes) ? array() : (array) $item->classes;
+
+            // Remove icon-related classes from li
+            $classes = array_filter($classes, function($class) {
+                return strpos($class, 'icon-') !== 0 
+                    && strpos($class, 'fa-') !== 0 
+                    && $class !== 'symbol-only' 
+                    && $class !== 'symbol-left' 
+                    && $class !== 'symbol-right';
+            });
+
             $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args, $depth));
-            
+
             $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
-            
+
             $output .= $indent . '<li' . $class_names . '>';
             
             // Create link attributes
             $atts = array();
             $atts['title'] = !empty($item->attr_title) ? $item->attr_title : '';
-            $atts['target'] = !empty($item->target) ? $item->target : '_blank';
-            $atts['rel'] = !empty($item->xfn) ? $item->xfn : 'noopener noreferrer';
+            $atts['target'] = !empty($item->target) ? $item->target : '';
+            $atts['rel'] = !empty($item->xfn) ? $item->xfn : '';
             $atts['href'] = !empty($item->url) ? $item->url : '';
             
             // Add icon and styling
             $menu_icon_data = $this->get_menu_icon($item);
             
-            $atts['class'] = 'hover:text-[#fd6a4f] transition-colors flex items-center gap-1';
+            $atts['class'] = 'hover:text-[#fd6a4f] transition-colors inline-flex items-center gap-1';
             
             $atts = apply_filters('nav_menu_link_attributes', $atts, $item, $args, $depth);
             
@@ -275,20 +285,21 @@ if( ! class_exists( 'KPT_Top_Header_Nav_Walker' ) ) {
             
             // Determine rendering based on symbol behavior
             if ($menu_icon_data['is_symbol_only']) {
-                // Symbol only mode
                 $item_output .= $menu_icon_data['icon'];
             } elseif ($menu_icon_data['symbol_position'] === 'left') {
-                // Symbol on the left
                 $item_output .= $menu_icon_data['icon'] . $args->link_before . $title . $args->link_after;
             } else {
-                // Symbol on the right (default)
-                $item_output .= $args->link_before . $title . $menu_icon_data['icon'] . $args->link_after;
+                $item_output .= $args->link_before . $title . $args->link_after . $menu_icon_data['icon'];
             }
             
             $item_output .= '</a>';
             $item_output .= $args->after;
             
             $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+        }
+
+        function end_el(&$output, $item, $depth = 0, $args = null) {
+            $output .= "</li>\n";
         }
         
     }

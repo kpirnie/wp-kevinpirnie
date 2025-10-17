@@ -27,33 +27,3 @@ add_action( 'after_setup_theme', function( ) {
     }
 
 }, 999 );
-
-function kp_widgets_init() {
-    register_sidebar(array(
-        'name' => __('Footer Column 1', 'kpt'),
-        'id' => 'footer-1',
-        'before_widget' => '<div id="%1$s" class="widget %2$s mb-6">',
-        'after_widget' => '</div>',
-        'before_title' => '<h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">',
-        'after_title' => '</h3>',
-    ));
-    
-    register_sidebar(array(
-        'name' => __('Footer Column 2', 'kpt'),
-        'id' => 'footer-2',
-        'before_widget' => '<div id="%1$s" class="widget %2$s mb-6">',
-        'after_widget' => '</div>',
-        'before_title' => '<h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">',
-        'after_title' => '</h3>',
-    ));
-    
-    register_sidebar(array(
-        'name' => __('Footer Column 3', 'kpt'),
-        'id' => 'footer-3',
-        'before_widget' => '<div id="%1$s" class="widget %2$s mb-6">',
-        'after_widget' => '</div>',
-        'before_title' => '<h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">',
-        'after_title' => '</h3>',
-    ));
-}
-add_action('widgets_init', 'kp_widgets_init');

@@ -144,6 +144,19 @@ if( ! class_exists( 'KPT_Settings' ) ) {
 
         }
 
+
+        private function page_settings( ) : array {
+
+            // hold the return
+            $ret = array( );
+
+            
+
+            // return it
+            return $ret;
+
+        }
+
     }
 
 }

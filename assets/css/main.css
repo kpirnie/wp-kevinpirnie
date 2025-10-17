@@ -110,4 +110,23 @@ button .ph {
     .bg-kp-gradient {
         background: linear-gradient(to right, #599bb8, #2d7696);
     }
+
+    /* Vertical separator for menu items */
+    .menu-separator {
+        position: relative;
+        padding-left: 1rem !important;
+    }
+
+    .menu-separator::before {
+        content: '';
+        position: absolute;
+        left: -0.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 1.25rem;
+        width: 2px;
+        background-color: currentColor;
+        opacity: 0.5;
+    }
+
 }

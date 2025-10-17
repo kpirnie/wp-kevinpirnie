@@ -46,7 +46,7 @@ if( ! class_exists( 'KPT_BreadCrumbs' ) ) {
         public static function get_base_breadcrumbs( ) : string {
 
             // if we're on the home page we don't need this
-            if( is_front_page( ) ) {
+            if ( ! in_array( true, array( is_home(), is_archive(), is_single(), is_search() ) ) ) {
 
                 // just return
                 return '';

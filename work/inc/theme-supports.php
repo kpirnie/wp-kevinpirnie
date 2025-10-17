@@ -52,7 +52,7 @@ if( ! class_exists( 'KPT_Supports' ) ) {
                 'primary' => __( 'Primary Menu', 'kpt' ),
                 'top' => __( 'Top Header Menu', 'kpt' ),
                 'social' => __( 'Social Menu', 'kpt' ),
-                'bottom' => __( 'Footer Bottem Menu', 'kpt' ),
+                'bottom' => __( 'Footer Bottom Menu', 'kpt' ),
             ) );
 
             // modify our excerpt length

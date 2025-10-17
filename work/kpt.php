@@ -66,6 +66,8 @@ if( ! class_exists( 'KPT' ) ) {
                 array( 'class' => 'KPT_Supports', 'method' => 'the_theme_supports' ),
                 array( 'class' => 'KPT_Performance', 'method' => 'manage_performance' ),
                 array( 'class' => 'KPT_Settings', 'method' => 'add_settings' ),
+                array( 'class' => 'KPT_Widgets', 'method' => 'add_sidebars' ),
+                array( 'class' => 'KPT_CPTs', 'method' => 'add_cpts' ),
                 //[ 'class' => '', 'method' => ''],
             );
 

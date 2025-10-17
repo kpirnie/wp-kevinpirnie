@@ -276,4 +276,75 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
+
+    // ========================================
+    // Hero Slider
+    // ========================================
+    const slideshow = document.querySelector('.kpt-hero-slideshow');
+
+    if (!slideshow) return;
+
+    const slides = slideshow.querySelectorAll('.kpt-hero-slide');
+    const prevBtn = slideshow.querySelector('.kpt-hero-prev');
+    const nextBtn = slideshow.querySelector('.kpt-hero-next');
+    const dotsContainer = slideshow.querySelector('.kpt-hero-dots');
+
+    let currentSlide = 0;
+    let autoplayInterval;
+
+    // Create dots
+    slides.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.classList.add('kpt-hero-dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll('.kpt-hero-dot');
+
+    function goToSlide(n) {
+        slides[currentSlide].classList.remove('active');
+        dots[currentSlide].classList.remove('active');
+
+        currentSlide = (n + slides.length) % slides.length;
+
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+        goToSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+        goToSlide(currentSlide - 1);
+    }
+
+    // Event listeners
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // Autoplay
+    function startAutoplay() {
+        autoplayInterval = setInterval(nextSlide, 7000); // Change slide every 5 seconds
+    }
+
+    function stopAutoplay() {
+        clearInterval(autoplayInterval);
+    }
+
+    // Pause autoplay on hover
+    slideshow.addEventListener('mouseenter', stopAutoplay);
+    slideshow.addEventListener('mouseleave', startAutoplay);
+
+    // Start autoplay
+    startAutoplay();
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') prevSlide();
+        if (e.key === 'ArrowRight') nextSlide();
+    });
+
 });
