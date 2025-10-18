@@ -833,6 +833,10 @@ body {
   margin-right: 0.5rem;
 }
 
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 .mt-12 {
   margin-top: 3rem;
 }
@@ -18298,4 +18302,199 @@ button .fa-thin {
 
 .kpt-hero-dot.active {
   background: white;
+}
+
+nav[aria-label="Breadcrumb"] ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav[aria-label="Breadcrumb"] ol li {
+  display: inline;
+}
+
+nav[aria-label="Breadcrumb"] ol li:not(:last-child)::after {
+  content: " » ";
+  margin: 0 0.5em;
+}
+
+/* Logos */
+#kp-logo .gray {
+  fill: #2d7696 !important;
+}
+
+#kp-logo .darkish-blue {
+  fill: #599bb8 !important;
+}
+
+#kp-logo .dark-blue {
+  fill: #43819c !important;
+}
+
+#kp-logo .darkest-blue {
+  fill: #2d7696 !important;
+}
+
+#kp-logo .blue {
+  fill: #ccc !important;
+}
+
+#kp-logo-name-first path,
+#kp-logo-name-last path {
+  stroke: #000d2d !important;
+  stroke-width: 2px !important;
+}
+
+#kp-logo-name-first path:last-child,
+#kp-logo-name-last path:last-child {
+  stroke: #000d2d !important;
+  stroke-width: 1px !important;
+}
+
+/* Avatar / Autho Bio */
+.kp-avatar #kp-favicon .light-blue {
+  fill: #599bb8 !important;
+}
+
+.kp-avatar #kp-favicon .lightish-blue {
+  fill: #43819c !important;
+}
+
+.kp-avatar #kp-favicon .orange {
+  fill: #fd6a4f !important;
+}
+
+.kp-avatar #kp-favicon .gray {
+  fill: #2d7696 !important;
+}
+
+.kp-avatar #kp-favicon .darkish-blue {
+  fill: #599bb8 !important;
+}
+
+.kp-avatar #kp-favicon .dark-blue {
+  fill: #43819c !important;
+}
+
+.kp-avatar #kp-favicon .darkest-blue {
+  fill: #2d7696 !important;
+}
+
+.kp-avatar #kp-favicon .blue {
+  fill: #ccc !important;
+}
+
+.kp-avatar #kp-favicon-initials path:nth-child(-n + 2) {
+  stroke: #000d2d !important;
+  stroke-width: 2px !important;
+}
+
+.kp-avatar #kp-favicon-initials path:last-child {
+  stroke: #000d2d !important;
+  stroke-width: 1px !important;
+}
+
+/* footer logo */
+#kp-footer-logo .light-blue {
+  fill: #599bb8 !important;
+}
+
+#kp-footer-logo .lightish-blue {
+  fill: #43819c !important;
+}
+
+#kp-footer-logo .orange {
+  fill: #fd6a4f !important;
+}
+
+#kp-footer-logo .gray {
+  fill: #2d7696 !important;
+}
+
+#kp-footer-logo .darkish-blue {
+  fill: #599bb8 !important;
+}
+
+#kp-footer-logo .dark-blue {
+  fill: #43819c !important;
+}
+
+#kp-footer-logo .darkest-blue {
+  fill: #2d7696 !important;
+}
+
+#kp-footer-logo .blue {
+  fill: #ccc !important;
+}
+
+#kp-footer-logo-initials path:nth-child(-n + 2) {
+  stroke: #000d2d !important;
+  stroke-width: 2px !important;
+}
+
+#kp-footer-logo-initials path:last-child {
+  stroke: #000d2d !important;
+  stroke-width: 1px !important;
+}
+
+/* primary logo*/
+#kp-logo .light-blue {
+  fill: #599bb8 !important;
+}
+
+#kp-logo .lightish-blue {
+  fill: #43819c !important;
+}
+
+#kp-logo .blue {
+  fill: #2d7696 !important;
+}
+
+#kp-logo .darkish-blue {
+  fill: #1c375c !important;
+}
+
+#kp-logo .dark-blue {
+  fill: #01123c !important;
+}
+
+#kp-logo .darkest-blue {
+  fill: #000d2d !important;
+}
+
+#kp-logo .orange {
+  fill: #fd6a4f !important;
+}
+
+#kp-logo .gray {
+  fill: #ccc !important;
+}
+
+#kp-logo-name-first path,
+#kp-logo-name-last path {
+  stroke: #f8f8f8 !important;
+  stroke-width: 2px !important;
+}
+
+#kp-logo-name-first path:last-child,
+#kp-logo-name-last path:last-child {
+  stroke: #f8f8f8 !important;
+  stroke-width: 1px !important;
+}
+
+/* Autho BIO */
+.kp-avatar #kp-favicon-initials path:nth-child(-n + 2) {
+  stroke: #f8f8f8 !important;
+  stroke-width: 2px !important;
+}
+
+.kp-avatar #kp-favicon-initials path:last-child {
+  stroke: #f8f8f8 !important;
+  stroke-width: 1px !important;
+}
+
+.header-logo {
+  max-height: 70px !important;
+  max-width: 300px !important;
 }

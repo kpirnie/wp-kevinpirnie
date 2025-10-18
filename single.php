@@ -1,5 +1,7 @@
 <?php get_header(); ?>
 
+<section <?php post_class( 'w-full pt-6 px-4 sm:px-8 md:px-16' ); ?>>
+
     <?php echo KPT_BreadCrumbs::get_base_breadcrumbs(); ?>
     
     <?php while (have_posts()): the_post(); ?>
@@ -162,5 +164,7 @@
             </aside>
         </div>
     <?php endwhile; ?>
+
+</section>
 
 <?php get_footer(); ?>

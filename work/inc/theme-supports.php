@@ -87,6 +87,19 @@ if( ! class_exists( 'KPT_Supports' ) ) {
             add_theme_support( 'appearance-tools' );
             add_theme_support( 'border' );
 
+            // allow SVG's to be uploaded
+            add_filter( 'upload_mimes', function( $mimes ) {
+                $mimes['svg'] = 'image/svg+xml';
+                $mimes['svgz'] = 'image/svg+xml';
+                return $mimes;
+            } );
+
+            // add in more image sizes to select from
+            add_image_size( 'hero', 1920, 350, array( 'center', 'center' ) );
+            add_image_size( 'articlehead', 963, 385, array( 'center', 'center' ) );
+            add_image_size( 'articlelist', 520, 193, array( 'center', 'center' ) );
+            add_image_size( 'innerpage', 482, 397, array( 'center', 'center' ) );
+
         }
 
         /** 

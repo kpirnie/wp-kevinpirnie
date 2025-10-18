@@ -49,15 +49,14 @@
 <header id="main-header" class="sticky top-0 z-50 bg-gray-900/95 backdrop-blur-sm shadow-md shadow-gray-950 transition-all duration-300">
     <div class="w-full px-4 sm:px-8 md:px-16">
         <div class="flex justify-between items-center py-4">
+
             <div class="flex items-center">
-                <a href="<?php echo home_url('/'); ?>" class="flex items-center space-x-3">
-                    <?php if (has_custom_logo()): ?>
-                        <?php the_custom_logo(); ?>
-                    <?php else: ?>
-                        <span class="text-2xl font-bold kp-gradient-text">
-                            <?php bloginfo('name'); ?>
-                        </span>
-                    <?php endif; ?>
+                <a href="<?php echo home_url('/'); ?>" class="flex items-center space-x-3 header-logo">
+                    <?php
+
+                        // get the SVG content for my logo
+                        echo file_get_contents( ABSPATH . '/wp-content/uploads/2025/10/kevinpirnie-logo-color.svg' );
+                    ?>
                 </a>
             </div>
             

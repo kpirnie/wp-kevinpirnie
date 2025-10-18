@@ -124,10 +124,21 @@ if( ! class_exists( 'KPT_Settings' ) ) {
 
             } );
 
+            // add in the page settings
+            $this -> page_settings( $settings_id );
+
+            // add in the image settings
+            $this -> image_settings( $settings_id );
+
+        }
+
+
+        private function image_settings( string $settings_id ) : void {
+
             // Standard Security Headers
             KPT_FW::createSection( $settings_id, 
                 array(
-                    'title'  => __( 'Contact Settings', 'kpt' ),
+                    'title'  => __( 'Image Settings', 'kpt' ),
                     'fields' => array(
                         // apply to admin
                         array(
@@ -142,18 +153,40 @@ if( ! class_exists( 'KPT_Settings' ) ) {
                 )
             );
 
+
         }
 
+        /** 
+         * page_settings
+         * 
+         * Add the theme's page settings
+         * 
+         * @since 8.4
+         * @access public
+         * @author Kevin Pirnie <me@kpirnie.com>
+         * @package Kevin Pirnie's Theme
+         * 
+        */
+        private function page_settings( string $settings_id ) : void {
 
-        private function page_settings( ) : array {
+            // Standard Security Headers
+            KPT_FW::createSection( $settings_id, 
+                array(
+                    'title'  => __( 'Page Settings', 'kpt' ),
+                    'fields' => array(
+                        // apply to admin
+                        array(
+                            'id' => 'apply_to_admin',
+                            'type' => 'switcher',
+                            'title' => __( 'Apply to Admin?', 'kpt' ),
+                            'desc' => __( 'This will attempt to apply all headers to the admin side of your site in addition to the front-end.', 'kpt' ),
+                            'default' => false,
+                        ),
+                    ),
+                    'description' => __( '', 'kpt' ),
+                )
+            );
 
-            // hold the return
-            $ret = array( );
-
-            
-
-            // return it
-            return $ret;
 
         }
 

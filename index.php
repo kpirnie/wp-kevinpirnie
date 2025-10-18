@@ -1,7 +1,6 @@
 <?php get_header(); ?>
 
-<?php get_header(); ?>
-
+<section <?php post_class( 'w-full pt-6 px-4 sm:px-8 md:px-16' ); ?>>
 
     <?php echo KPT_BreadCrumbs::get_base_breadcrumbs(); ?>
     
@@ -96,5 +95,7 @@
             <p class="text-xl text-gray-600 dark:text-gray-400">No posts found.</p>
         </div>
     <?php endif; ?>
+
+</section>
 
 <?php get_footer(); ?>

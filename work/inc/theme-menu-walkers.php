@@ -67,9 +67,9 @@ if( ! class_exists( 'KPT_Main_Nav_Walker' ) ) {
                 
                 // Use right arrow for all nested menus
                 if ($depth > 0) {
-                    $output .= '<span class="fa-solid fa-chevron-right ml-auto text-xs transition-transform text-gray-400"></span>';
+                    $output .= '<span class="fa-solid fa-chevron-right ml-auto ml-2 mt-1 text-xs transition-transform text-gray-400"></span>';
                 } else {
-                    $output .= '<span class="fa-solid fa-chevron-down ml-auto text-xs transition-transform text-gray-400"></span>';
+                    $output .= '<span class="fa-solid fa-chevron-down ml-auto ml-2 text-xs transition-transform text-gray-400"></span>';
                 }
                 $output .= '</button>';
             } else {
