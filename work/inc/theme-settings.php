@@ -124,42 +124,16 @@ if( ! class_exists( 'KPT_Settings' ) ) {
 
             } );
 
-            // add in the page settings
-            $this -> page_settings( $settings_id );
-
-            // add in the image settings
-            $this -> image_settings( $settings_id );
-
-        }
-
-
-        private function image_settings( string $settings_id ) : void {
-
-            // Standard Security Headers
-            KPT_FW::createSection( $settings_id, 
-                array(
-                    'title'  => __( 'Image Settings', 'kpt' ),
-                    'fields' => array(
-                        // apply to admin
-                        array(
-                            'id' => 'apply_to_admin',
-                            'type' => 'switcher',
-                            'title' => __( 'Apply to Admin?', 'kpt' ),
-                            'desc' => __( 'This will attempt to apply all headers to the admin side of your site in addition to the front-end.', 'kpt' ),
-                            'default' => false,
-                        ),
-                    ),
-                    'description' => __( '', 'kpt' ),
-                )
-            );
+            // add in the heroes settings
+            $this -> heroes_settings( );
 
 
         }
 
         /** 
-         * page_settings
+         * heroes_settings
          * 
-         * Add the theme's page settings
+         * Add the theme's hero settings settings
          * 
          * @since 8.4
          * @access public
@@ -167,26 +141,65 @@ if( ! class_exists( 'KPT_Settings' ) ) {
          * @package Kevin Pirnie's Theme
          * 
         */
-        private function page_settings( string $settings_id ) : void {
+        private function heroes_settings( ) : void {
 
-            // Standard Security Headers
-            KPT_FW::createSection( $settings_id, 
-                array(
-                    'title'  => __( 'Page Settings', 'kpt' ),
-                    'fields' => array(
-                        // apply to admin
-                        array(
-                            'id' => 'apply_to_admin',
-                            'type' => 'switcher',
-                            'title' => __( 'Apply to Admin?', 'kpt' ),
-                            'desc' => __( 'This will attempt to apply all headers to the admin side of your site in addition to the front-end.', 'kpt' ),
-                            'default' => false,
-                        ),
+            // page settings key
+            $_settings_key = 'kpt_hero_settings';
+
+            // create the metabox
+            KPT_FW::createMetabox( $_settings_key, array(
+                'title'        => 'Hero Options',
+                'post_type'    => 'page',
+                'show_restore' => true,
+                'context'      => 'advanced',
+            ) );
+
+            KPT_FW::createSection( $_settings_key, array(
+                'fields' => array( 
+                    // page selection to assign the hero to.
+                    array(
+                        'id'          => 'page_assignment',
+                        'type'        => 'checkbox',
+                        'title'       => 'Select Heroes',
+                        'subdesc'     => 'Select the heroes you want to assign here',
+                        'options'     => $this -> get_heroes( ),
                     ),
-                    'description' => __( '', 'kpt' ),
-                )
+
+                ) ) );
+
+        }
+
+
+        private function get_heroes( ) : array {
+
+            // the return
+            $ret = [];
+
+            // setup the args for the hero CPT
+            $args = array(
+                'post_type'      => 'kpt_hero', 
+                'posts_per_page' => -1,
+                'post_status'    => 'publish',
+                'fields'         => 'ids',
             );
 
+            // now get the heroes
+            $heroes = get_posts( $args );
+
+            // if there aren't ay heroes
+            if( ! $heroes ) {
+                return $ret;
+            }
+
+            // loop over them
+            foreach( $heroes as $hero ) {
+
+                $ret[$hero] = get_the_title( $hero );
+
+            }
+
+            // return it
+            return $ret;
 
         }
 

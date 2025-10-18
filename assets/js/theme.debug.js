@@ -241,10 +241,42 @@ document.addEventListener('DOMContentLoaded', function () {
         toggle.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            const submenu = this.closest('li').querySelector('.submenu-mobile');
+
+            const parentLi = this.closest('li');
+            const submenu = parentLi.querySelector(':scope > .submenu-mobile');
             const arrow = this.querySelector('svg');
 
             if (submenu) {
+                const isOpen = !submenu.classList.contains('hidden');
+
+                // Get all ancestor submenus (parent chain)
+                const ancestors = [];
+                let current = parentLi.parentElement;
+                while (current) {
+                    if (current.classList && current.classList.contains('submenu-mobile')) {
+                        ancestors.push(current);
+                    }
+                    current = current.parentElement;
+                }
+
+                // Close ALL mobile dropdowns except ancestors and the current one
+                document.querySelectorAll('.submenu-mobile').forEach(menu => {
+                    if (menu !== submenu && !ancestors.includes(menu)) {
+                        menu.classList.add('hidden');
+                    }
+                });
+
+                // Reset ALL arrows except those in ancestor chain
+                document.querySelectorAll('.submenu-toggle svg').forEach(otherArrow => {
+                    const otherParentLi = otherArrow.closest('li');
+                    const otherSubmenu = otherParentLi?.querySelector(':scope > .submenu-mobile');
+
+                    if (otherArrow !== arrow && !ancestors.includes(otherSubmenu)) {
+                        otherArrow.classList.remove('rotate-180');
+                    }
+                });
+
+                // Toggle current submenu
                 submenu.classList.toggle('hidden');
                 arrow.classList.toggle('rotate-180');
             }
@@ -256,10 +288,42 @@ document.addEventListener('DOMContentLoaded', function () {
     mobileParentLinks.forEach(link => {
         link.addEventListener('click', function (e) {
             e.preventDefault();
-            const submenu = this.closest('li').querySelector('.submenu-mobile');
+
+            const parentLi = this.closest('li');
+            const submenu = parentLi.querySelector(':scope > .submenu-mobile');
             const arrow = this.closest('div').querySelector('.submenu-toggle svg');
 
             if (submenu) {
+                const isOpen = !submenu.classList.contains('hidden');
+
+                // Get all ancestor submenus (parent chain)
+                const ancestors = [];
+                let current = parentLi.parentElement;
+                while (current) {
+                    if (current.classList && current.classList.contains('submenu-mobile')) {
+                        ancestors.push(current);
+                    }
+                    current = current.parentElement;
+                }
+
+                // Close ALL mobile dropdowns except ancestors and the current one
+                document.querySelectorAll('.submenu-mobile').forEach(menu => {
+                    if (menu !== submenu && !ancestors.includes(menu)) {
+                        menu.classList.add('hidden');
+                    }
+                });
+
+                // Reset ALL arrows except those in ancestor chain
+                document.querySelectorAll('.submenu-toggle svg').forEach(otherArrow => {
+                    const otherParentLi = otherArrow.closest('li');
+                    const otherSubmenu = otherParentLi?.querySelector(':scope > .submenu-mobile');
+
+                    if (otherArrow !== arrow && !ancestors.includes(otherSubmenu)) {
+                        otherArrow.classList.remove('rotate-180');
+                    }
+                });
+
+                // Toggle current submenu
                 submenu.classList.toggle('hidden');
                 if (arrow) {
                     arrow.classList.toggle('rotate-180');

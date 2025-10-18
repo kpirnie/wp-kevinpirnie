@@ -53,6 +53,15 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
 
             } );
 
+            // hook into admin init
+            add_action( 'admin_init', function( ) {
+
+                // add the columns
+                $this -> add_admin_columns( );
+                $this -> admin_column_css( );
+
+            } );
+
         }
 
         /** 
@@ -110,14 +119,14 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
             // register the call to action CPT
             register_post_type( 'kpt_hero', array(
                 'labels' => array(
-                    'name'               => 'Page Heros',
+                    'name'               => 'Page Heroes',
                     'singular_name'      => 'Hero',
                     'add_new'            => 'Add New',
                     'add_new_item'       => 'Add New Hero',
                     'edit_item'          => 'Edit Hero',
                     'new_item'           => 'New Hero',
-                    'all_items'          => 'All Heros',
-                    'menu_name'          => 'Page Heros',
+                    'all_items'          => 'All Heroes',
+                    'menu_name'          => 'Page Heroes',
                 ),
                 'public'              => false,
                 'show_ui'             => true,
@@ -132,6 +141,84 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                 'show_in_rest'        => true,
             ) );
             
+        }
+
+        /** 
+         * add_admin_columns
+         * 
+         * Add thumbnail columns to admin list pages
+         * 
+         * @since 8.4
+         * @access private
+         * @author Kevin Pirnie <me@kpirnie.com>
+         * @package Kevin Pirnie's Theme
+         * 
+        */
+        private function add_admin_columns( ) : void {
+
+            // Heroes
+            add_filter( 'manage_kpt_hero_posts_columns', function( $columns ) {
+                $new = array();
+                foreach ( $columns as $key => $value ) {
+                    $new[$key] = $value;
+                    if ( $key === 'cb' ) {
+                        $new['thumbnail'] = __( 'Image', 'kpt' );
+                    }
+                }
+                return $new;
+            } );
+
+            add_action( 'manage_kpt_hero_posts_custom_column', function( $column, $post_id ) {
+                if ( $column === 'thumbnail' ) {
+                    echo get_the_post_thumbnail( $post_id, array( 125, 125 ) );
+                }
+            }, 10, 2 );
+
+            // CTAs
+            add_filter( 'manage_kpt_cta_posts_columns', function( $columns ) {
+                $new = array();
+                foreach ( $columns as $key => $value ) {
+                    $new[$key] = $value;
+                    if ( $key === 'cb' ) {
+                        $new['thumbnail'] = __( 'Image', 'kpt' );
+                    }
+                }
+                return $new;
+            } );
+
+            add_action( 'manage_kpt_cta_posts_custom_column', function( $column, $post_id ) {
+                if ( $column === 'thumbnail' ) {
+                    echo get_the_post_thumbnail( $post_id, array( 125, 125 ) );
+                }
+            }, 10, 2 );
+
+        }
+
+        /** 
+         * admin_column_css
+         * 
+         * Add CSS to style the thumbnail column width
+         * 
+         * @since 8.4
+         * @access private
+         * @author Kevin Pirnie <me@kpirnie.com>
+         * @package Kevin Pirnie's Theme
+         * 
+        */
+        private function admin_column_css( ) : void {
+
+            add_action( 'admin_head', function( ) {
+                echo '<style>
+                    .column-thumbnail {
+                        width: 125px;
+                    }
+                    .column-thumbnail img {
+                        max-width: 125px;
+                        height: auto;
+                    }
+                </style>';
+            } );
+
         }
 
     }
