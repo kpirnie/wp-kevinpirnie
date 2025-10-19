@@ -3533,8 +3533,8 @@ nav ul li a {
 .prose h5,
 .prose h6 {
   font-weight: 700;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
   line-height: 1.2;
 }
 
@@ -4009,101 +4009,6 @@ button .fa-thin {
   height: 1.5rem;
 }
 
-/* Hero Slider Styles */
-.kpt-hero-slideshow {
-  overflow: hidden;
-}
-
-.kpt-hero-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.kpt-hero-slide.active {
-  opacity: 1;
-  position: relative;
-}
-
-.kpt-hero-content {
-  text-align: center;
-  color: white;
-  z-index: 10;
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 0.5rem;
-}
-
-.kpt-hero-title {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.kpt-hero-text {
-  font-size: 1.125rem;
-}
-
-/* Navigation Buttons */
-.kpt-hero-prev,
-.kpt-hero-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  font-size: 2rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  z-index: 20;
-  transition: background 0.3s;
-}
-
-.kpt-hero-prev:hover,
-.kpt-hero-next:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.kpt-hero-prev {
-  left: 1rem;
-}
-
-.kpt-hero-next {
-  right: 1rem;
-}
-
-/* Dots Navigation */
-.kpt-hero-dots {
-  position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 0.5rem;
-  z-index: 20;
-}
-
-.kpt-hero-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.kpt-hero-dot.active {
-  background: white;
-}
-
 nav[aria-label="Breadcrumb"] ol {
   list-style: none;
   padding: 0;
@@ -4297,4 +4202,122 @@ nav[aria-label="Breadcrumb"] ol li:not(:last-child)::after {
 .header-logo {
   max-height: 70px !important;
   max-width: 300px !important;
+}
+
+
+/* Hero Slider Styles */
+/* Hero Slider Styles */
+.kpt-hero-slideshow {
+    position: relative;
+    overflow: hidden;
+}
+
+.kpt-hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    transform: translateX(100%);
+    transition: transform 0.6s ease-in-out;
+}
+
+.kpt-hero-slide.active {
+    position: relative;
+    transform: translateX(0);
+}
+
+.kpt-hero-slide.prev {
+    transform: translateX(-100%);
+}
+
+.kpt-hero-content {
+    text-align: center;
+    color: white;
+    z-index: 10;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 0.5rem;
+    width: 100%; /* Make it full width */
+    border-radius: 0; /* Remove rounded corners since it's at bottom */
+}
+
+.kpt-hero-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.kpt-hero-text {
+    font-size: 1.125rem;
+}
+
+/* Navigation Buttons */
+.kpt-hero-prev,
+.kpt-hero-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    z-index: 20;
+    transition: background 0.3s;
+}
+
+.kpt-hero-prev:hover,
+.kpt-hero-next:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.kpt-hero-prev {
+    left: 1rem;
+}
+
+.kpt-hero-next {
+    right: 1rem;
+}
+
+/* Dots Navigation */
+.kpt-hero-dots {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 20;
+}
+
+.kpt-hero-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.kpt-hero-dot.active {
+    background: white;
+}
+
+/* Single Hero Styles */
+.kpt-hero-single {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.has-text-align-right {
+  text-align:right !important;
+}
+.has-text-align-left {
+  text-align:left !important;
 }

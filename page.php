@@ -29,12 +29,6 @@ echo KPT_BreadCrumbs::get_base_breadcrumbs( );
 <!-- Page Content -->
 <section id="page-<?php the_ID( ); ?>" <?php post_class( 'w-full pt-6 px-4 sm:px-8 md:px-16' ); ?>>
 
-    <header class="mb-8">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4 kp-gradient-text">
-            <?php the_title( ); ?>
-        </h1>
-    </header>
-    
     <div class="article-content prose prose-lg mb-8">
         <?php the_content (); ?>
     </div>
