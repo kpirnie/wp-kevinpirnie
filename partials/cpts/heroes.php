@@ -26,7 +26,7 @@ $assigned_hero_ids = ! empty( $hero_settings['page_assignment'] ) ? $hero_settin
 if ( empty( $assigned_hero_ids ) ) {
     if ( has_post_thumbnail() ) : ?>
         <!-- Fallback to Featured Image as Hero -->
-        <div class="kpt-hero-single w-full relative h-[150px] md:h-[300px] bg-cover bg-center" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( $id, 'hero' ) ); ?>');">
+        <div class="kpt-hero-single w-full relative h-[200px] md:h-[250px] bg-cover bg-center" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( $id, 'hero' ) ); ?>');">
             <div class="kpt-hero-content">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4 kp-gradient-text">
                     <?php echo esc_html( get_the_title() ); ?>
@@ -48,11 +48,12 @@ if ( empty( $assigned_hero_ids ) ) {
 $args = array(
     'post_type'      => 'kpt_hero', 
     'post__in'       => $assigned_hero_ids,
-    'orderby'        => 'post__in', // Maintain the order from the assignment
+    'orderby'        => 'rand', // random order is fine
     'posts_per_page' => -1,
     'post_status'    => 'publish',
 );
 
+// get the posts
 $heroes = get_posts( $args );
 
 ?>
@@ -62,20 +63,19 @@ $heroes = get_posts( $args );
     <?php if ( count( $heroes ) > 1 ) : ?>
 
         <!-- Multiple Heroes - Slideshow -->
-        <div class="kpt-hero-slideshow w-full relative h-[150px] md:h-[350px]">
+        <div class="kpt-hero-slideshow w-full relative h-[200px] md:h-[250px]">
             <?php foreach ( $heroes as $index => $hero ) : 
                 
-                // setup the hero id
-                $hero_id = $hero -> ID;
-                
-                // setup the rest of the hero data
-                $hero_title = $hero -> post_title;
-                $hero_content = $hero -> post_content;
+                $hero_id = $hero->ID;
+                $hero_title = $hero->post_title;
+                $hero_content = $hero->post_content;
                 $hero_image = get_the_post_thumbnail_url( $hero_id, 'hero' );
-
+                
+                // Randomly assign left or right position
+                $position = ( rand(0, 1) === 0 ) ? 'position-left' : 'position-right';
             ?>
                 <div class="kpt-hero-slide <?php echo $index === 0 ? 'active' : ''; ?> w-full h-full bg-cover bg-center" style="background-image: url('<?php echo esc_url( $hero_image ); ?>');">
-                    <div class="kpt-hero-content">
+                    <div class="kpt-hero-content <?php echo esc_attr( $position ); ?>">
                         <?php if ( $hero_title ) : ?>
                             <h2 class="kpt-hero-title"><?php echo esc_html( $hero_title ); ?></h2>
                         <?php endif; ?>
@@ -96,13 +96,16 @@ $heroes = get_posts( $args );
         <!-- Single Hero -->
         <?php 
             $hero = $heroes[0];
-            $hero_id = $hero -> ID;
-            $hero_title = $hero -> post_title;
-            $hero_content = $hero -> post_content;
+            $hero_id = $hero->ID;
+            $hero_title = $hero->post_title;
+            $hero_content = $hero->post_content;
             $hero_image = get_the_post_thumbnail_url( $hero_id, 'hero' );
+            
+            // Random position for single hero
+            $position = ( rand(0, 1) === 0 ) ? 'position-left' : 'position-right';
         ?>
-        <div class="kpt-hero-single w-full relative h-[150px] md:h-[350px] bg-cover bg-center" style="background-image: url('<?php echo esc_url( $hero_image ); ?>');">
-            <div class="kpt-hero-content">
+        <div class="kpt-hero-single w-full relative h-[200px] md:h-[250px] bg-cover bg-center" style="background-image: url('<?php echo esc_url( $hero_image ); ?>');">
+            <div class="kpt-hero-content <?php echo esc_attr( $position ); ?>">
                 <?php if ( $hero_title ) : ?>
                     <h2 class="kpt-hero-title"><?php echo esc_html( $hero_title ); ?></h2>
                 <?php endif; ?>
