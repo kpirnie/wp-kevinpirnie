@@ -26,7 +26,7 @@ $assigned_hero_ids = ! empty( $hero_settings['page_assignment'] ) ? $hero_settin
 if ( empty( $assigned_hero_ids ) ) {
     if ( has_post_thumbnail() ) : ?>
         <!-- Fallback to Featured Image as Hero -->
-        <div class="kpt-hero-single w-full relative h-[150px] md:h-[350px] bg-cover bg-center" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( $id, 'hero' ) ); ?>');">
+        <div class="kpt-hero-single w-full relative h-[150px] md:h-[300px] bg-cover bg-center" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( $id, 'hero' ) ); ?>');">
             <div class="kpt-hero-content">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4 kp-gradient-text">
                     <?php echo esc_html( get_the_title() ); ?>

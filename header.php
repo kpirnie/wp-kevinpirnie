@@ -4,6 +4,10 @@
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php wp_head( ); ?>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/wp-content/uploads/2025/10/kevinpirnie-favicon-initials.svg">
+    <link rel="alternate icon" type="image/webp" href="/wp-content/uploads/2025/10/kevinpirnie-favicon-initials_512.webp">
+    <link rel="apple-touch-icon" href="/wp-content/uploads/2025/10/kevinpirnie-favicon-initials_512.webp">
 </head>
 <body <?php body_class( 'bg-gray-900 text-gray-100 font-mono' ); ?>>
 <?php wp_body_open( ); ?>
@@ -51,9 +55,8 @@
         <div class="flex justify-between items-center py-4">
 
             <div class="flex items-center">
-                <a href="<?php echo home_url('/'); ?>" class="flex items-center space-x-3 header-logo">
+                <a href="<?php echo home_url('/'); ?>" class="header-logo">
                     <?php
-
                         // get the SVG content for my logo
                         echo file_get_contents( ABSPATH . '/wp-content/uploads/2025/10/kevinpirnie-logo-color.svg' );
                     ?>

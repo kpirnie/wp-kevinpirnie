@@ -23,12 +23,9 @@ DOMReady( function( ) {
             // Mark current slide as previous
             slides[currentSlide].classList.add('prev');
             
-            dots[currentSlide].classList.remove('active');
-
             currentSlide = (n + slides.length) % slides.length;
 
             slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
         }
 
         function nextSlide() {

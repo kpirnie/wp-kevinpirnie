@@ -1,0 +1,29 @@
+/* Brand gradient text */
+.kp-gradient-text {
+    background: linear-gradient(135deg, var(--kp-light-blue) 0%, var(--kp-darkest-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Brand gradient background */
+.kp-gradient-bg {
+    background: linear-gradient(135deg, var(--kp-light-blue) 0%, var(--kp-darkest-blue) 100%);
+}
+
+.kp-gradient-bg:hover {
+    background: linear-gradient(135deg, var(--kp-lightish-blue) 0%, var(--kp-gray) 100%);
+}
+
+/* Brand color utilities */
+.text-kp-orange {
+    color: var(--kp-orange);
+}
+
+.border-kp-orange {
+    border-color: var(--kp-orange);
+}
+
+.bg-kp-orange {
+    background-color: var(--kp-orange);
+}

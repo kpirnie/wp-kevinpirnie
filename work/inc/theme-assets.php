@@ -82,19 +82,67 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                 null
             );
 
-            // Theme CSS
-            wp_enqueue_style(
-                'kpt_theme',
-                get_stylesheet_directory_uri() . '/assets/css/theme.' . ($is_debug ? 'debug' : 'min') . '.css',
-                array('kpt_font'),
-                $is_debug ? time() : null
-            );
+            // if we are debugging, load individual CSS modules
+            if( $is_debug ) {
 
-            // Custom CSS - style.css
+                // Base Tailwind (processed)
+                wp_enqueue_style(
+                    'kpt_tw',
+                    get_stylesheet_directory_uri() . '/assets/css/tw.css',
+                    array('kpt_font'),
+                    time()
+                );
+
+                // FontAwesome SVG Icons
+                wp_enqueue_style(
+                    'kpt_fa_icons',
+                    get_stylesheet_directory_uri() . '/assets/css/fa-svg-icons.css',
+                    array('kpt_tw'),
+                    time()
+                );
+
+                // Individual CSS modules for debugging
+                $css_modules = array(
+                    'kpt_fontawesome' => 'modules/fontawesome.css',
+                    'kpt_header' => 'modules/header.css',
+                    'kpt_menu_base' => 'modules/menu-base.css',
+                    'kpt_menu_main' => 'modules/menu-main.css',
+                    'kpt_menu_mobile' => 'modules/menu-mobile.css',
+                    'kpt_branding' => 'modules/branding.css',
+                    'kpt_breadcrumbs' => 'modules/breadcrumbs.css',
+                    'kpt_prose' => 'modules/prose.css',
+                    'kpt_pagination' => 'modules/pagination.css',
+                    'kpt_logos' => 'modules/logos.css',
+                    'kpt_heroes' => 'modules/heroes.css',
+                    'kpt_utilities' => 'modules/utilities.css',
+                );
+
+                $last_dep = 'kpt_fa_icons';
+                foreach( $css_modules as $handle => $file ) {
+                    wp_enqueue_style(
+                        $handle,
+                        get_stylesheet_directory_uri() . '/assets/css/' . $file,
+                        array($last_dep),
+                        time()
+                    );
+                    $last_dep = $handle;
+                }
+
+            } else {
+                // Production: single minified file
+                wp_enqueue_style(
+                    'kpt_theme',
+                    get_stylesheet_directory_uri() . '/assets/css/theme.min.css',
+                    array('kpt_font'),
+                    null
+                );
+            }
+
+            // Custom CSS - style.css (always load last)
             wp_enqueue_style(
                 'kpt_custom',
                 get_stylesheet_uri(),
-                array('kpt_theme'),
+                $is_debug ? array('kpt_utilities') : array('kpt_theme'),
                 $is_debug ? time() : null
             );
 
@@ -115,21 +163,44 @@ if( ! class_exists( 'KPT_Assets' ) ) {
 
             $is_debug = defined('KPT_DEBUG') && KPT_DEBUG;
 
-            // hold the debug scripts
-            $js = array(
-                'kpt_main' => array( get_stylesheet_directory_uri( ) '/assets/js/main.js', '' ),
-                'kpt_menu_main' => array( get_stylesheet_directory_uri( ) '/assets/js/main-menu.js', array( 'kpt_main' ) ),
-                'kpt_menu_mobile' => array( get_stylesheet_directory_uri( ) '/assets/js/mobile-menu.js', array( 'kpt_main', 'kpt_menu_main' ) ),
-                'kpt_cookie' => array( get_stylesheet_directory_uri( ) '/assets/js/cookie-notice.js', array( 'kpt_main', 'kpt_menu_mobile' ) ),
-                'kpt_hero' => array( get_stylesheet_directory_uri( ) '/assets/js/hero-carousel.js', array( 'kpt_main', 'kpt_cookie' ) ),
-                'kpt_scroll' => array( get_stylesheet_directory_uri( ) '/assets/js/scroll-to-top.js', array( 'kpt_main', 'kpt_hero' ) ),
-                'kpt_search' => array( get_stylesheet_directory_uri( ) '/assets/js/search.js', array( 'kpt_main', 'kpt_scroll' ) ),
-                'kpt_header' => array( get_stylesheet_directory_uri( ) '/assets/js/top-header.js', array( 'kpt_main', 'kpt_search' ) ),
-                
-            );
-
             // if we are debugging
             if( $is_debug ) {
+
+                // hold the debug scripts in dependency order
+                $js = array(
+                    'kpt_main' => array( 
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/main.js', 
+                        'deps' => array() 
+                    ),
+                    'kpt_cookie' => array( 
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/cookie-notice.js', 
+                        'deps' => array( 'kpt_main' ) 
+                    ),
+                    'kpt_hero' => array( 
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/hero-carousel.js', 
+                        'deps' => array( 'kpt_main' ) 
+                    ),
+                    'kpt_menu_main' => array( 
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/main-menu.js', 
+                        'deps' => array( 'kpt_main' ) 
+                    ),
+                    'kpt_menu_mobile' => array( 
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/mobile-menu.js', 
+                        'deps' => array( 'kpt_main' ) 
+                    ),
+                    'kpt_scroll' => array( 
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/scroll-to-top.js', 
+                        'deps' => array( 'kpt_main' ) 
+                    ),
+                    'kpt_search' => array( 
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/search.js', 
+                        'deps' => array( 'kpt_main' ) 
+                    ),
+                    'kpt_header' => array( 
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/top-header.js', 
+                        'deps' => array( 'kpt_main' ) 
+                    ),
+                );
 
                 // loop the js array
                 foreach( $js as $k => $v ) {
@@ -137,41 +208,42 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                     // enqueue the script
                     wp_enqueue_script(
                         $k,
-                        $v[0],
-                        $v[1],
-                        $is_debug ? time() : null,
+                        $v['url'],
+                        $v['deps'],
+                        time(),
                         true
                     );
 
                 }
 
-            // otherwise
+                // clean up the js array
+                unset( $js );
+
+            // otherwise (production mode)
             } else {
 
                 // enqueue the minified script
                 wp_enqueue_script(
                     'kpt_theme',
-                    get_stylesheet_directory_uri( ) . '/assets/js/theme.min.js',
-                    array( ),
+                    get_stylesheet_directory_uri() . '/assets/js/theme.min.js',
+                    array(),
                     null,
                     true
                 );
 
             }
 
-            // clean up the js array
-            unset( $js );
-
             // always enqueue this one with a querystring
             wp_enqueue_script(
                 'kpt_custom',
                 get_stylesheet_directory_uri() . '/script.js',
-                array( ),
-                time( ),
+                array(),
+                time(),
                 true
             );
 
         }
+        
 
         /** 
          * remove_frontend_jquery
