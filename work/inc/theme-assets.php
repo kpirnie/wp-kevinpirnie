@@ -114,6 +114,7 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                     'kpt_pagination' => 'modules/pagination.css',
                     'kpt_logos' => 'modules/logos.css',
                     'kpt_heroes' => 'modules/heroes.css',
+                    'kpt_cta' => 'modules/cta.css',
                     'kpt_utilities' => 'modules/utilities.css',
                 );
 

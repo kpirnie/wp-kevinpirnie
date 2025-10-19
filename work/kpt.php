@@ -68,6 +68,8 @@ if( ! class_exists( 'KPT' ) ) {
                 array( 'class' => 'KPT_Settings', 'method' => 'add_settings' ),
                 array( 'class' => 'KPT_Widgets', 'method' => 'add_sidebars' ),
                 array( 'class' => 'KPT_CPTs', 'method' => 'add_cpts' ),
+                array( 'class' => 'KPT_Shortcodes', 'method' => 'add_shortcodes' ),
+                array( 'class' => 'KPT_Blocks', 'method' => 'register_blocks' ),
                 //[ 'class' => '', 'method' => ''],
             );
 

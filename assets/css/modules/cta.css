@@ -1,0 +1,95 @@
+/* CTA Styles */
+
+/* Base CTA Container */
+.kpt-cta-container {
+    position: relative;
+}
+
+.kpt-cta {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Background Image Styling */
+.kpt-cta-bg {
+    transition: transform 0.5s ease-in-out;
+}
+
+.kpt-cta:hover .kpt-cta-bg {
+    transform: scale(1.05);
+}
+
+/* Content Styling */
+.kpt-cta-content {
+    width: 100%;
+}
+
+/* CTA with no background - add subtle animation */
+.kpt-cta:not(:has(.kpt-cta-bg)) {
+    background: linear-gradient(135deg, #111827 0%, #000000 100%);
+    border: 2px solid #1c375c;
+    border-radius: 0.25rem;
+    box-shadow: 0 4px 12px rgba(28, 55, 92, 0.3);
+    position: relative;
+}
+
+.kpt-cta:not(:has(.kpt-cta-bg))::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(89, 155, 184, 0.1) 0%,
+        rgba(45, 118, 150, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 0.25rem;
+}
+
+.kpt-cta:not(:has(.kpt-cta-bg)):hover::before {
+    opacity: 1;
+}
+
+.kpt-cta:not(:has(.kpt-cta-bg))::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(89, 155, 184, 0.1) 0%,
+            rgba(45, 118, 150, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.kpt-cta:not(:has(.kpt-cta-bg)):hover::before {
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .kpt-cta {
+        min-height: 250px !important;
+    }
+
+    .kpt-cta-content {
+        padding: 2rem 1.5rem !important;
+    }
+
+    .kpt-cta-content h2 {
+        font-size: 1.75rem !important;
+    }
+
+    .kpt-cta-content .text-lg {
+        font-size: 1rem !important;
+    }
+}
+
+/* Button spacing in CTAs */
+.kpt-cta .btn-primary,
+.kpt-cta .btn-secondary {
+    min-width: 150px;
+    justify-content: center;
+}

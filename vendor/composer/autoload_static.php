@@ -13,6 +13,7 @@ class ComposerStaticInit24e41bbaee1332276f826502c7093d78
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'KPT_Assets' => __DIR__ . '/../..' . '/work/inc/theme-assets.php',
+        'KPT_Blocks' => __DIR__ . '/../..' . '/work/inc/theme-blocks.php',
         'KPT_BreadCrumbs' => __DIR__ . '/../..' . '/work/inc/theme-breadcrumbs.php',
         'KPT_CPTs' => __DIR__ . '/../..' . '/work/inc/theme-cpts.php',
         'KPT_FW' => __DIR__ . '/..' . '/custom-fields/classes/setup.class.php',
@@ -78,8 +79,10 @@ class ComposerStaticInit24e41bbaee1332276f826502c7093d78
         'KPT_Mobile_Nav_Walker' => __DIR__ . '/../..' . '/work/inc/theme-menu-walkers.php',
         'KPT_Performance' => __DIR__ . '/../..' . '/work/inc/theme-performance.php',
         'KPT_Settings' => __DIR__ . '/../..' . '/work/inc/theme-settings.php',
+        'KPT_Shortcodes' => __DIR__ . '/../..' . '/work/inc/theme-shortcodes.php',
         'KPT_Supports' => __DIR__ . '/../..' . '/work/inc/theme-supports.php',
         'KPT_Top_Header_Nav_Walker' => __DIR__ . '/../..' . '/work/inc/theme-menu-walkers.php',
+        'KPT_Utilities' => __DIR__ . '/../..' . '/work/inc/theme-utilities.php',
         'KPT_Widgets' => __DIR__ . '/../..' . '/work/inc/theme-widgets.php',
         'Tailwind_Menu_Walker' => __DIR__ . '/../..' . '/work/inc/theme-menu.php',
         'Tailwind_Responsive_Menu_Walker' => __DIR__ . '/../..' . '/work/inc/theme-menu.php',

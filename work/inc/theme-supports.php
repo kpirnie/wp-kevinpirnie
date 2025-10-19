@@ -100,6 +100,9 @@ if( ! class_exists( 'KPT_Supports' ) ) {
             add_image_size( 'articlelist', 520, 193, array( 'center', 'center' ) );
             add_image_size( 'innerpage', 482, 397, array( 'center', 'center' ) );
 
+            // add in editor styles
+            $this -> add_editor_styles( );
+
         }
 
         /** 
@@ -362,6 +365,37 @@ if( ! class_exists( 'KPT_Supports' ) ) {
                     array('status' => 401)
                 );
             });
+            
+        }
+
+                // Add this new method
+        private function add_editor_styles() : void {
+            
+            // Enable editor styles
+            add_theme_support( 'editor-styles' );
+            
+            $is_debug = defined('KPT_DEBUG') && KPT_DEBUG;
+            
+            if ( $is_debug ) {
+                // Debug mode - add all CSS modules
+                add_editor_style( 'assets/css/tw.css' );
+                add_editor_style( 'assets/css/fa-svg-icons.css' );
+                add_editor_style( 'assets/css/modules/components.css' );
+                add_editor_style( 'assets/css/modules/fontawesome.css' );
+                add_editor_style( 'assets/css/modules/branding.css' );
+                add_editor_style( 'assets/css/modules/breadcrumbs.css' );
+                add_editor_style( 'assets/css/modules/prose.css' );
+                add_editor_style( 'assets/css/modules/pagination.css' );
+                add_editor_style( 'assets/css/modules/heroes.css' );
+                add_editor_style( 'assets/css/modules/cta.css' );
+                add_editor_style( 'assets/css/modules/utilities.css' );
+            } else {
+                // Production - add minified theme CSS
+                add_editor_style( 'assets/css/theme.min.css' );
+            }
+            
+            // Add Google Fonts
+            add_editor_style( '//fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&display=swap' );
             
         }
         

@@ -93,12 +93,13 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                 'show_ui'             => true,
                 'show_in_menu'        => true,
                 'menu_icon'           => 'dashicons-megaphone',
-                'supports'            => array( 'title', 'thumbnail' ),
+                'supports'            => array( 'title', 'thumbnail', 'editor', 'editor-style' ),
                 'has_archive'         => false,
                 'rewrite'             => false,
                 'publicly_queryable'  => false,
                 'exclude_from_search' => true,
                 'show_in_nav_menus'   => false,
+                'show_in_rest'        => true,
             ) );
 
         }

@@ -53,7 +53,7 @@ if( ! class_exists( 'KPT_Settings' ) ) {
          * Create the theme's settings
          * 
          * @since 8.4
-         * @access public
+         * @access private
          * @author Kevin Pirnie <me@kpirnie.com>
          * @package Kevin Pirnie's Theme
          * 
@@ -127,6 +127,8 @@ if( ! class_exists( 'KPT_Settings' ) ) {
             // add in the heroes settings
             $this -> heroes_settings( );
 
+            // add in the cta settings
+            $this -> cta_settings( );
 
         }
 
@@ -136,7 +138,7 @@ if( ! class_exists( 'KPT_Settings' ) ) {
          * Add the theme's hero settings settings
          * 
          * @since 8.4
-         * @access public
+         * @access private
          * @author Kevin Pirnie <me@kpirnie.com>
          * @package Kevin Pirnie's Theme
          * 
@@ -156,20 +158,30 @@ if( ! class_exists( 'KPT_Settings' ) ) {
 
             KPT_FW::createSection( $_settings_key, array(
                 'fields' => array( 
-                    // page selection to assign the hero to.
-                    array(
-                        'id'          => 'page_assignment',
-                        'type'        => 'checkbox',
-                        'title'       => 'Select Heroes',
-                        'subdesc'     => 'Select the heroes you want to assign here',
-                        'options'     => $this -> get_heroes( ),
-                    ),
+                // page selection to assign the hero to.
+                array(
+                    'id'          => 'page_assignment',
+                    'type'        => 'checkbox',
+                    'title'       => 'Select Heroes',
+                    'subdesc'     => 'Select the heroes you want to assign here',
+                    'options'     => $this -> get_heroes( ),
+                ),
 
-                ) ) );
+            ) ) );
 
         }
 
-
+        /** 
+         * get_heroes
+         * 
+         * Get all heroes for the settings
+         * 
+         * @since 8.4
+         * @access private
+         * @author Kevin Pirnie <me@kpirnie.com>
+         * @package Kevin Pirnie's Theme
+         * 
+        */
         private function get_heroes( ) : array {
 
             // the return
@@ -200,6 +212,52 @@ if( ! class_exists( 'KPT_Settings' ) ) {
 
             // return it
             return $ret;
+
+        }
+
+
+        private function cta_settings( ) : void {
+
+            // page settings key
+            $_settings_key = 'kpt_cta_settings';
+
+            // create the metabox
+            KPT_FW::createMetabox( $_settings_key, array(
+                'title'        => 'CTA Options',
+                'post_type'    => 'kpt_cta',
+                'show_restore' => true,
+                'context'      => 'side',
+            ) );
+
+            KPT_FW::createSection( $_settings_key, array(
+                'fields' => array( 
+                array(
+                    'id'          => 'cta_buttons',
+                    'type'        => 'repeater',
+                    'title'       => 'Buttons',
+                    'fields'      => array(
+                        array(
+                            'id'           => 'cta_type',
+                            'type'         => 'select',
+                            'title'        => 'Type',
+                            'options'      => array(
+                                1 => 'Primary',
+                                2 => 'Secondary',
+                                3 => 'Plain',
+                            ),
+                        ),
+                        array(
+                            'id'           => 'cta_button',
+                            'type'         => 'link',
+                            'title'        => 'Link',
+                            'add_title'    => 'Add Link',
+                            'edit_title'   => 'Edit Link',
+                            'remove_title' => 'Remove Link',
+                        ),
+                    ),
+                ),
+
+            ) ) );
 
         }
 

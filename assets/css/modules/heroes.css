@@ -136,3 +136,9 @@
         font-size: .85rem;
     }
 }
+
+.kpt-hero-content-single {
+    top: 50% !important;
+    height: 50% !important;
+    width: auto !important;
+}

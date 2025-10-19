@@ -27,7 +27,7 @@ if ( empty( $assigned_hero_ids ) ) {
     if ( has_post_thumbnail() ) : ?>
         <!-- Fallback to Featured Image as Hero -->
         <div class="kpt-hero-single w-full relative h-[200px] md:h-[250px] bg-cover bg-center" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( $id, 'hero' ) ); ?>');">
-            <div class="kpt-hero-content">
+            <div class="kpt-hero-content position-left kpt-hero-content-single">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4 kp-gradient-text">
                     <?php echo esc_html( get_the_title() ); ?>
                 </h1>
@@ -37,7 +37,7 @@ if ( empty( $assigned_hero_ids ) ) {
         <!-- No image, just show title in header area -->
         <div class="w-full pt-6 px-4 sm:px-8 md:px-16">
             <h1 class="text-4xl md:text-5xl font-bold mb-4 kp-gradient-text">
-                <?php the_title(); ?>
+                <?php echo esc_html( get_the_title() ); ?>
             </h1>
         </div>
     <?php endif;
@@ -90,6 +90,12 @@ $heroes = get_posts( $args );
             <button class="kpt-hero-prev" aria-label="Previous slide">&lsaquo;</button>
             <button class="kpt-hero-next" aria-label="Next slide">&rsaquo;</button>
         </div>
+
+        <div class="w-full pt-6 px-4 sm:px-8 md:px-16">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 kp-gradient-text">
+                <?php echo esc_html( get_the_title() ); ?>
+            </h1>
+        </div>
         
     <?php else : ?>
 
@@ -113,6 +119,12 @@ $heroes = get_posts( $args );
                     <div class="kpt-hero-text"><?php echo wp_kses_post( $hero_content ); ?></div>
                 <?php endif; ?>
             </div>
+        </div>
+
+        <div class="w-full pt-6 px-4 sm:px-8 md:px-16">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 kp-gradient-text">
+                <?php echo esc_html( get_the_title() ); ?>
+            </h1>
         </div>
 
     <?php endif; ?>    

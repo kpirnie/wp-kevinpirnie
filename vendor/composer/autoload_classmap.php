@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'KPT_Assets' => $baseDir . '/work/inc/theme-assets.php',
+    'KPT_Blocks' => $baseDir . '/work/inc/theme-blocks.php',
     'KPT_BreadCrumbs' => $baseDir . '/work/inc/theme-breadcrumbs.php',
     'KPT_CPTs' => $baseDir . '/work/inc/theme-cpts.php',
     'KPT_FW' => $vendorDir . '/custom-fields/classes/setup.class.php',
@@ -73,8 +74,10 @@ return array(
     'KPT_Mobile_Nav_Walker' => $baseDir . '/work/inc/theme-menu-walkers.php',
     'KPT_Performance' => $baseDir . '/work/inc/theme-performance.php',
     'KPT_Settings' => $baseDir . '/work/inc/theme-settings.php',
+    'KPT_Shortcodes' => $baseDir . '/work/inc/theme-shortcodes.php',
     'KPT_Supports' => $baseDir . '/work/inc/theme-supports.php',
     'KPT_Top_Header_Nav_Walker' => $baseDir . '/work/inc/theme-menu-walkers.php',
+    'KPT_Utilities' => $baseDir . '/work/inc/theme-utilities.php',
     'KPT_Widgets' => $baseDir . '/work/inc/theme-widgets.php',
     'Tailwind_Menu_Walker' => $baseDir . '/work/inc/theme-menu.php',
     'Tailwind_Responsive_Menu_Walker' => $baseDir . '/work/inc/theme-menu.php',
