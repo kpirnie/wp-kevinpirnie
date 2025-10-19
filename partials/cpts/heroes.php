@@ -89,7 +89,6 @@ $heroes = get_posts( $args );
             <!-- Slideshow Controls -->
             <button class="kpt-hero-prev" aria-label="Previous slide">&lsaquo;</button>
             <button class="kpt-hero-next" aria-label="Next slide">&rsaquo;</button>
-            <div class="kpt-hero-dots"></div>
         </div>
         
     <?php else : ?>

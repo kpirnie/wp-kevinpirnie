@@ -115,19 +115,59 @@ if( ! class_exists( 'KPT_Assets' ) ) {
 
             $is_debug = defined('KPT_DEBUG') && KPT_DEBUG;
 
-            wp_enqueue_script(
-                'kpt_theme',
-                get_stylesheet_directory_uri() . '/assets/js/theme.' . ($is_debug ? 'debug' : 'min') . '.js',
-                array(),
-                $is_debug ? time() : null,
-                true
+            // hold the debug scripts
+            $js = array(
+                'kpt_main' => array( get_stylesheet_directory_uri( ) '/assets/js/main.js', '' ),
+                'kpt_menu_main' => array( get_stylesheet_directory_uri( ) '/assets/js/main-menu.js', array( 'kpt_main' ) ),
+                'kpt_menu_mobile' => array( get_stylesheet_directory_uri( ) '/assets/js/mobile-menu.js', array( 'kpt_main', 'kpt_menu_main' ) ),
+                'kpt_cookie' => array( get_stylesheet_directory_uri( ) '/assets/js/cookie-notice.js', array( 'kpt_main', 'kpt_menu_mobile' ) ),
+                'kpt_hero' => array( get_stylesheet_directory_uri( ) '/assets/js/hero-carousel.js', array( 'kpt_main', 'kpt_cookie' ) ),
+                'kpt_scroll' => array( get_stylesheet_directory_uri( ) '/assets/js/scroll-to-top.js', array( 'kpt_main', 'kpt_hero' ) ),
+                'kpt_search' => array( get_stylesheet_directory_uri( ) '/assets/js/search.js', array( 'kpt_main', 'kpt_scroll' ) ),
+                'kpt_header' => array( get_stylesheet_directory_uri( ) '/assets/js/top-header.js', array( 'kpt_main', 'kpt_search' ) ),
+                
             );
 
+            // if we are debugging
+            if( $is_debug ) {
+
+                // loop the js array
+                foreach( $js as $k => $v ) {
+
+                    // enqueue the script
+                    wp_enqueue_script(
+                        $k,
+                        $v[0],
+                        $v[1],
+                        $is_debug ? time() : null,
+                        true
+                    );
+
+                }
+
+            // otherwise
+            } else {
+
+                // enqueue the minified script
+                wp_enqueue_script(
+                    'kpt_theme',
+                    get_stylesheet_directory_uri( ) . '/assets/js/theme.min.js',
+                    array( ),
+                    null,
+                    true
+                );
+
+            }
+
+            // clean up the js array
+            unset( $js );
+
+            // always enqueue this one with a querystring
             wp_enqueue_script(
                 'kpt_custom',
                 get_stylesheet_directory_uri() . '/script.js',
-                array('kpt_theme'),
-                $is_debug ? time() : null,
+                array( ),
+                time( ),
                 true
             );
 

@@ -4246,13 +4246,13 @@ nav[aria-label="Breadcrumb"] ol li:not(:last-child)::after {
 }
 
 .kpt-hero-title {
-    font-size: 2rem;
+    font-size: 1.25rem;
     font-weight: bold;
     margin-bottom: 1rem;
 }
 
 .kpt-hero-text {
-    font-size: 1.125rem;
+    font-size: 1rem;
 }
 
 /* Navigation Buttons */
@@ -4282,30 +4282,6 @@ nav[aria-label="Breadcrumb"] ol li:not(:last-child)::after {
 
 .kpt-hero-next {
     right: 1rem;
-}
-
-/* Dots Navigation */
-.kpt-hero-dots {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 0.5rem;
-    z-index: 20;
-}
-
-.kpt-hero-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.kpt-hero-dot.active {
-    background: white;
 }
 
 /* Single Hero Styles */
