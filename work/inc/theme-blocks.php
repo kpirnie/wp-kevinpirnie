@@ -20,6 +20,7 @@ if ( ! class_exists( 'KPT_Blocks' ) ) {
         public function register_blocks() : void {
             
             add_action( 'init', array( $this, 'register_cta_block' ) );
+            add_action( 'init', array( $this, 'register_contact_form_block' ) );
             add_filter( 'block_categories_all', array( $this, 'add_block_category' ), 10, 2 );
             add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
 
@@ -96,6 +97,44 @@ if ( ! class_exists( 'KPT_Blocks' ) ) {
                 array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-data', 'wp-server-side-render' ),
                 $is_debug ? time() : filemtime( get_stylesheet_directory() . '/assets/js/blocks/cta-block.js' )
             );
+
+            // Enqueue Contact Form block JavaScript
+            wp_enqueue_script(
+                'kpt-contact-form-block-editor',
+                get_stylesheet_directory_uri() . '/assets/js/blocks/contact-form-block.js',
+                array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-server-side-render' ),
+                $is_debug ? time() : filemtime( get_stylesheet_directory() . '/assets/js/blocks/contact-form-block.js' )
+            );
+            
+        }
+
+        public function register_contact_form_block() : void {
+    
+            if ( ! function_exists( 'register_block_type' ) ) {
+                return;
+            }
+
+            register_block_type( 'kpt/contact-form-block', array(
+                'api_version'     => 2,
+                'title'           => __( 'Contact Form', 'kpt' ),
+                'description'     => __( 'Display the contact form', 'kpt' ),
+                'category'        => 'kpt-blocks',
+                'icon'            => 'email',
+                'keywords'        => array( 'contact', 'form', 'email' ),
+                'supports'        => array(
+                    'anchor' => true,
+                    'align'  => array( 'wide', 'full' ),
+                ),
+                'render_callback' => array( $this, 'render_contact_form_block' ),
+            ) );
+            
+        }
+
+        public function render_contact_form_block( $attributes ) : string {
+            
+            ob_start();
+            get_template_part( 'partials/contact' );
+            return ob_get_clean();
             
         }
 

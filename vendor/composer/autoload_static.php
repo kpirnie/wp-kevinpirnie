@@ -16,6 +16,7 @@ class ComposerStaticInit24e41bbaee1332276f826502c7093d78
         'KPT_Blocks' => __DIR__ . '/../..' . '/work/inc/theme-blocks.php',
         'KPT_BreadCrumbs' => __DIR__ . '/../..' . '/work/inc/theme-breadcrumbs.php',
         'KPT_CPTs' => __DIR__ . '/../..' . '/work/inc/theme-cpts.php',
+        'KPT_Contact_Form' => __DIR__ . '/../..' . '/work/inc/theme-contact-form.php',
         'KPT_FW' => __DIR__ . '/..' . '/custom-fields/classes/setup.class.php',
         'KPT_FW_Abstract' => __DIR__ . '/..' . '/custom-fields/classes/abstract.class.php',
         'KPT_FW_Comment_Metabox' => __DIR__ . '/..' . '/custom-fields/classes/comment-options.class.php',

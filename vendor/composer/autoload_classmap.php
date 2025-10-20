@@ -11,6 +11,7 @@ return array(
     'KPT_Blocks' => $baseDir . '/work/inc/theme-blocks.php',
     'KPT_BreadCrumbs' => $baseDir . '/work/inc/theme-breadcrumbs.php',
     'KPT_CPTs' => $baseDir . '/work/inc/theme-cpts.php',
+    'KPT_Contact_Form' => $baseDir . '/work/inc/theme-contact-form.php',
     'KPT_FW' => $vendorDir . '/custom-fields/classes/setup.class.php',
     'KPT_FW_Abstract' => $vendorDir . '/custom-fields/classes/abstract.class.php',
     'KPT_FW_Comment_Metabox' => $vendorDir . '/custom-fields/classes/comment-options.class.php',

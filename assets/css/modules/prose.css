@@ -119,3 +119,45 @@
 .dark .prose h6 {
     color: #f9fafb;
 }
+/* List styling for content areas */
+.article-content ul,
+.prose ul {
+    list-style-type: disc;
+    list-style-position: outside;
+    padding-left: 1.5em;
+    margin-bottom: 1.25em;
+}
+
+.article-content ul li,
+.prose ul li {
+    margin-bottom: 0.5em;
+}
+
+.article-content ol,
+.prose ol {
+    list-style-type: decimal;
+    list-style-position: outside;
+    padding-left: 1.5em;
+    margin-bottom: 1.25em;
+}
+
+.article-content ol li,
+.prose ol li {
+    margin-bottom: 0.5em;
+}
+
+/* Nested lists */
+.article-content ul ul,
+.article-content ol ul,
+.prose ul ul,
+.prose ol ul {
+    list-style-type: circle;
+    margin-top: 0.5em;
+}
+
+.article-content ul ol,
+.article-content ol ol,
+.prose ul ol,
+.prose ol ol {
+    margin-top: 0.5em;
+}

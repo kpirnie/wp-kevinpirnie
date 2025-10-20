@@ -71,6 +71,66 @@ if( ! class_exists( 'KPT_Utilities' ) ) {
 
         }
 
+                /** 
+         * get_option
+         * 
+         * Static method for retrieving the value of a setting/option
+         * 
+         * @since 7.3
+         * @access public
+         * @static
+         * @author Kevin Pirnie <me@kpirnie.com>
+         * @package Kevin's Framework
+         * 
+         * @param string $_name The name of the setting/option to be retrieved
+         * 
+         * @return var Returns a mixed datatype for the setting/option to be retrieved
+         * 
+        */
+        public static function get_option( string $_name ) {
+
+            // get all our options
+            $_all_opts = self::get_all_options( );
+
+            // get the single option based on the shortname passed
+            if( isset( $_all_opts -> {$_name} ) ) {
+                
+                // return the property
+                return $_all_opts -> {$_name};
+            }
+
+            // default to returning null
+            return null;
+
+        }
+
+        /** 
+         * get_all_options
+         * 
+         * Static method for pulling all settings/options
+         * 
+         * @since 7.3
+         * @access public
+         * @static
+         * @author Kevin Pirnie <me@kpirnie.com>
+         * @package Kevin's Framework
+         * 
+         * @return object Returns a stdClass object of all framework settings/options
+         * 
+        */
+        public static function get_all_options( ) : object {
+
+            // get the option
+            $_option = get_option( 'kptheme_settings' );
+
+            // try to convert the value to an array
+            $_opts = maybe_unserialize( $_option );
+
+            // return it
+            return ( object ) $_opts;
+
+        }
+
     }
 
 }

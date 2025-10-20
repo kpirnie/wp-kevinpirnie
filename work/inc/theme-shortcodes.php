@@ -33,12 +33,27 @@ if( ! class_exists( 'KPT_Shortcodes' ) ) {
 
         public function add_shortcodes( ) : void {
 
-            $this -> add_cta_shortcodes( );
+            $this -> add_menu_shortcodes( );
 
         }
 
-        private function add_cta_shortcodes( ) : void {
+        private function add_menu_shortcodes( ) : void {
 
+            // add our menu shortcodes
+            add_shortcode( 'add_social_menu', function( ) {
+
+                return wp_nav_menu( array(
+                    'theme_location' => 'social',
+                    'container' => 'nav',
+                    'container_class' => 'flex items-center',
+                    'menu_class' => 'flex items-center space-x-4',
+                    'fallback_cb' => false,
+                    'depth' => 1,
+                    'walker' => new KPT_Top_Header_Nav_Walker( ),
+                    'echo' => false,
+                ) );
+
+            } );
 
         }
 

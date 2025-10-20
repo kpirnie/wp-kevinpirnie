@@ -40,7 +40,7 @@
         transform: translateY(-50%);
         height: 1.25rem;
         width: 2px;
-        background-color: currentColor;
+        background-color: #599bb8;
         opacity: 0.5;
     }
 

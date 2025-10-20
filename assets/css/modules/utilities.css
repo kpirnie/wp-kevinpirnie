@@ -24,3 +24,7 @@
 .has-text-align-left {
     text-align: left !important;
 }
+
+.grecaptcha-badge {
+    visibility: hidden !important;
+}

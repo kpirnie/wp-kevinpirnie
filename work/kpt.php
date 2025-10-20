@@ -70,6 +70,7 @@ if( ! class_exists( 'KPT' ) ) {
                 array( 'class' => 'KPT_CPTs', 'method' => 'add_cpts' ),
                 array( 'class' => 'KPT_Shortcodes', 'method' => 'add_shortcodes' ),
                 array( 'class' => 'KPT_Blocks', 'method' => 'register_blocks' ),
+                array( 'class' => 'KPT_Contact_Form', 'method' => 'init' ),
                 //[ 'class' => '', 'method' => ''],
             );
 

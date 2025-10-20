@@ -13,16 +13,17 @@
 // We don't want to allow direct access to this
 defined( 'ABSPATH' ) || die( 'No direct script access allowed' );
 
-// Get CTA ID - can be passed as variable or from current post
-$cta_id = isset( $cta_id ) ? $cta_id : get_the_ID();
+// Get CTA ID
+$cta_id = isset( $cta_id ) ? $cta_id : ( isset( $args['cta_id'] ) ? $args['cta_id'] : get_the_ID( ) );
+
+// Get the settings - it's serialized so get_post_meta will unserialize it
+$cta_settings = get_post_meta( $cta_id, 'kpt_cta_settings', true );
+$cta_buttons = ( $cta_settings['cta_buttons'] ) ?? array( );
 
 // Get CTA data
 $cta_title = get_the_title( $cta_id );
 $cta_content = get_post_field( 'post_content', $cta_id );
-$cta_featured_image = get_the_post_thumbnail_url( $cta_id, 'full' );
-
-// get the buttons for the cta
-$cta_buttons = get_post_meta( $cta_id, 'cta_buttons', true );var_dump($cta_buttons);
+$cta_featured_image = get_the_post_thumbnail_url( $cta_id, 'articlehead' );
 
 // Determine if we have a background image
 $has_bg_image = ! empty( $cta_featured_image );
@@ -54,28 +55,47 @@ $has_bg_image = ! empty( $cta_featured_image );
                     </div>
                 <?php endif; ?>
                 
-                <!-- Buttons -->
-                <?php if ( ! empty( $primary_button_text ) || ! empty( $secondary_button_text ) ) : ?>
-                    <div class="flex flex-wrap gap-4 justify-center items-center">
-                        
-                        <?php if ( ! empty( $primary_button_text ) && ! empty( $primary_button_url ) ) : ?>
-                            <a href="<?php echo esc_url( $primary_button_url ); ?>" 
-                               class="btn-primary inline-flex items-center gap-2 group">
-                                <span><?php echo esc_html( $primary_button_text ); ?></span>
-                                <span class="fa-solid fa-arrow-right text-sm transition-transform group-hover:translate-x-1"></span>
-                            </a>
-                        <?php endif; ?>
-                        
-                        <?php if ( ! empty( $secondary_button_text ) && ! empty( $secondary_button_url ) ) : ?>
-                            <a href="<?php echo esc_url( $secondary_button_url ); ?>" 
-                               class="btn-secondary inline-flex items-center gap-2 group">
-                                <span><?php echo esc_html( $secondary_button_text ); ?></span>
-                                <span class="fa-solid fa-arrow-right text-sm transition-transform group-hover:translate-x-1"></span>
-                            </a>
-                        <?php endif; ?>
-                        
-                    </div>
-                <?php endif; ?>
+                <div class="flex flex-wrap gap-4 justify-center items-center">
+                    <!-- Buttons -->
+                    <?php if ( ! empty( $cta_buttons ) && is_array( $cta_buttons ) ) : ?>
+                        <div class="flex flex-wrap gap-4 justify-center items-center">
+                            
+                            <?php foreach ( $cta_buttons as $button ) : 
+                                // Get button data
+                                $button_type = isset( $button['cta_type'] ) ? $button['cta_type'] : 1;
+                                $button_link = isset( $button['cta_button'] ) ? $button['cta_button'] : array();
+                                $button_url = isset( $button_link['url'] ) ? $button_link['url'] : '';
+                                $button_text = isset( $button_link['text'] ) ? $button_link['text'] : '';
+                                $button_target = isset( $button_link['target'] ) && ! empty( $button_link['target'] ) ? $button_link['target'] : '_self';
+                                
+                                // Skip if no URL or text
+                                if ( empty( $button_url ) || empty( $button_text ) ) {
+                                    continue;
+                                }
+                                
+                                // Determine button class based on type
+                                $button_class = 'inline-flex items-center gap-2 px-6 py-2 group text-white rounded-md transition-all font-medium hover:bg-gray-800'; // Default primary
+                                
+                                if ( $button_type == 2 ) {
+                                    $button_class .= ' bg-gray-900';
+                                } elseif ( $button_type == 3 ) {
+                                    $button_class .= ' bg-[#000000]';
+                                } else {
+                                    $button_class .= ' btn-primary';
+                                }
+                            ?>
+                                <a href="<?php echo esc_url( $button_url ); ?>" 
+                                target="<?php echo esc_attr( $button_target ); ?>"
+                                class="<?php echo esc_attr( $button_class ); ?>">
+                                    <span><?php echo esc_html( $button_text ); ?></span>
+                                    <span class="fa-solid fa-arrow-right text-sm transition-transform group-hover:translate-x-1"></span>
+                                </a>
+                            <?php endforeach; ?>
+                            
+                        </div>
+                    <?php endif; ?>
+                    
+                </div>
                 
             </div>
         </div>

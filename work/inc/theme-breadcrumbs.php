@@ -344,7 +344,7 @@ if( ! class_exists( 'KPT_BreadCrumbs' ) ) {
             }
 
             // return it
-            return ! empty( $_ret ) ? '<nav aria-label="Breadcrumb">' . $_ret . '</nav>' : '';
+            return ! empty( $_ret ) ? '<nav aria-label="Breadcrumb" class="text-right">' . $_ret . '</nav>' : '';
 
         }
 
@@ -402,9 +402,9 @@ if( ! class_exists( 'KPT_BreadCrumbs' ) ) {
                 $_count = count( $_breadcrumbs );
                 for( $_i = 0; $_i < $_count; $_i++ ) {
                     if( $_i === $_count - 1 ) {
-                        $_ret .= '<li class="bc-last-item">' . $_breadcrumbs[$_i] . '</li>';
+                        $_ret .= '<li class="bc-last-item" title="">' . $_breadcrumbs[$_i] . '</li>';
                     } else {
-                        $_ret .= '<li>' . $_breadcrumbs[$_i] . '</li>';
+                        $_ret .= '<li title="">' . $_breadcrumbs[$_i] . '</li>';
                     }
                 }
                 $_ret .= '</ol>';

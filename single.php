@@ -1,4 +1,21 @@
-<?php get_header(); ?>
+<?php
+/** 
+ * single.php
+ * 
+ * This is the single article template
+ * 
+ * @since 8.4
+ * @author Kevin Pirnie <me@kpirnie.com>
+ * @package Kevin Pirnie's Theme
+ * 
+*/
+
+// We don't want to allow direct access to this
+defined( 'ABSPATH' ) || die( 'No direct script access allowed' );
+
+// pull in the header
+get_header( ); 
+?>
 
 <section <?php post_class( 'w-full pt-6 px-4 sm:px-8 md:px-16' ); ?>>
 
@@ -6,6 +23,7 @@
     
     <?php while (have_posts()): the_post(); ?>
         <div class="w-full flex flex-col lg:flex-row gap-8">
+            
             <!-- Main Content - 2/3 width -->
             <article id="post-<?php the_ID(); ?>" <?php post_class('w-full lg:w-2/3'); ?>>
                 <header class="mb-8">
@@ -110,6 +128,25 @@
             <!-- Sidebar - 1/3 width -->
             <aside class="w-full lg:w-1/3">
                 <div class="lg:sticky lg:top-24">
+                    
+                    <!-- Search Widget -->
+                    <div class="bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-100">Search</h3>
+                        <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                            <div class="flex gap-2">
+                                <input type="search" 
+                                    name="s" 
+                                    placeholder="Search..." 
+                                    class="flex-1 px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#599bb8]"
+                                    value="<?php echo get_search_query(); ?>">
+                                <button type="submit" 
+                                        class="px-4 py-2 bg-gradient-to-r from-[#599bb8] to-[#2d7696] text-white rounded-lg transition-all hover:from-[#43819c] hover:to-[#2d7696]">
+                                    <span class="fa-solid fa-magnifying-glass"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
                     <!-- Recent Posts Widget -->
                     <div class="bg-gray-800 rounded-lg shadow-md p-6 mb-6">
                         <h3 class="text-lg font-semibold mb-4 text-gray-100">Recent Posts</h3>
@@ -120,9 +157,27 @@
                                 'post_status' => 'publish'
                             ));
                             foreach($recent_posts as $recent) {
-                                echo '<li><a href="' . get_permalink($recent['ID']) . '" class="text-sm text-gray-400 hover:text-[#599bb8] transition-colors">' . $recent['post_title'] . '</a></li>';
+                                echo '<li><a href="' . get_permalink($recent['ID']) . '" class="text-sm text-gray-400 hover:text-white transition-colors">' . $recent['post_title'] . '</a></li>';
                             }
                             wp_reset_query();
+                            ?>
+                        </ul>
+                    </div>
+                    
+                    <!-- Archives Widget -->
+                    <div class="bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-100">Archives</h3>
+                        <ul class="space-y-2 list-disc list-inside">
+                            <?php
+                            wp_get_archives(array(
+                                'type' => 'monthly',
+                                'limit' => 12,
+                                'format' => 'custom',
+                                'before' => '<li>',
+                                'after' => '</li>',
+                                'show_post_count' => true,
+                                'echo' => true
+                            ));
                             ?>
                         </ul>
                     </div>
@@ -130,27 +185,26 @@
                     <!-- Categories Widget -->
                     <div class="bg-gray-800 rounded-lg shadow-md p-6 mb-6">
                         <h3 class="text-lg font-semibold mb-4 text-gray-100">Categories</h3>
-                        <ul class="space-y-2 list-disc list-inside">
+                        <div class="flex flex-wrap gap-2">
                             <?php
                             $categories = get_categories(array(
-                                'orderby' => 'count',
-                                'order' => 'DESC',
-                                'number' => 10
+                                'orderby' => 'name',
+                                'order' => 'ASC'
                             ));
                             foreach($categories as $category) {
-                                echo '<li><a href="' . get_category_link($category->term_id) . '" class="text-sm text-gray-400 hover:text-white transition-colors"><span>' . $category->name . '</span><span class="text-gray-600"> (' . $category->count . ')</span></a></li>';
+                                echo '<a href="' . get_category_link($category->term_id) . '" class="text-xs px-3 py-1 bg-gray-700 text-gray-300 rounded-full hover:bg-blue-900 hover:text-white transition-colors">' . $category->name . '</a>';
                             }
                             ?>
-                        </ul>
+                        </div>
                     </div>
                     
                     <!-- Tags Cloud Widget -->
                     <?php
-                    $tags = get_tags(array('orderby' => 'count', 'order' => 'DESC', 'number' => 20));
+                    $tags = get_tags(array('orderby' => 'count', 'order' => 'DESC', 'number' => 10000));
                     if ($tags):
                     ?>
                     <div class="bg-gray-800 rounded-lg shadow-md p-6">
-                        <h3 class="text-lg font-semibold mb-4 text-gray-100">Popular Tags</h3>
+                        <h3 class="text-lg font-semibold mb-4 text-gray-100">Tag Cloud</h3>
                         <div class="flex flex-wrap gap-2">
                             <?php
                             foreach($tags as $tag) {
@@ -160,11 +214,16 @@
                         </div>
                     </div>
                     <?php endif; ?>
+                    
                 </div>
             </aside>
+
         </div>
     <?php endwhile; ?>
 
 </section>
 
-<?php get_footer(); ?>
+<?php 
+
+// pull in the footer
+get_footer(); 

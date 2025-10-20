@@ -130,6 +130,9 @@ if( ! class_exists( 'KPT_Settings' ) ) {
             // add in the cta settings
             $this -> cta_settings( );
 
+            // add in the contact form settings
+            $this -> contact_form_settings( );
+
         }
 
         /** 
@@ -213,6 +216,38 @@ if( ! class_exists( 'KPT_Settings' ) ) {
             // return it
             return $ret;
 
+        }
+
+
+        private function contact_form_settings( ) : void {
+
+            // settings key
+            $_settings_key = 'kptheme_settings';
+
+            KPT_FW::createSection( $_settings_key, array(
+                'title'  => 'Contact Form',
+                'fields' => array(
+                    array(
+                        'type'    => 'heading',
+                        'content' => 'Google reCAPTCHA v3 Settings',
+                    ),
+                    array(
+                        'type'    => 'subheading',
+                        'content' => 'Get your keys from <a href="https://www.google.com/recaptcha/admin" target="_blank">Google reCAPTCHA Admin</a>',
+                    ),
+                    array(
+                        'id'      => 'kpt_recaptcha_site_key',
+                        'type'    => 'text',
+                        'title'   => 'Site Key',
+                    ),
+                    array(
+                        'id'      => 'kpt_recaptcha_secret_key',
+                        'type'    => 'text',
+                        'title'   => 'Secret Key',
+                        'attributes' => array( 'type' => 'password')
+                    ),
+                )
+            ) );
         }
 
 

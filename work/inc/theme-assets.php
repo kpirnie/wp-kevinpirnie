@@ -111,10 +111,12 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                     'kpt_branding' => 'modules/branding.css',
                     'kpt_breadcrumbs' => 'modules/breadcrumbs.css',
                     'kpt_prose' => 'modules/prose.css',
+                    'kpt_comp' => 'modules/components.css',
                     'kpt_pagination' => 'modules/pagination.css',
                     'kpt_logos' => 'modules/logos.css',
                     'kpt_heroes' => 'modules/heroes.css',
                     'kpt_cta' => 'modules/cta.css',
+                    'kpt_blocks' => 'modules/blocks.css',
                     'kpt_utilities' => 'modules/utilities.css',
                 );
 

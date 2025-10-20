@@ -53,10 +53,13 @@ get_header( );
             ) );
             ?>
         </div>
+
     <?php else: ?>
+
         <div class="text-center py-12">
             <p class="text-xl text-gray-600 dark:text-gray-400">No posts found.</p>
         </div>
+        
     <?php endif; ?>
 
 </section>

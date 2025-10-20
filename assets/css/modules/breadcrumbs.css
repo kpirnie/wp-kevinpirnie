@@ -14,6 +14,10 @@ nav[aria-label="Breadcrumb"] ol li {
 }
 
 nav[aria-label="Breadcrumb"] ol li:not(:last-child)::after {
-    content: " » ";
+    content: "»";
     margin: 0 0.5em;
+}
+
+.bc-last-item {
+    border-bottom: 1px solid #fd6a4f;
 }
