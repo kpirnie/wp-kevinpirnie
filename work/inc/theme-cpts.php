@@ -157,6 +157,26 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
         */
         private function add_admin_columns( ) : void {
 
+            // Add the secondary title
+            add_filter( 'manage_page_posts_columns', function( $columns ) {
+                $new = array();
+                foreach ( $columns as $key => $value ) {
+                    $new[$key] = $value;
+                    if ( $key === 'cb' ) {
+                        $new['sec_title'] = __( 'Title', 'kpt' );
+                    }
+                }
+                return $new;
+            } );
+
+            // Display the thumbnail
+            add_action( 'manage_page_posts_custom_column', function( $column, $post_id ) {
+                if ( $column === 'sec_title' ) {
+                    $hero_settings = get_post_meta( $post_id, 'kpt_hero_settings', true );
+                    echo ($hero_settings['page_secondary_title']) ?? '';
+                }
+            }, 10, 2 );
+
             // Heroes
             add_filter( 'manage_kpt_hero_posts_columns', function( $columns ) {
                 $new = array();
@@ -210,7 +230,7 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
 
             add_action( 'admin_head', function( ) {
                 echo '<style>
-                    .column-thumbnail {
+                    .column-thumbnail, .column-sec_title {
                         width: 125px;
                     }
                     .column-thumbnail img {

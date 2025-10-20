@@ -697,6 +697,10 @@ body {
   inset: 0px;
 }
 
+.bottom-0 {
+  bottom: 0px;
+}
+
 .bottom-8 {
   bottom: 2rem;
 }
@@ -707,6 +711,10 @@ body {
 
 .left-full {
   left: 100%;
+}
+
+.right-0 {
+  right: 0px;
 }
 
 .right-4 {
@@ -739,6 +747,10 @@ body {
 
 .z-50 {
   z-index: 50;
+}
+
+.m-1 {
+  margin: 0.25rem;
 }
 
 .mx-auto {
@@ -791,6 +803,10 @@ body {
   margin-right: 0.75rem;
 }
 
+.mt-0\.5 {
+  margin-top: 0.125rem;
+}
+
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -834,6 +850,10 @@ body {
   display: none;
 }
 
+.h-12 {
+  height: 3rem;
+}
+
 .h-16 {
   height: 4rem;
 }
@@ -866,12 +886,20 @@ body {
   height: 100%;
 }
 
+.max-h-\[85vh\] {
+  max-height: 85vh;
+}
+
 .min-h-\[300px\] {
   min-height: 300px;
 }
 
 .min-h-screen {
   min-height: 100vh;
+}
+
+.w-12 {
+  width: 3rem;
 }
 
 .w-16 {
@@ -904,6 +932,10 @@ body {
 
 .max-w-4xl {
   max-width: 56rem;
+}
+
+.max-w-6xl {
+  max-width: 72rem;
 }
 
 .max-w-md {
@@ -1004,6 +1036,10 @@ body {
   gap: 0.5rem;
 }
 
+.gap-3 {
+  gap: 0.75rem;
+}
+
 .gap-4 {
   gap: 1rem;
 }
@@ -1036,12 +1072,6 @@ body {
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
-.space-y-3 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
-}
-
 .space-y-6 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1050,6 +1080,10 @@ body {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
 }
 
 .scroll-smooth {
@@ -1131,6 +1165,11 @@ body {
 }
 
 .bg-\[\#000000\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+}
+
+.bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
 }
@@ -1254,6 +1293,11 @@ body {
   padding-right: 1.5rem;
 }
 
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -1313,6 +1357,11 @@ body {
   font-family: Source Code Pro, monospace;
 }
 
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
@@ -1326,6 +1375,11 @@ body {
 .text-6xl {
   font-size: 3.75rem;
   line-height: 1;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .text-lg {
@@ -1358,6 +1412,10 @@ body {
 
 .font-semibold {
   font-weight: 600;
+}
+
+.leading-none {
+  line-height: 1;
 }
 
 .leading-relaxed {
@@ -1427,6 +1485,11 @@ body {
 .text-orange-200 {
   --tw-text-opacity: 1;
   color: rgb(254 215 170 / var(--tw-text-opacity, 1));
+}
+
+.text-red-400 {
+  --tw-text-opacity: 1;
+  color: rgb(248 113 113 / var(--tw-text-opacity, 1));
 }
 
 .text-red-500 {
@@ -1925,9 +1988,7 @@ nav[aria-label="Breadcrumb"] ol li:not(:last-child)::after {
 }
 
 .bc-last-item {
-  text-decoration: underline;
-  -webkit-text-decoration-color: #fd6a4f;
-          text-decoration-color: #fd6a4f;
+  border-bottom: 1px solid #fd6a4f;
 }
 
 /* Widget heading fix for dark mode */
@@ -3055,6 +3116,16 @@ h6 {
 }
 
 @media (min-width: 768px) {
+  .md\:order-1 {
+    -ms-flex-order: 1;
+        order: 1;
+  }
+
+  .md\:order-2 {
+    -ms-flex-order: 2;
+        order: 2;
+  }
+
   .md\:mb-0 {
     margin-bottom: 0px;
   }
@@ -3078,6 +3149,11 @@ h6 {
         flex-direction: row;
   }
 
+  .md\:justify-end {
+    -ms-flex-pack: end;
+        justify-content: flex-end;
+  }
+
   .md\:p-3 {
     padding: 0.75rem;
   }
@@ -3090,6 +3166,10 @@ h6 {
   .md\:px-4 {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  .md\:text-right {
+    text-align: right;
   }
 
   .md\:text-4xl {

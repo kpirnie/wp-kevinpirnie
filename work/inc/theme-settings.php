@@ -153,7 +153,7 @@ if( ! class_exists( 'KPT_Settings' ) ) {
 
             // create the metabox
             KPT_FW::createMetabox( $_settings_key, array(
-                'title'        => 'Hero Options',
+                'title'        => 'Page Options',
                 'post_type'    => 'page',
                 'show_restore' => true,
                 'context'      => 'advanced',
@@ -161,11 +161,17 @@ if( ! class_exists( 'KPT_Settings' ) ) {
 
             KPT_FW::createSection( $_settings_key, array(
                 'fields' => array( 
+                array(
+                    'id' => 'page_secondary_title',
+                    'type'        => 'text',
+                    'title'       => 'Secondary Title',
+                    'subdesc' => 'this is only shown on the admin list page'
+                ),
                 // page selection to assign the hero to.
                 array(
                     'id'          => 'page_assignment',
                     'type'        => 'checkbox',
-                    'title'       => 'Select Heroes',
+                    'title'       => 'Hero Assignment',
                     'subdesc'     => 'Select the heroes you want to assign here',
                     'options'     => $this -> get_heroes( ),
                 ),

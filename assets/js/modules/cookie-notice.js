@@ -1,5 +1,5 @@
 // DOM ready event
-DOMReady( function( ) {
+DOMReady(function () {
 
     // ========================================
     // Cookie Notice Functions
@@ -13,7 +13,7 @@ DOMReady( function( ) {
     function setCookie(name, value, days) {
         const date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+        document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/;SameSite=Lax`;
     }
 
     function disableScroll() {
@@ -26,6 +26,34 @@ DOMReady( function( ) {
         document.body.style.paddingRight = '';
     }
 
+    async function loadCookiePolicy() {
+        const modalContent = document.getElementById('kp-modal-content');
+
+        try {
+            const response = await fetch('/about-kevin-pirnie/cookie-policy/');
+
+            if (!response.ok) {
+                throw new Error('Failed to load cookie policy');
+            }
+
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // Extract the main content (adjust selector based on your page structure)
+            const content = doc.querySelector('.article-content') || doc.querySelector('article') || doc.querySelector('main');
+
+            if (content) {
+                modalContent.innerHTML = content.innerHTML;
+            } else {
+                modalContent.innerHTML = '<p class="text-center">Unable to load cookie policy content.</p>';
+            }
+        } catch (error) {
+            console.error('Error loading cookie policy:', error);
+            modalContent.innerHTML = '<p class="text-center text-red-400">Error loading cookie policy. Please visit the <a href="/about-kevin-pirnie/cookie-policy/" class="underline">Cookie Policy page</a>.</p>';
+        }
+    }
+
     // Cookie Notice Elements
     const notice = document.getElementById('kp-cookie-notice');
     const overlay = document.getElementById('kp-cookie-overlay');
@@ -36,8 +64,11 @@ DOMReady( function( ) {
     const modalClose = document.getElementById('kp-modal-close');
     const modalOverlay = document.getElementById('kp-modal-overlay');
 
-    // Show cookie notice ONLY if NOT accepted (check for 'accepted' value specifically)
-    if (notice && overlay && getCookie('kp_cookie_consent') !== 'accepted') {
+    // Check if user has made any choice
+    const cookieConsent = getCookie('kp_cookie_consent');
+
+    // Show cookie notice only if no consent decision has been made
+    if (notice && overlay && !cookieConsent) {
         notice.style.display = 'block';
         notice.classList.remove('hidden');
         overlay.style.display = 'block';
@@ -45,7 +76,7 @@ DOMReady( function( ) {
         disableScroll();
     }
 
-    // Accept cookies - ONLY this hides the notice permanently
+    // Accept cookies
     if (acceptBtn) {
         acceptBtn.addEventListener('click', function () {
             setCookie('kp_cookie_consent', 'accepted', 365);
@@ -55,10 +86,10 @@ DOMReady( function( ) {
         });
     }
 
-    // Decline cookies - redirect WITHOUT setting any cookie
+    // Decline cookies
     if (declineBtn) {
         declineBtn.addEventListener('click', function () {
-            // Do NOT set a cookie - notice will show again on next visit
+            setCookie('kp_cookie_consent', 'declined', 365);
             window.location.href = 'https://www.google.com/search?q=why+do+I+need+cookies';
         });
     }
@@ -68,6 +99,7 @@ DOMReady( function( ) {
         learnMoreBtn.addEventListener('click', function (e) {
             e.preventDefault();
             modal.classList.remove('hidden');
+            loadCookiePolicy();
         });
     }
 
@@ -85,4 +117,4 @@ DOMReady( function( ) {
         });
     }
 
-} );
+});

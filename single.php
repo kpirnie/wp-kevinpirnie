@@ -90,26 +90,26 @@ get_header( );
                 <?php endif; ?>
                 
                 <div class="border-t border-b border-gray-700 py-6 mb-8">
-                    <div class="flex justify-between">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <?php
                             $prev_post = get_previous_post();
                             if ($prev_post): ?>
-                                <a href="<?php echo get_permalink($prev_post); ?>" class="flex items-center text-[#599bb8] hover:text-blue-700 transition-colors">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <a href="<?php echo get_permalink($prev_post); ?>" class="flex items-start text-[#599bb8] hover:text-blue-700 transition-colors">
+                                    <svg class="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                                     </svg>
-                                    <span class="text-sm">Previous Post</span>
+                                    <span class="text-sm"><?php echo esc_html( $prev_post->post_title ); ?></span>
                                 </a>
                             <?php endif; ?>
                         </div>
-                        <div>
+                        <div class="md:text-right">
                             <?php
                             $next_post = get_next_post();
                             if ($next_post): ?>
-                                <a href="<?php echo get_permalink($next_post); ?>" class="flex items-center text-[#599bb8] hover:text-blue-700 transition-colors">
-                                    <span class="text-sm">Next Post</span>
-                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <a href="<?php echo get_permalink($next_post); ?>" class="flex items-start md:justify-end text-[#599bb8] hover:text-blue-700 transition-colors">
+                                    <span class="text-sm md:order-1"><?php echo esc_html( $next_post->post_title ); ?></span>
+                                    <svg class="w-5 h-5 ml-2 flex-shrink-0 mt-0.5 md:order-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                     </svg>
                                 </a>
@@ -117,12 +117,7 @@ get_header( );
                         </div>
                     </div>
                 </div>
-                
-                <?php
-                if (comments_open() || get_comments_number()) {
-                    comments_template();
-                }
-                ?>
+
             </article>
             
             <!-- Sidebar - 1/3 width -->
@@ -145,23 +140,6 @@ get_header( );
                                 </button>
                             </div>
                         </form>
-                    </div>
-
-                    <!-- Recent Posts Widget -->
-                    <div class="bg-gray-800 rounded-lg shadow-md p-6 mb-6">
-                        <h3 class="text-lg font-semibold mb-4 text-gray-100">Recent Posts</h3>
-                        <ul class="space-y-3 list-disc list-inside">
-                            <?php
-                            $recent_posts = wp_get_recent_posts(array(
-                                'numberposts' => 5,
-                                'post_status' => 'publish'
-                            ));
-                            foreach($recent_posts as $recent) {
-                                echo '<li><a href="' . get_permalink($recent['ID']) . '" class="text-sm text-gray-400 hover:text-white transition-colors">' . $recent['post_title'] . '</a></li>';
-                            }
-                            wp_reset_query();
-                            ?>
-                        </ul>
                     </div>
                     
                     <!-- Archives Widget -->
