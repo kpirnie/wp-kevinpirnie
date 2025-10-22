@@ -3113,6 +3113,11 @@ h6 {
     padding-left: 2rem;
     padding-right: 2rem;
   }
+
+  .sm\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
 }
 
 @media (min-width: 768px) {

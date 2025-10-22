@@ -41,84 +41,133 @@ $resume_contact_right = get_post_meta( $id, 'resume_contact_right', true);
         <style type="text/css">
             
             .show-print{
+                display: none;
+            }
 
+            .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+                font-weight: 700;
+                margin-bottom: 0.25em !important;
+                line-height: 1.2rem !important;
+            }
+            .wp-block-separator {
+                border-top: 1px solid #4b5563;
+                margin: 1.5rem 0 !important;
+            }
+
+            /* Make top header sticky */
+            #top-resume-header {
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 50 !important;
+                transform: none !important;
+                transition: none !important;
+                background: linear-gradient(135deg, var(--kp-light-blue) 0%, var(--kp-darkest-blue) 100%);
+                border-bottom:1px solid #000 !important;
             }
 
             @media print {
-                body{background:#fff !important;color:#000 !important;}
+                body, h1, h2, h3, h4 h5, h6{background:#fff !important;color:#000 !important;}
                 .print-link{display:none !important;}
                 .hide-print{display:none !important;}
                 .no-top{margin-top:0 !important;}
                 .show-print{display:block !important;}
+                h1 { 
+                    font-size: 1.75rem !important;
+                    line-height: 2.rem !important;    
+                }
+                h2 {
+                    font-size: 1.25em !important;
+                    line-height: 1.5rem !important;    
+                }
+                h3 {
+                    font-size: 1em !important;
+                    line-height: 1.2rem !important;    
+                }
+                p {
+                    line-height: 1rem !important;
+                    font-size: .85rem !important;
+                }
+                #top-resume-header {
+                    background: none !important;
+                    border-bottom: 2px solid #000 !important;
+                }
+    
             }
 
         </style>
+        <script>
+            // Ensure sticky behavior stays on scroll
+            document.addEventListener('DOMContentLoaded', function() {
+                const topHeader = document.getElementById('top-resume-header');
+                if (topHeader) {
+                    topHeader.style.position = 'sticky';
+                    topHeader.style.top = '0';
+                    topHeader.style.zIndex = '50';
+                    topHeader.style.transform = 'none';
+                }
+            });
+        </script>
     </head>
     <body <?php body_class( 'bg-gray-900 text-gray-100 font-mono' ); ?>>
         <?php wp_body_open( ); ?>
-        
         <header id="main-header" class="bg-gray-900/95 ">
+            <div class="w-full p-4">
+                <div class="flex justify-between items-center py-2">
 
-            <div class="w-full p-4 sm:px-8 md:px-16">
-
-                <div class="hide-print">
-                    <a href="<?php echo home_url( '/' ); ?>" class="header-logo">
-                        <?php
-                            // get the SVG content for my logo
-                            echo file_get_contents( ABSPATH . '/wp-content/uploads/2025/10/kevinpirnie-logo-color.svg' );
-                        ?>
-                    </a>
+                    <div>
+                        <div class="hide-print">
+                            <a href="<?php echo home_url( '/' ); ?>" class="header-logo">
+                                <?php
+                                    // get the SVG content for my logo
+                                    echo file_get_contents( ABSPATH . '/wp-content/uploads/2025/10/kevinpirnie-logo-color.svg' );
+                                ?>
+                            </a>
+                        </div>
+                        <div class="show-print">
+                            <h1 class="text-3xl sm:text-4xl font-bold mb-2">Kevin C. Pirnie</h1>
+                        </div>
+                    </div>
+                    <div class=" hide-print">
+                        <p class="text-right">
+                            <a href="#" class="print-link" onclick="window.print( );"><span class="fa-solid fa-print"></span> Print My Resume</a> | 
+                            <a href="https://dev.kpirnie.com/wp-content/uploads/2025/10/KevinPirnie-Resume.pdf" target="_blank"><span class="fa-solid fa-file-pdf"></span> Download PDF</a>
+                        </p>
+                    </div>
                 </div>
-
-                <div class="show-print">
-                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Kevin C. Pirnie</h1>
-                </div>
-                
-                <h1 class="text-4xl md:text-5xl font-bold mb-4 kp-gradient-text">
+                <h1 class="text-3xl sm:text-4xl font-bold mb-2">
                     <?php
                         _e( get_the_title( ), 'kpt' );
                     ?>
                 </h1>
-                
                 <p>
                     <?php
                         _e( $resume_summary, 'kpt' );
                     ?>                
                 </p>
             </div>
-
         </header>
 
-        <div id="top-header" class="resume-bottom-header sticky text-white backdrop-blur-sm shadow-md shadow-gray-950 hide-print">
-
-            <div class="w-full px-4 sm:px-8 md:px-16">
-
+        <div id="top-resume-header" class="sticky text-white">
+            <div class="w-full px-4">
                 <div class="flex justify-between items-center py-2 text-xs md:text-sm">
-
-                    <div class="flex items-center">
+                    <div class="items-center">
                         <?php
                             _e( $resume_contact_left, 'kpt' );
                         ?>                
                     </div>
-                    <div class="flex items-center">
+                    <div class="items-center">
                         <?php
                             _e( $resume_contact_right, 'kpt' );
                         ?>                
                     </div>
-
                 </div>
             </div>
-
         </div>
 
         <main id="content" class="min-h-screen">
             <div class="w-full">
-                <section id="page-<?php the_ID( ); ?>" <?php post_class( 'w-full pt-6 px-4 sm:px-8 md:px-16' ); ?>>
+                <section id="page-<?php the_ID( ); ?>" <?php post_class( 'w-full pt-6 px-4' ); ?>>
                     <div class="article-content prose prose-lg mb-8">
-                        <p class="text-right hide-print">
-                            <a href="#" class="print-link" onclick="window.print( );"><span class="fa-solid fa-print"></span> Print My Resume</a> | 
-                            <a href="https://dev.kpirnie.com/wp-content/uploads/2025/10/KevinPirnie-Resume.pdf" target="_blank"><span class="fa-solid fa-file-pdf"></span> Download PDF</a>
-                        </p>
                         <?php
                             
                             // just write out the content
@@ -136,7 +185,7 @@ $resume_contact_right = get_post_meta( $id, 'resume_contact_right', true);
         </button>
         <footer class="hide-print bg-gray-800 border-t border-gray-700 mt-8">
             <div class="bg-gray-900 border-t border-gray-700">
-                <div class="w-full px-4 sm:px-8 md:px-16 py-4">
+                <div class="w-full px-4 py-4">
                     <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
                         <div class="mb-2 md:mb-0">
                             <p>Copyright &copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All rights reserved.</p>
