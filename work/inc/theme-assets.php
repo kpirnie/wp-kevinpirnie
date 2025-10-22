@@ -57,6 +57,18 @@ if( ! class_exists( 'KPT_Assets' ) ) {
             // enqueue our scripts
             $this -> pull_js( );
 
+            // Remove WordPress block library CSS on resume page
+            add_action( 'wp_enqueue_scripts', function() {
+                // Check if we're on the resume page (adjust slug as needed)
+                if ( is_page( 'kevin-pirnie-devops-support-lead-wordpress-hosting' ) ) {
+                    // Dequeue block library styles
+                    wp_dequeue_style( 'wp-block-library' );
+                    wp_dequeue_style( 'wp-block-library-theme' );
+                    wp_dequeue_style( 'wc-blocks-style' );
+                    wp_dequeue_style( 'global-styles' );
+                }
+            }, 100 );
+
         }
 
         /** 

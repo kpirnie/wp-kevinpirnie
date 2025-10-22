@@ -78,7 +78,7 @@ $have_widgets = in_array( true, array( is_active_sidebar('footer-1'), is_active_
 
         </footer>
 
- <!-- Cookie Notice Overlay -->
+        <!-- Cookie Notice Overlay -->
         <div id="kp-cookie-overlay" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50"></div>
         
         <!-- Cookie Notice -->
@@ -128,7 +128,7 @@ $have_widgets = in_array( true, array( is_active_sidebar('footer-1'), is_active_
                 </div>
             </div>
         </div>
-        
+
         <?php wp_footer( ); ?>
     </body>
 </html>
