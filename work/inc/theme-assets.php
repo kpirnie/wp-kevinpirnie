@@ -130,6 +130,7 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                     'kpt_cta' => 'modules/cta.css',
                     'kpt_blocks' => 'modules/blocks.css',
                     'kpt_utilities' => 'modules/utilities.css',
+                    'kpt_portfolio' => 'modules/portfolio.css',
                 );
 
                 $last_dep = 'kpt_fa_icons';
@@ -213,6 +214,10 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                     ),
                     'kpt_header' => array( 
                         'url' => get_stylesheet_directory_uri() . '/assets/js/modules/top-header.js', 
+                        'deps' => array( 'kpt_main' ) 
+                    ),
+                    'kpt_portfolio' => array( 
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/portfolio-slideshow.js', 
                         'deps' => array( 'kpt_main' ) 
                     ),
                 );

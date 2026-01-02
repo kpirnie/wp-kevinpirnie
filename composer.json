@@ -1,0 +1,36 @@
+{
+    "name": "kevins/theme",
+    "description": "Kevin's Theme",
+    "version": "2",
+    "type": "project",
+    "homepage": "https://kevinpirnie.com/",
+    "readme": "readme.txt",
+    "license": "MIT",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Kevin Pirnie",
+            "email": "me@kpirnie.com",
+            "homepage": "https://kevinpirnie.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.2"
+    },
+    "autoload": {
+        "classmap": [
+            "vendor/custom-fields/",
+            "work/inc/"
+        ],
+        "files": [
+            "work/kpt.php"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "classmap-authoritative": true,
+        "apcu-autoloader": true,
+        "sort-packages": true
+    }
+}

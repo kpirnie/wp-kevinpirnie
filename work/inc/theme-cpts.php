@@ -74,7 +74,7 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
             register_post_type( 'kpt_portfolio', array(
                 'labels' => array(
                     'name'               => 'Portfolio',
-                    'singular_name'      => 'Hero',
+                    'singular_name'      => 'Portfolio Item',
                     'add_new'            => 'Add New',
                     'add_new_item'       => 'Add New Item',
                     'edit_item'          => 'Edit Item',
@@ -222,6 +222,24 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
             } );
 
             add_action( 'manage_kpt_hero_posts_custom_column', function( $column, $post_id ) {
+                if ( $column === 'thumbnail' ) {
+                    echo get_the_post_thumbnail( $post_id, array( 125, 125 ) );
+                }
+            }, 10, 2 );
+
+            // Heroes
+            add_filter( 'manage_kpt_portfolio_posts_columns', function( $columns ) {
+                $new = array();
+                foreach ( $columns as $key => $value ) {
+                    $new[$key] = $value;
+                    if ( $key === 'cb' ) {
+                        $new['thumbnail'] = __( 'Image', 'kpt' );
+                    }
+                }
+                return $new;
+            } );
+
+            add_action( 'manage_kpt_portfolio_posts_custom_column', function( $column, $post_id ) {
                 if ( $column === 'thumbnail' ) {
                     echo get_the_post_thumbnail( $post_id, array( 125, 125 ) );
                 }

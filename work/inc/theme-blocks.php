@@ -21,6 +21,7 @@ if ( ! class_exists( 'KPT_Blocks' ) ) {
             
             add_action( 'init', array( $this, 'register_cta_block' ) );
             add_action( 'init', array( $this, 'register_contact_form_block' ) );
+            add_action( 'init', array( $this, 'register_portfolio_block' ) );
             add_filter( 'block_categories_all', array( $this, 'add_block_category' ), 10, 2 );
             add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
 
@@ -38,6 +39,36 @@ if ( ! class_exists( 'KPT_Blocks' ) ) {
                 ),
                 $categories
             );
+            
+        }
+
+        public function register_portfolio_block() : void {
+    
+            if ( ! function_exists( 'register_block_type' ) ) {
+                return;
+            }
+
+            register_block_type( 'kpt/portfolio-block', array(
+                'api_version'     => 2,
+                'title'           => __( 'Portfolio Slideshow', 'kpt' ),
+                'description'     => __( 'Display portfolio items as a slideshow', 'kpt' ),
+                'category'        => 'kpt-blocks',
+                'icon'            => 'images-alt2',
+                'keywords'        => array( 'portfolio', 'slideshow', 'gallery', 'projects' ),
+                'supports'        => array(
+                    'anchor' => true,
+                    'align'  => array( 'wide', 'full' ),
+                ),
+                'render_callback' => array( $this, 'render_portfolio_block' ),
+            ) );
+            
+        }
+
+        public function render_portfolio_block( $attributes ) : string {
+            
+            ob_start();
+            get_template_part( 'partials/cpts/portfolio' );
+            return ob_get_clean();
             
         }
 
@@ -106,6 +137,13 @@ if ( ! class_exists( 'KPT_Blocks' ) ) {
                 $is_debug ? time() : filemtime( get_stylesheet_directory() . '/assets/js/blocks/contact-form-block.js' )
             );
             
+            // Enqueue Portfolio block JavaScript
+            wp_enqueue_script(
+                'kpt-portfolio-block-editor',
+                get_stylesheet_directory_uri() . '/assets/js/blocks/portfolio-block.js',
+                array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-server-side-render' ),
+                $is_debug ? time() : filemtime( get_stylesheet_directory() . '/assets/js/blocks/portfolio-block.js' )
+            );
         }
 
         public function register_contact_form_block() : void {

@@ -130,6 +130,9 @@ if( ! class_exists( 'KPT_Settings' ) ) {
             // add in the cta settings
             $this -> cta_settings( );
 
+            // add in the portfolio settings
+            $this -> portfolio_settings( );
+
             // add in the contact form settings
             $this -> contact_form_settings( );
 
@@ -224,6 +227,32 @@ if( ! class_exists( 'KPT_Settings' ) ) {
 
         }
 
+        private function portfolio_settings() : void {
+            // page settings key
+            $_settings_key = 'kpt_portfolio_settings';
+
+            // create the metabox
+            KPT_FW::createMetabox( $_settings_key, array(
+                'title'        => 'Portfolio Options',
+                'post_type'    => 'kpt_portfolio',
+                'show_restore' => true,
+                'context'      => 'advanced',
+            ) );
+
+            KPT_FW::createSection( $_settings_key, array(
+                'fields' => array( 
+                    array(
+                        'id'          => 'portfolio_url',
+                        'type'        => 'link',
+                        'title'       => 'Portfolio URL',
+                        'add_title'   => 'Add URL',
+                        'edit_title'  => 'Edit URL',
+                        'remove_title'=> 'Remove URL',
+                    ),
+                ) 
+            ) );
+
+        }
 
         private function contact_form_settings( ) : void {
 
