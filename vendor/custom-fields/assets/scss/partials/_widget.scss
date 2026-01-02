@@ -1,0 +1,67 @@
+/**
+ * 04. Widget
+ */
+.kpt_fw-widgets{
+
+  > .kpt_fw-field{
+    position: relative;
+    top: -1px;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 12px 15px;
+
+    .kpt_fw-title{
+      float: none;
+      width: 100%;
+      margin-bottom: 5px;
+    }
+
+    .kpt_fw-fieldset{
+      float: none;
+      width: 100%;
+    }
+  }
+
+  .kpt_fw-field-text input{
+    width: 100%;
+  }
+
+  .kpt_fw-field-notice .kpt_fw-notice{
+    padding: 15px;
+  }
+}
+
+.control-section{
+
+  .kpt_fw-widgets{
+
+    > .kpt_fw-field{
+      margin-left: -10px;
+      margin-right: -10px;
+      padding: 10px 12px;
+    }
+  }
+}
+
+.wp-block{
+
+  .kpt_fw-widgets{
+    font-size: 13px;
+
+    > .kpt_fw-field{
+      margin-left: -10px;
+      margin-right: -10px;
+
+      .button-primary{
+        color: #fff;
+      }
+
+      > .kpt_fw-title{
+
+        > h4{
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
