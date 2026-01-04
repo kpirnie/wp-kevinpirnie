@@ -96,7 +96,7 @@ if( ! class_exists( 'KPT_Supports' ) ) {
 
             // add in more image sizes to select from
             add_image_size( 'hero', 1920, 350, array( 'center', 'center' ) );
-            add_image_size( 'portfolio', 1920, 350, array( 'left', 'top' ) );
+            add_image_size( 'portfolio-masonry', 800, 600, array( 'left', 'top' ) );
             add_image_size( 'articlehead', 963, 385, array( 'center', 'center' ) );
             add_image_size( 'articlelist', 520, 193, array( 'center', 'center' ) );
             add_image_size( 'innerpage', 482, 397, array( 'center', 'center' ) );
@@ -105,7 +105,7 @@ if( ! class_exists( 'KPT_Supports' ) ) {
             add_filter( 'image_size_names_choose', function( $sizes ) {
                 return array_merge( $sizes, array(
                     'hero' => __( 'Hero (1920x350)' ),
-                    'portfolio' => __( 'Portfolio (1920x350)' ),
+                    'portfolio' => __( 'Portfolio (800x600)' ),
                     'articlehead' => __( 'Article Head (963x385)' ),
                     'articlelist' => __( 'Article List (520x193)' ),
                     'innerpage' => __( 'Inner Page (482x397)' ),

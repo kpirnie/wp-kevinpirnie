@@ -91,7 +91,7 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                 'exclude_from_search' => true,
                 'show_in_nav_menus'   => false,
                 'show_in_rest'        => true,
-                'rewrite' => ['slug' => "portfolio/client", 'with_front' => false],
+                'rewrite' => ['slug' => "about-kevin-pirnie/enterprise-web-solutions-and-portfolio", 'with_front' => false],
             ) );
             
         }

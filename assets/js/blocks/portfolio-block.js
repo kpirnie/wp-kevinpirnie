@@ -2,10 +2,9 @@
 
     const el = element.createElement;
     const { registerBlockType } = blocks;
-    const { SelectControl } = components;
+    const { SelectControl, Placeholder } = components;
     const { useBlockProps, InspectorControls } = blockEditor;
     const { PanelBody } = components;
-    const ServerSideRender = serverSideRender;
 
     registerBlockType('kpt/portfolio-block', {
 
@@ -22,7 +21,7 @@
         attributes: {
             imageSize: {
                 type: 'string',
-                default: 'portfolio'
+                default: 'portfolio-masonry'
             }
         },
 
@@ -32,7 +31,7 @@
             const blockProps = useBlockProps();
 
             const imageSizeOptions = [
-                { value: 'portfolio', label: 'Portfolio (1920x350)' },
+                { value: 'portfolio-masonry', label: 'Portfolio Masonry (800x600)' },
                 { value: 'hero', label: 'Hero (1920x350)' },
                 { value: 'articlehead', label: 'Article Head (963x385)' },
                 { value: 'articlelist', label: 'Article List (520x193)' },
@@ -57,17 +56,20 @@
                             label: 'Image Size',
                             value: attributes.imageSize,
                             options: imageSizeOptions,
-                            onChange: function(value) { setAttributes({ imageSize: value }); },
+                            onChange: function (value) { setAttributes({ imageSize: value }); },
                             help: 'Select the image size to use for portfolio items'
                         })
                     )
                 ),
                 el(
-                    ServerSideRender,
-                    {
-                        block: 'kpt/portfolio-block',
-                        attributes: props.attributes
-                    }
+                    'div',
+                    { className: 'kpt-portfolio-preview', style: { columnCount: '3', columnGap: '1rem', padding: '1rem', background: '#1f2937', borderRadius: '0.5rem' } },
+                    el('div', { style: { breakInside: 'avoid', marginBottom: '1rem', height: '256px', background: 'linear-gradient(135deg, #599bb8 0%, #2d7696 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px' } }, 'Portfolio Item 1'),
+                    el('div', { style: { breakInside: 'avoid', marginBottom: '1rem', height: '320px', background: 'linear-gradient(135deg, #43819c 0%, #1c375c 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px' } }, 'Portfolio Item 2'),
+                    el('div', { style: { breakInside: 'avoid', marginBottom: '1rem', height: '384px', background: 'linear-gradient(135deg, #2d7696 0%, #000d2d 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px' } }, 'Portfolio Item 3'),
+                    el('div', { style: { breakInside: 'avoid', marginBottom: '1rem', height: '288px', background: 'linear-gradient(135deg, #599bb8 0%, #2d7696 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px' } }, 'Portfolio Item 4'),
+                    el('div', { style: { breakInside: 'avoid', marginBottom: '1rem', height: '256px', background: 'linear-gradient(135deg, #43819c 0%, #1c375c 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px' } }, 'Portfolio Item 5'),
+                    el('div', { style: { breakInside: 'avoid', marginBottom: '1rem', height: '320px', background: 'linear-gradient(135deg, #2d7696 0%, #000d2d 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px' } }, 'Portfolio Item 6')
                 )
             );
 

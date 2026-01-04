@@ -216,10 +216,6 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                         'url' => get_stylesheet_directory_uri() . '/assets/js/modules/top-header.js', 
                         'deps' => array( 'kpt_main' ) 
                     ),
-                    'kpt_portfolio' => array( 
-                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/portfolio-slideshow.js', 
-                        'deps' => array( 'kpt_main' ) 
-                    ),
                 );
 
                 // loop the js array
