@@ -43,7 +43,7 @@ if ( ! class_exists( 'KPT_Blocks' ) ) {
         }
 
         public function register_portfolio_block() : void {
-    
+
             if ( ! function_exists( 'register_block_type' ) ) {
                 return;
             }
@@ -59,14 +59,23 @@ if ( ! class_exists( 'KPT_Blocks' ) ) {
                     'anchor' => true,
                     'align'  => array( 'wide', 'full' ),
                 ),
+                'attributes'      => array(
+                    'imageSize' => array(
+                        'type'    => 'string',
+                        'default' => 'portfolio',
+                    ),
+                ),
                 'render_callback' => array( $this, 'render_portfolio_block' ),
             ) );
             
         }
 
         public function render_portfolio_block( $attributes ) : string {
+    
+            $image_size = isset( $attributes['imageSize'] ) ? $attributes['imageSize'] : 'portfolio';
             
             ob_start();
+            set_query_var( 'portfolio_image_size', $image_size );
             get_template_part( 'partials/cpts/portfolio' );
             return ob_get_clean();
             

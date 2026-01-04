@@ -1,134 +1,67 @@
-// DOM ready event
 DOMReady(function() {
-
-    // ========================================
-    // Portfolio Slideshow
-    // ========================================
-    const slideshow = document.querySelector('.kpt-portfolio-slideshow');
+    var slideshow = document.querySelector('.kpt-portfolio-slideshow');
     if (!slideshow) return;
 
-    const slides = slideshow.querySelectorAll('.kpt-portfolio-slide');
-    const dots = slideshow.querySelectorAll('.kpt-portfolio-dot');
-    const prevBtn = slideshow.querySelector('.kpt-portfolio-prev');
-    const nextBtn = slideshow.querySelector('.kpt-portfolio-next');
+    var slides = slideshow.querySelectorAll('.kpt-portfolio-slide');
+    var dots = slideshow.querySelectorAll('.kpt-portfolio-dot');
+    var prevBtn = slideshow.querySelector('.kpt-portfolio-prev');
+    var nextBtn = slideshow.querySelector('.kpt-portfolio-next');
+    var progressBar = slideshow.querySelector('.kpt-portfolio-progress-bar');
 
     if (slides.length <= 1) return;
 
-    let currentSlide = 0;
-    let autoplayInterval;
-    const slideDuration = 8000;
+    var currentSlide = 0;
+    var isPaused = false;
+    var startTime = Date.now();
+    var slideDuration = 8000;
+    var rafId = null;
+
+    function setProgress(percent) {
+        if (progressBar) progressBar.style.width = percent + '%';
+    }
 
     function goToSlide(index) {
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-
+        slides.forEach(function(s) { s.classList.remove('active'); });
+        dots.forEach(function(d) { d.classList.remove('active'); });
         currentSlide = (index + slides.length) % slides.length;
-
         slides[currentSlide].classList.add('active');
-        if (dots[currentSlide]) {
-            dots[currentSlide].classList.add('active');
-        }
-
-        resetProgress();
+        if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+        startTime = Date.now();
+        setProgress(0);
     }
 
-    function nextSlide() {
-        goToSlide(currentSlide + 1);
-    }
-
-    function prevSlide() {
-        goToSlide(currentSlide - 1);
-    }
-
-    function resetProgress() {
-        slideshow.classList.remove('playing');
-        void slideshow.offsetWidth;
-        slideshow.classList.add('playing');
-    }
-
-    function startAutoplay() {
-        stopAutoplay();
-        slideshow.classList.add('playing');
-        autoplayInterval = setInterval(nextSlide, slideDuration);
-    }
-
-    function stopAutoplay() {
-        clearInterval(autoplayInterval);
-        slideshow.classList.remove('playing');
-    }
-
-    // Navigation buttons
-    if (prevBtn) {
-        prevBtn.addEventListener('click', function() {
-            prevSlide();
-            startAutoplay();
-        });
-    }
-
-    if (nextBtn) {
-        nextBtn.addEventListener('click', function() {
-            nextSlide();
-            startAutoplay();
-        });
-    }
-
-    // Dots navigation
-    dots.forEach(function(dot, index) {
-        dot.addEventListener('click', function() {
-            goToSlide(index);
-            startAutoplay();
-        });
-    });
-
-    // Pause on hover
-    slideshow.addEventListener('mouseenter', stopAutoplay);
-    slideshow.addEventListener('mouseleave', startAutoplay);
-
-    // Touch support
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    slideshow.addEventListener('touchstart', function(e) {
-        touchStartX = e.changedTouches[0].screenX;
-        stopAutoplay();
-    }, { passive: true });
-
-    slideshow.addEventListener('touchend', function(e) {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-        startAutoplay();
-    }, { passive: true });
-
-    function handleSwipe() {
-        const diff = touchStartX - touchEndX;
-        if (Math.abs(diff) > 50) {
-            if (diff > 0) {
-                nextSlide();
-            } else {
-                prevSlide();
+    function tick() {
+        if (!isPaused) {
+            var elapsed = Date.now() - startTime;
+            var progress = Math.min((elapsed / slideDuration) * 100, 100);
+            setProgress(progress);
+            if (elapsed >= slideDuration) {
+                goToSlide(currentSlide + 1);
             }
         }
+        rafId = requestAnimationFrame(tick);
     }
 
-    // Keyboard navigation
-    function isInViewport(element) {
-        const rect = element.getBoundingClientRect();
-        return rect.top < window.innerHeight && rect.bottom > 0;
+    function pause() { isPaused = true; }
+    function resume() { 
+        isPaused = false; 
+        startTime = Date.now() - (parseFloat(progressBar.style.width || 0) / 100 * slideDuration);
     }
 
-    document.addEventListener('keydown', function(e) {
-        if (!isInViewport(slideshow)) return;
+    if (prevBtn) prevBtn.addEventListener('click', function() { goToSlide(currentSlide - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { goToSlide(currentSlide + 1); });
+    dots.forEach(function(dot, i) { dot.addEventListener('click', function() { goToSlide(i); }); });
 
-        if (e.key === 'ArrowLeft') {
-            prevSlide();
-            startAutoplay();
-        } else if (e.key === 'ArrowRight') {
-            nextSlide();
-            startAutoplay();
-        }
-    });
+    slideshow.addEventListener('mouseenter', pause);
+    slideshow.addEventListener('mouseleave', resume);
 
-    // Start autoplay
-    startAutoplay();
+    var touchStartX = 0;
+    slideshow.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; pause(); }, {passive:true});
+    slideshow.addEventListener('touchend', function(e) {
+        var diff = touchStartX - e.changedTouches[0].screenX;
+        if (Math.abs(diff) > 50) goToSlide(currentSlide + (diff > 0 ? 1 : -1));
+        resume();
+    }, {passive:true});
 
+    rafId = requestAnimationFrame(tick);
 });

@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed' );
 // Get portfolio items in random order
 $args = array(
     'post_type'      => 'kpt_portfolio',
-    'posts_per_page' => -1,
+    'posts_per_page' => 5,
     'post_status'    => 'publish',
     'orderby'        => 'rand',
 );
@@ -28,14 +28,15 @@ if ( empty( $portfolio_items ) ) {
 }
 ?>
 
-<div class="kpt-portfolio-slideshow relative w-full h-[250px] md:h-[300px] lg:h-[350px] overflow-hidden">
+<div class="kpt-portfolio-slideshow relative w-full h-[350px] md:h-[400px] lg:h-[450px] overflow-hidden">
     
     <?php foreach ( $portfolio_items as $index => $item ) : 
         $item_id = $item->ID;
         $title = $item->post_title;
         $excerpt = $item->post_excerpt;
         $content = $item->post_content;
-        $image = get_the_post_thumbnail_url( $item_id, 'hero' );
+        $image_size = get_query_var( 'portfolio_image_size', 'portfolio' );
+        $image = get_the_post_thumbnail_url( $item_id, $image_size );
         
         // Get portfolio settings
         $settings = get_post_meta( $item_id, 'kpt_portfolio_settings', true );
@@ -56,10 +57,10 @@ if ( empty( $portfolio_items ) ) {
             </div>
             
             <!-- Overlay -->
-            <div class="kpt-portfolio-overlay"></div>
+            <div class="kpt-portfolio-overlay h-[75%]"></div>
             
             <!-- Content -->
-            <div class="kpt-portfolio-content">
+            <div class="kpt-portfolio-content h-[75%]">
                 <div class="kpt-portfolio-content-inner">
                     <?php if ( $title ) : ?>
                         <h2 class="kpt-portfolio-title"><?php echo esc_html( $title ); ?></h2>
