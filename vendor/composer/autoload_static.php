@@ -14,7 +14,6 @@ class ComposerStaticInit24e41bbaee1332276f826502c7093d78
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'KPT_Assets' => __DIR__ . '/../..' . '/work/inc/theme-assets.php',
         'KPT_Blocks' => __DIR__ . '/../..' . '/work/inc/theme-blocks.php',
-        'KPT_BreadCrumbs' => __DIR__ . '/../..' . '/work/inc/theme-breadcrumbs.php',
         'KPT_CPTs' => __DIR__ . '/../..' . '/work/inc/theme-cpts.php',
         'KPT_Contact_Form' => __DIR__ . '/../..' . '/work/inc/theme-contact-form.php',
         'KPT_FW' => __DIR__ . '/..' . '/custom-fields/classes/setup.class.php',

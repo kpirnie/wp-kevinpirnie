@@ -57,13 +57,13 @@ if( ! class_exists( 'KPT_Main_Nav_Walker' ) ) {
                 if ($depth > 0) {
                     $button_classes = 'dropdown-toggle block px-4 py-2 hover:bg-gray-700 transition-colors text-sm whitespace-nowrap w-full text-left flex items-center justify-between';
                 } else {
-                    $button_classes = 'dropdown-toggle hover:bg-gray-700 transition-colors flex items-center justify-between w-full text-left px-4 py-2';
+                    $button_classes = 'dropdown-toggle transition-colors flex items-center justify-between w-full text-left px-4 py-2';
                 }
                 
                 $output .= '<button class="' . $button_classes . '"';
                 $output .= ' data-depth="' . $depth . '"';
                 $output .= ' aria-expanded="false" aria-label="Toggle ' . esc_attr($item->title) . ' menu">';
-                $output .= '<span class="whitespace-nowrap text-gray-100 hover:text-[#599bb8]">' . esc_html($item->title) . '</span>';
+                $output .= '<span class="whitespace-nowrap text-gray-100">' . esc_html($item->title) . '</span>';
                 
                 // Use right arrow for all nested menus
                 if ($depth > 0) {

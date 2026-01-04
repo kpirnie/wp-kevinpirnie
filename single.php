@@ -19,7 +19,7 @@ get_header( );
 
 <section <?php post_class( 'w-full pt-6 px-4 sm:px-8 md:px-16' ); ?>>
 
-    <?php echo KPT_BreadCrumbs::get_base_breadcrumbs(); ?>
+    <?php get_template_part( 'partials/navigation/breadcrumbs' ); ?>
     
     <?php while (have_posts()): the_post(); ?>
         <div class="w-full flex flex-col lg:flex-row gap-8">
@@ -89,111 +89,13 @@ get_header( );
                     </div>
                 <?php endif; ?>
                 
-                <div class="border-t border-b border-gray-700 py-6 mb-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <?php
-                            $prev_post = get_previous_post();
-                            if ($prev_post): ?>
-                                <a href="<?php echo get_permalink($prev_post); ?>" class="flex items-start text-[#599bb8] hover:text-blue-700 transition-colors">
-                                    <svg class="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                                    </svg>
-                                    <span class="text-sm"><?php echo esc_html( $prev_post->post_title ); ?></span>
-                                </a>
-                            <?php endif; ?>
-                        </div>
-                        <div class="md:text-right">
-                            <?php
-                            $next_post = get_next_post();
-                            if ($next_post): ?>
-                                <a href="<?php echo get_permalink($next_post); ?>" class="flex items-start md:justify-end text-[#599bb8] hover:text-blue-700 transition-colors">
-                                    <span class="text-sm md:order-1"><?php echo esc_html( $next_post->post_title ); ?></span>
-                                    <svg class="w-5 h-5 ml-2 flex-shrink-0 mt-0.5 md:order-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                                    </svg>
-                                </a>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
+                <?php get_template_part( 'partials/navigation/paging', 'single' ); ?>
 
             </article>
             
             <!-- Sidebar - 1/3 width -->
             <aside class="w-full lg:w-1/3">
-                <div class="lg:sticky lg:top-24">
-                    
-                    <!-- Search Widget -->
-                    <div class="bg-gray-800 rounded-lg shadow-md p-6 mb-6">
-                        <h3 class="text-lg font-semibold mb-4 text-gray-100">Search</h3>
-                        <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-                            <div class="flex gap-2">
-                                <input type="search" 
-                                    name="s" 
-                                    placeholder="Search..." 
-                                    class="flex-1 px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#599bb8]"
-                                    value="<?php echo get_search_query(); ?>">
-                                <button type="submit" 
-                                        class="px-4 py-2 bg-gradient-to-r from-[#599bb8] to-[#2d7696] text-white rounded-lg transition-all hover:from-[#43819c] hover:to-[#2d7696]">
-                                    <span class="fa-solid fa-magnifying-glass"></span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <!-- Archives Widget -->
-                    <div class="bg-gray-800 rounded-lg shadow-md p-6 mb-6">
-                        <h3 class="text-lg font-semibold mb-4 text-gray-100">Archives</h3>
-                        <ul class="space-y-2 list-disc list-inside">
-                            <?php
-                            wp_get_archives(array(
-                                'type' => 'monthly',
-                                'limit' => 12,
-                                'format' => 'custom',
-                                'before' => '<li>',
-                                'after' => '</li>',
-                                'show_post_count' => true,
-                                'echo' => true
-                            ));
-                            ?>
-                        </ul>
-                    </div>
-                    
-                    <!-- Categories Widget -->
-                    <div class="bg-gray-800 rounded-lg shadow-md p-6 mb-6">
-                        <h3 class="text-lg font-semibold mb-4 text-gray-100">Categories</h3>
-                        <div class="flex flex-wrap gap-2">
-                            <?php
-                            $categories = get_categories(array(
-                                'orderby' => 'name',
-                                'order' => 'ASC'
-                            ));
-                            foreach($categories as $category) {
-                                echo '<a href="' . get_category_link($category->term_id) . '" class="text-xs px-3 py-1 bg-gray-700 text-gray-300 rounded-full hover:bg-blue-900 hover:text-white transition-colors">' . $category->name . '</a>';
-                            }
-                            ?>
-                        </div>
-                    </div>
-                    
-                    <!-- Tags Cloud Widget -->
-                    <?php
-                    $tags = get_tags(array('orderby' => 'count', 'order' => 'DESC', 'number' => 10000));
-                    if ($tags):
-                    ?>
-                    <div class="bg-gray-800 rounded-lg shadow-md p-6">
-                        <h3 class="text-lg font-semibold mb-4 text-gray-100">Tag Cloud</h3>
-                        <div class="flex flex-wrap gap-2">
-                            <?php
-                            foreach($tags as $tag) {
-                                echo '<a href="' . get_tag_link($tag->term_id) . '" class="text-xs px-3 py-1 bg-gray-700 text-gray-300 rounded-full hover:bg-blue-900 hover:text-white transition-colors">' . $tag->name . '</a>';
-                            }
-                            ?>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-                    
-                </div>
+                <?php get_template_part( 'partials/sidebar', 'articles' ); ?>
             </aside>
 
         </div>

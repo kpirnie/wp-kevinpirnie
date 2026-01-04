@@ -9,7 +9,6 @@ return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'KPT_Assets' => $baseDir . '/work/inc/theme-assets.php',
     'KPT_Blocks' => $baseDir . '/work/inc/theme-blocks.php',
-    'KPT_BreadCrumbs' => $baseDir . '/work/inc/theme-breadcrumbs.php',
     'KPT_CPTs' => $baseDir . '/work/inc/theme-cpts.php',
     'KPT_Contact_Form' => $baseDir . '/work/inc/theme-contact-form.php',
     'KPT_FW' => $vendorDir . '/custom-fields/classes/setup.class.php',
