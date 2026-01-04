@@ -27,3 +27,9 @@ add_action( 'after_setup_theme', function( ) {
     }
 
 }, 999 );
+
+function is_parent_page( $page_id = null ) {
+    $page_id = $page_id ?: get_the_ID();
+    $children = get_pages( array( 'child_of' => $page_id ) );
+    return ! empty( $children );
+}

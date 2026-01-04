@@ -900,10 +900,6 @@ body {
   height: 200px;
 }
 
-.h-auto {
-  height: auto;
-}
-
 .h-full {
   height: 100%;
 }
@@ -3413,10 +3409,6 @@ h6 {
 
   .lg\:hidden {
     display: none;
-  }
-
-  .lg\:h-96 {
-    height: 24rem;
   }
 
   .lg\:w-1\/3 {

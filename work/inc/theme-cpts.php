@@ -88,7 +88,7 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                 'menu_icon'           => 'dashicons-images-alt2',
                 'supports'            => array( 'title', 'thumbnail', 'editor', 'editor-style', 'excerpt' ),
                 'has_archive'         => false,
-                'exclude_from_search' => true,
+                'exclude_from_search' => false,
                 'show_in_nav_menus'   => false,
                 'show_in_rest'        => true,
                 'rewrite' => ['slug' => "about-kevin-pirnie/enterprise-web-solutions-and-portfolio", 'with_front' => false],

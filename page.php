@@ -26,6 +26,12 @@ get_template_part( 'partials/cpts/heroes' );
 
 <section id="page-<?php the_ID( ); ?>" <?php post_class( 'w-full pt-6 px-4 sm:px-8 md:px-16' ); ?>>
 
+    <?php 
+    // if this is NOT a parent page
+    if( ! is_parent_page( ) && ! is_front_page( ) ) {
+        get_template_part( 'partials/navigation/breadcrumbs' );
+    }
+    ?>
     <div class="article-content prose prose-lg mb-8">
         <?php the_content( ); ?>
     </div>

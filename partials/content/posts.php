@@ -35,6 +35,7 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed' );
             </a>
         </h2>
         
+        <?php if( 'kpt_portfolio' !== get_post_type( ) ): ?>
         <div class="text-sm text-gray-500 dark:text-gray-400 mb-3 text-right">
             <span class="inline-flex items-center">
                 <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -43,6 +44,7 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed' );
                 <?php echo get_the_date(); ?>
             </span>
         </div>
+        <?php endif; ?>
         
         <div class="text-gray-600 dark:text-gray-300 mb-4 flex-1">
             <?php the_excerpt(); ?>

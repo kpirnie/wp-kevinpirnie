@@ -18,9 +18,9 @@ get_header( );
 ?>
 
 <section <?php post_class( 'w-full pt-6 px-4 sm:px-8 md:px-16' ); ?>>
-    <?php get_template_part( 'partials/navigation/breadcrumbs' ); ?>
     <div class="w-full flex flex-col lg:flex-row gap-8">
         <div <?php post_class('w-full lg:w-2/3'); ?>>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 kp-gradient-text"><?php echo get_post_type_object( get_post_type() ) -> labels -> singular_name; ?></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <?php while ( have_posts( ) ): the_post( ); ?>
                     <?php get_template_part( 'partials/content/posts' ); ?>
