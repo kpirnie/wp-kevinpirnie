@@ -100,6 +100,47 @@ if( ! class_exists( 'KPT' ) ) {
             // now we can clean up the class array
             unset( $theme_classes );
 
+            // filter the breadcrumb links
+            add_filter( 'wpseo_breadcrumb_links', function( array $links ) {
+
+                // if we're in a portfolio item
+                if ( 'kpt_portfolio' === get_post_type( ) && is_single( ) ) {
+                    
+                    // get the pages ID
+                    $the_id = get_page_by_path('about-kevin-pirnie/wordpress-devops-portfolio') -> ID;
+
+                    // pop the last item (current post)
+                    $current = array_pop( $links );
+                    
+                    // add the portfolio home page
+                    $links[] = [
+                        'url' => get_permalink( $the_id ),
+                        'text' => 'My Portfolio',
+                        'id' => $the_id,
+                    ];
+
+                    // add the current item back
+                    $links[] = $current;
+                } elseif( 'post' === get_post_type( ) && ( ! is_home() && ! is_category() && ! is_tag() && ! is_single() ) ) {
+                    
+                    // get the pages ID
+                    $the_id = get_option( 'page_for_posts' );
+                    
+                    // add the portfolio home page
+                    $my_articles_item = [
+                        'url' => get_permalink( $the_id ),
+                        'text' => 'Kevin\'s Articles',
+                        'id' => $the_id,
+                    ];
+
+                    $links[] = array_splice( $links, 1, 0, [ $my_articles_item ] );
+
+                }
+
+                return $links;
+
+            }, 10, 1 );
+
         }
 
     }
