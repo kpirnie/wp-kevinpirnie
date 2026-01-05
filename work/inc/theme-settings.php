@@ -136,6 +136,9 @@ if( ! class_exists( 'KPT_Settings' ) ) {
             // add in the contact form settings
             $this -> contact_form_settings( );
 
+            // add in the post settings
+            $this -> post_settings( );
+
         }
 
         /** 
@@ -227,6 +230,17 @@ if( ! class_exists( 'KPT_Settings' ) ) {
 
         }
 
+        /** 
+         * portfolio_settings
+         * 
+         * Add the theme's portfolio settings
+         * 
+         * @since 8.4
+         * @access private
+         * @author Kevin Pirnie <me@kpirnie.com>
+         * @package Kevin Pirnie's Theme
+         * 
+        */
         private function portfolio_settings() : void {
             // page settings key
             $_settings_key = 'kpt_portfolio_settings';
@@ -254,6 +268,17 @@ if( ! class_exists( 'KPT_Settings' ) ) {
 
         }
 
+        /** 
+         * contact_form_settings
+         * 
+         * Add the theme's contact form settings
+         * 
+         * @since 8.4
+         * @access private
+         * @author Kevin Pirnie <me@kpirnie.com>
+         * @package Kevin Pirnie's Theme
+         * 
+        */
         private function contact_form_settings( ) : void {
 
             // settings key
@@ -285,7 +310,17 @@ if( ! class_exists( 'KPT_Settings' ) ) {
             ) );
         }
 
-
+        /** 
+         * cta_settings
+         * 
+         * Add the theme's CTA settings
+         * 
+         * @since 8.4
+         * @access private
+         * @author Kevin Pirnie <me@kpirnie.com>
+         * @package Kevin Pirnie's Theme
+         * 
+        */
         private function cta_settings( ) : void {
 
             // page settings key
@@ -328,6 +363,44 @@ if( ! class_exists( 'KPT_Settings' ) ) {
                 ),
 
             ) ) );
+
+        }
+
+        /** 
+         * post_settings
+         * 
+         * Add the theme's POST settings
+         * 
+         * @since 8.4
+         * @access private
+         * @author Kevin Pirnie <me@kpirnie.com>
+         * @package Kevin Pirnie's Theme
+         * 
+        */
+        private function post_settings( ) : void {
+
+            // page settings key
+            $_settings_key = 'kpt_post_settings';
+
+            // create the metabox
+            KPT_FW::createMetabox( $_settings_key, array(
+                'title'        => 'Post Options',
+                'post_type'    => 'post',
+                'show_restore' => false,
+                'context'      => 'side',
+            ) );
+
+            KPT_FW::createSection( $_settings_key, array(
+                'fields' => array( 
+                    array(
+                            'id'          => 'post_social_posted',
+                            'type'        => 'switcher',
+                            'title'       => 'Posted on Social?',
+                        ),
+                    ),
+                ),
+
+            );
 
         }
 

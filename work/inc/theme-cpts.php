@@ -263,6 +263,27 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                 }
             }, 10, 2 );
 
+            // posts
+            add_filter( 'manage_posts_columns', function( $columns ) {
+                $new = array();
+                foreach ( $columns as $key => $value ) {
+                    $new[$key] = $value;
+                    if ( $key === 'cb' ) {
+                        $new['social_posted'] = __( 'Posted on Social?', 'kpt' );
+                    }
+                }
+                return $new;
+            } );
+
+            add_action( 'manage_posts_custom_column', function( $column, $post_id ) {
+                if ( $column === 'social_posted' ) {
+                    $post_meta = get_post_meta( $post_id, 'kpt_post_settings', true );
+                    $_posted = filter_var( ( isset( $post_meta['post_social_posted'] ) ) ? $post_meta['post_social_posted']: false, FILTER_VALIDATE_BOOLEAN );
+                    $display = ((int)$_posted) ? 'Yes' : 'No';
+                    echo $display;
+                }
+            }, 10, 2 );
+
         }
 
         /** 
