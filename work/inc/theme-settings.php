@@ -13,6 +13,9 @@
 // We don't want to allow direct access to this
 defined( 'ABSPATH' ) || die( 'No direct script access allowed' );
 
+// pull our framework
+use \KP\WPStarterFramework\Loader;
+
 // make sure this class doesnt already exist
 if( ! class_exists( 'KPT_Settings' ) ) {
 
@@ -29,6 +32,9 @@ if( ! class_exists( 'KPT_Settings' ) ) {
     */
     class KPT_Settings {
 
+        // hold the framework
+        private $fw;
+
         /** 
          * add_settings
          * 
@@ -42,8 +48,24 @@ if( ! class_exists( 'KPT_Settings' ) ) {
         */
         public function add_settings( ) : void {
 
+            // setup the framework
+            $this -> fw = Loader::bootstrapTheme( );
+
             // call the admin settings
             $this -> create_theme_settings( );
+
+            // add in the heroes settings
+            $this -> heroes_settings( );
+
+            // add in the cta settings
+            $this -> cta_settings( );
+
+            // add in the portfolio settings
+            $this -> portfolio_settings( );
+
+            // add in the post settings
+            $this -> post_settings( );
+            
 
         }
 
@@ -60,84 +82,43 @@ if( ! class_exists( 'KPT_Settings' ) ) {
         */
         private function create_theme_settings( ) : void {
 
-            // make sure our field framework actually exists
-            if( ! class_exists( 'KPT_FW' ) ) {
-                return;
-            }
-            
             // our settings id
             $settings_id = 'kptheme_settings';
 
             // create the main options page
-            KPT_FW::createOptions( $settings_id, array(
-                'menu_title' => __( 'Theme Settings', 'kpt' ),
-                'menu_slug'  => $settings_id,
-                'menu_capability' => 'list_users',
-                'menu_icon' => 'dashicons-admin-settings',
-                'menu_position' => 2,
-                'show_in_network' => false,
-                'show_reset_all' => false,
-                'show_reset_section' => false,   
-                'sticky_header' => false,  
-                'ajax_save' => false,           
-                'footer_text' => __( '<a href="https://kevinpirnie.com" target="_blank"><img src="https://cdn.kevp.cc/kp/kevinpirnie-logo-color.svg" alt="Kevin Pirnie: https://kevinpirnie.com" style="width:250px !important;" /></a>', 'kpt' ),
-                'framework_title' => __( 'Kevin\'s Theme Settings <small>by <a href="https://kevinpirnie.com/" target="_blank">Kevin C. Pirnie</a></small>', 'kpt' ),
-                'footer_credit' => __( 'Thanks for customizing!', 'kpt' ),
-            ) );
-
-            // after the save occurs, clear WP option cache
-            add_filter( 'kpt_fw_{$settings_id}_saved', function( ) : void {
-
-                // get the current site id
-                $_site_id = get_current_blog_id( );
-
-                // first clear wordpress's builtin cache
-                wp_cache_flush( );
-
-                // now try to delete the wp object cache
-                if( function_exists( 'wp_cache_delete' ) ) {
-
-                    // clear the plugin object cache
-                    wp_cache_delete( 'uninstall_plugins', 'options' );
-
-                    // clear the options object cache
-                    wp_cache_delete( 'alloptions', 'options' );
-
-                    // clear the rest of the object cache
-                    wp_cache_delete( 'notoptions', 'options' );
-
-                    // clear the rest of the object cache for the parent site in a multisite install
-                    wp_cache_delete( $_site_id . '-notoptions', 'site-options' );
-
-                    // clear the plugin object cache for the parent site in a multisite install
-                    wp_cache_delete( $_site_id . '-active_sitewide_plugins', 'site-options' );
-                }
-
-                // probably overkill, but let's fire off the rest of the builtin cache flushing mechanisms
-                global $wp_object_cache;
-
-                // try to flush the object cache
-                $wp_object_cache -> flush( 0 );
-
-                // attempt to clear the opcache
-                opcache_reset( );
-
-            } );
-
-            // add in the heroes settings
-            $this -> heroes_settings( );
-
-            // add in the cta settings
-            $this -> cta_settings( );
-
-            // add in the portfolio settings
-            $this -> portfolio_settings( );
-
-            // add in the contact form settings
-            $this -> contact_form_settings( );
-
-            // add in the post settings
-            $this -> post_settings( );
+            $this -> fw -> addOptionsPage( [
+                'option_key' => $settings_id,
+                'page_title'  => 'Theme Options',
+                'menu_title'  => 'Theme Options',
+                'capability'  => 'manage_options',
+                'menu_slug'   => 'theme-options',
+                'icon_url'    => 'dashicons-admin-customizer',
+                'position'    => 2,
+                'sections'    => [
+                    'general' => [
+                        'title'       => 'General',
+                        'description' => 'General theme settings.',
+                        'fields'      => [
+                            [
+                                'id'          => 'kpt_recaptcha_site_key',
+                                'type'        => 'text',
+                                'label'       => 'reCaptcha Site Key',
+                                'placeholder' => 'Enter site key...',
+                                'default'     => '',
+                                'required'    => true,
+                            ],
+                            [
+                                'id'          => 'kpt_recaptcha_secret_key',
+                                'type'        => 'text',
+                                'label'       => 'reCaptcha Secret Key',
+                                'placeholder' => 'Enter recpatcha secret...',
+                                'default'     => '',
+                                'required'    => true,
+                            ],
+                        ],
+                    ],
+                ],
+            ] );
 
         }
 
@@ -155,37 +136,161 @@ if( ! class_exists( 'KPT_Settings' ) ) {
         private function heroes_settings( ) : void {
 
             // page settings key
-            $_settings_key = 'kpt_hero_settings';
+            $settings_key = 'kpt_hero_settings';
 
-            // create the metabox
-            KPT_FW::createMetabox( $_settings_key, array(
-                'title'        => 'Page Options',
-                'post_type'    => 'page',
-                'show_restore' => true,
-                'context'      => 'advanced',
-            ) );
-
-            KPT_FW::createSection( $_settings_key, array(
-                'fields' => array( 
-                array(
-                    'id' => 'page_secondary_title',
-                    'type'        => 'text',
-                    'title'       => 'Secondary Title',
-                    'subdesc' => 'this is only shown on the admin list page'
-                ),
-                // page selection to assign the hero to.
-                array(
-                    'id'          => 'page_assignment',
-                    'type'        => 'checkbox',
-                    'title'       => 'Hero Assignment',
-                    'subdesc'     => 'Select the heroes you want to assign here',
-                    'options'     => $this -> get_heroes( ),
-                ),
-
-            ) ) );
+            // add out metabox
+            $this -> fw -> addMetaBox( [
+                'id' => $settings_key,
+                'title' => 'Page Options',
+                'post_types' => ['page',],
+                'context' => 'side',
+                'priority' => 'high',
+                'fields' => [
+                    [
+                        'id'          => 'page_secondary_title',
+                        'type'        => 'text',
+                        'label'       => 'Secondary Title',
+                        'description' => 'this is only shown on the admin list page',
+                    ],
+                    [
+                        'id'          => 'page_assignment',
+                        'type'        => 'checkboxes',
+                        'label'       => 'Hero Assignment',
+                        'description' => 'Select the heroes you want to assign here',
+                        'options'     => $this -> get_heroes( ),
+                    ],
+                    
+                ],
+            ] );
 
         }
 
+        /** 
+         * portfolio_settings
+         * 
+         * Add the theme's portfolio settings
+         * 
+         * @since 8.4
+         * @access private
+         * @author Kevin Pirnie <me@kpirnie.com>
+         * @package Kevin Pirnie's Theme
+         * 
+        */
+        private function portfolio_settings() : void {
+            
+            // portfolio settings key
+            $settings_key = 'kpt_portfolio_settings';
+
+            // add our metabox
+            $this -> fw -> addMetaBox( [
+                'id' => $settings_key,
+                'title' => 'Portfolio Options',
+                'post_types' => ['kpt_portfolio',],
+                'context' => 'side',
+                'priority' => 'high',
+                'fields' => [
+                    [
+                        'id'          => 'portfolio_url',
+                        'type'        => 'link',
+                        'label'       => 'Client Site URL',
+                    ],
+                    
+                ],
+            ] );
+
+        }
+
+        /** 
+         * cta_settings
+         * 
+         * Add the theme's CTA settings
+         * 
+         * @since 8.4
+         * @access private
+         * @author Kevin Pirnie <me@kpirnie.com>
+         * @package Kevin Pirnie's Theme
+         * 
+        */
+        private function cta_settings( ) : void {
+
+            // page settings key
+            $settings_key = 'kpt_cta_settings';
+
+            // add our metabox
+            $this -> fw -> addMetaBox( [
+                'id' => $settings_key,
+                'title' => 'CTA Options',
+                'post_types' => ['kpt_cta',],
+                'context' => 'side',
+                'priority' => 'high',
+                'fields' => [
+                    [
+                        'id'          => 'cta_buttons',
+                        'type'        => 'repeater',
+                        'label'       => 'Buttons',
+                        'button_label' => 'Add Button',
+                        'collapsed'    => true,
+                        'sortable'     => true,
+                        'row_label'    => 'Button',
+                        'fields'       => [
+                            [
+                                'id' => 'cta_button_type',
+                                'label' => 'Type',
+                                'type' => 'select',
+                                'options' => [
+                                    1 => 'Primary',
+                                    2 => 'Secondary',
+                                    3 => 'Plain',
+                                ]
+                            ],
+                            [
+                                'id'           => 'cta_button_link',
+                                'type'         => 'link',
+                                'title'        => 'Link',
+                            ],
+                        ],
+                    ],
+                    
+                ],
+            ] );
+
+        }
+
+        /** 
+         * post_settings
+         * 
+         * Add the theme's POST settings
+         * 
+         * @since 8.4
+         * @access private
+         * @author Kevin Pirnie <me@kpirnie.com>
+         * @package Kevin Pirnie's Theme
+         * 
+        */
+        private function post_settings( ) : void {
+
+            // page settings key
+            $settings_key = 'kpt_post_settings';
+
+            // add out metabox
+            $this -> fw -> addMetaBox( [
+                'id' => $settings_key,
+                'title' => 'Post Options',
+                'post_types' => ['post',],
+                'context' => 'side',
+                'priority' => 'high',
+                'fields' => [
+                    [
+                        'id'          => 'post_social_posted',
+                        'type'        => 'checkbox',
+                        'label'       => 'Posted on Social?',
+                        'description' => 'is this posted on the social networks yet?',
+                    ],                    
+                ],
+            ] );
+
+        }
+        
         /** 
          * get_heroes
          * 
@@ -227,180 +332,6 @@ if( ! class_exists( 'KPT_Settings' ) ) {
 
             // return it
             return $ret;
-
-        }
-
-        /** 
-         * portfolio_settings
-         * 
-         * Add the theme's portfolio settings
-         * 
-         * @since 8.4
-         * @access private
-         * @author Kevin Pirnie <me@kpirnie.com>
-         * @package Kevin Pirnie's Theme
-         * 
-        */
-        private function portfolio_settings() : void {
-            // page settings key
-            $_settings_key = 'kpt_portfolio_settings';
-
-            // create the metabox
-            KPT_FW::createMetabox( $_settings_key, array(
-                'title'        => 'Portfolio Options',
-                'post_type'    => 'kpt_portfolio',
-                'show_restore' => true,
-                'context'      => 'advanced',
-            ) );
-
-            KPT_FW::createSection( $_settings_key, array(
-                'fields' => array( 
-                    array(
-                        'id'          => 'portfolio_url',
-                        'type'        => 'link',
-                        'title'       => 'Portfolio URL',
-                        'add_title'   => 'Add URL',
-                        'edit_title'  => 'Edit URL',
-                        'remove_title'=> 'Remove URL',
-                    ),
-                ) 
-            ) );
-
-        }
-
-        /** 
-         * contact_form_settings
-         * 
-         * Add the theme's contact form settings
-         * 
-         * @since 8.4
-         * @access private
-         * @author Kevin Pirnie <me@kpirnie.com>
-         * @package Kevin Pirnie's Theme
-         * 
-        */
-        private function contact_form_settings( ) : void {
-
-            // settings key
-            $_settings_key = 'kptheme_settings';
-
-            KPT_FW::createSection( $_settings_key, array(
-                'title'  => 'Contact Form',
-                'fields' => array(
-                    array(
-                        'type'    => 'heading',
-                        'content' => 'Google reCAPTCHA v3 Settings',
-                    ),
-                    array(
-                        'type'    => 'subheading',
-                        'content' => 'Get your keys from <a href="https://www.google.com/recaptcha/admin" target="_blank">Google reCAPTCHA Admin</a>',
-                    ),
-                    array(
-                        'id'      => 'kpt_recaptcha_site_key',
-                        'type'    => 'text',
-                        'title'   => 'Site Key',
-                    ),
-                    array(
-                        'id'      => 'kpt_recaptcha_secret_key',
-                        'type'    => 'text',
-                        'title'   => 'Secret Key',
-                        'attributes' => array( 'type' => 'password')
-                    ),
-                )
-            ) );
-        }
-
-        /** 
-         * cta_settings
-         * 
-         * Add the theme's CTA settings
-         * 
-         * @since 8.4
-         * @access private
-         * @author Kevin Pirnie <me@kpirnie.com>
-         * @package Kevin Pirnie's Theme
-         * 
-        */
-        private function cta_settings( ) : void {
-
-            // page settings key
-            $_settings_key = 'kpt_cta_settings';
-
-            // create the metabox
-            KPT_FW::createMetabox( $_settings_key, array(
-                'title'        => 'CTA Options',
-                'post_type'    => 'kpt_cta',
-                'show_restore' => true,
-                'context'      => 'side',
-            ) );
-
-            KPT_FW::createSection( $_settings_key, array(
-                'fields' => array( 
-                array(
-                    'id'          => 'cta_buttons',
-                    'type'        => 'repeater',
-                    'title'       => 'Buttons',
-                    'fields'      => array(
-                        array(
-                            'id'           => 'cta_type',
-                            'type'         => 'select',
-                            'title'        => 'Type',
-                            'options'      => array(
-                                1 => 'Primary',
-                                2 => 'Secondary',
-                                3 => 'Plain',
-                            ),
-                        ),
-                        array(
-                            'id'           => 'cta_button',
-                            'type'         => 'link',
-                            'title'        => 'Link',
-                            'add_title'    => 'Add Link',
-                            'edit_title'   => 'Edit Link',
-                            'remove_title' => 'Remove Link',
-                        ),
-                    ),
-                ),
-
-            ) ) );
-
-        }
-
-        /** 
-         * post_settings
-         * 
-         * Add the theme's POST settings
-         * 
-         * @since 8.4
-         * @access private
-         * @author Kevin Pirnie <me@kpirnie.com>
-         * @package Kevin Pirnie's Theme
-         * 
-        */
-        private function post_settings( ) : void {
-
-            // page settings key
-            $_settings_key = 'kpt_post_settings';
-
-            // create the metabox
-            KPT_FW::createMetabox( $_settings_key, array(
-                'title'        => 'Post Options',
-                'post_type'    => 'post',
-                'show_restore' => false,
-                'context'      => 'side',
-            ) );
-
-            KPT_FW::createSection( $_settings_key, array(
-                'fields' => array( 
-                    array(
-                            'id'          => 'post_social_posted',
-                            'type'        => 'switcher',
-                            'title'       => 'Posted on Social?',
-                        ),
-                    ),
-                ),
-
-            );
 
         }
 

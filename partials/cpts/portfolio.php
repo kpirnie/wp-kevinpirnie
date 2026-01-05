@@ -39,8 +39,8 @@ $heights = array( 'h-64', 'h-80', 'h-96', 'h-72' );
         $image_size = get_query_var( 'portfolio_image_size', 'portfolio-masonry' );
         $image = get_the_post_thumbnail_url( $item_id, $image_size );
         
-        $settings = get_post_meta( $item_id, 'kpt_portfolio_settings', true );
-        $link_data = isset( $settings['portfolio_url'] ) ? $settings['portfolio_url'] : array();
+        $settings = get_post_meta( $item_id, 'portfolio_url', true );
+        $link_data = isset( $settings ) ? $settings : array();
         $url = get_permalink( $item_id );
         
         $position = $positions[ array_rand( $positions ) ];

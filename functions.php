@@ -21,11 +21,6 @@ add_action( 'after_setup_theme', function( ) {
     // clean up
     unset( $_kpt );
     
-    // Extended Setup Class for the framework
-    if ( ! class_exists( 'KPT_FW' ) ) {
-    class KPT_FW extends KPT_FW_Setup{}
-    }
-
 }, 999 );
 
 function is_parent_page( $page_id = null ) {

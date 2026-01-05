@@ -207,8 +207,8 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
             // Display the thumbnail
             add_action( 'manage_page_posts_custom_column', function( $column, $post_id ) {
                 if ( $column === 'sec_title' ) {
-                    $hero_settings = get_post_meta( $post_id, 'kpt_hero_settings', true );
-                    echo ($hero_settings['page_secondary_title']) ?? '';
+                    $secondary_title = get_post_meta( $post_id, 'page_secondary_title', true );
+                    echo esc_html( $secondary_title );
                 }
             }, 10, 2 );
 
@@ -230,7 +230,7 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                 }
             }, 10, 2 );
 
-            // Heroes
+            // Portfolio
             add_filter( 'manage_kpt_portfolio_posts_columns', function( $columns ) {
                 $new = array();
                 foreach ( $columns as $key => $value ) {
@@ -268,10 +268,11 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
 
             // posts
             add_filter( 'manage_posts_columns', function( $columns ) {
+                $post_type = get_post_type();
                 $new = array();
                 foreach ( $columns as $key => $value ) {
                     $new[$key] = $value;
-                    if ( $key === 'cb' ) {
+                    if ( $key === 'cb' && 'post' === $post_type ) {
                         $new['social_posted'] = __( 'Posted on Social?', 'kpt' );
                     }
                 }
@@ -279,10 +280,11 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
             } );
 
             add_action( 'manage_posts_custom_column', function( $column, $post_id ) {
-                if ( $column === 'social_posted' ) {
-                    $post_meta = get_post_meta( $post_id, 'kpt_post_settings', true );
-                    $_posted = filter_var( ( isset( $post_meta['post_social_posted'] ) ) ? $post_meta['post_social_posted']: false, FILTER_VALIDATE_BOOLEAN );
-                    $display = ((int)$_posted) ? 'Yes' : 'No';
+                $post_type = get_post_type( $post_id );
+                if ( $column === 'social_posted' && 'post' === $post_type ) {
+                    $posted = get_post_meta( $post_id, 'post_social_posted', true );
+                    $is_posted = filter_var( ( isset( $posted ) ) ? $posted: false, FILTER_VALIDATE_BOOLEAN );
+                    $display = ((int)$is_posted) ? 'Yes' : 'No';
                     echo $display;
                 }
             }, 10, 2 );
@@ -315,6 +317,7 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
             } );
 
         }
+
 
         private function add_quick_edit_support() : void {
 
@@ -368,9 +371,9 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                 if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
                 if(!isset($_POST['kpt_social_posted']) || $_POST['kpt_social_posted'] === '') return;
                 
-                $settings = get_post_meta($post_id, 'kpt_post_settings', true) ?: array();
-                $settings['post_social_posted'] = (bool)$_POST['kpt_social_posted'];
-                update_post_meta($post_id, 'kpt_post_settings', $settings);
+                $settings = get_post_meta($post_id, 'post_social_posted', true) ?: '';
+                $settings = (bool)$_POST['kpt_social_posted'];
+                update_post_meta($post_id, 'post_social_posted', $settings);
             });
         }
 

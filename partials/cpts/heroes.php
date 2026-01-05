@@ -17,10 +17,10 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed' );
 $id = get_the_ID( );
 
 // Get the hero assignments from the PAGE meta
-$hero_settings = get_post_meta( $id, 'kpt_hero_settings', true );
+$hero_settings = get_post_meta( $id, 'page_assignment', true );
 
 // Extract the assigned hero IDs
-$assigned_hero_ids = ! empty( $hero_settings['page_assignment'] ) ? $hero_settings['page_assignment'] : array();
+$assigned_hero_ids = ! empty( $hero_settings ) ? $hero_settings : array();
 
 // If no heroes assigned, show featured image with page title or just page title
 if ( empty( $assigned_hero_ids ) ) {

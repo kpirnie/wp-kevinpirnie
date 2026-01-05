@@ -10,7 +10,11 @@
 
 // We don't want to allow direct access to this
 defined( 'ABSPATH' ) || die( 'No direct script access allowed' );
-
+if( 'kpt_portfolio' === get_post_type( ) ):
+    $settings = get_post_meta( $post -> ID, 'portfolio_url', true );
+    $link_data = isset( $settings ) ? $settings : array();
+    // var_dump($settings);array(3) { ["url"]=> string(23) "https://ihoptimize.org/" ["title"]=> string(0) "" ["target"]=> string(6) "_blank" }
+endif;
 ?>
 
 <?php if ( has_post_thumbnail() ) : ?>
