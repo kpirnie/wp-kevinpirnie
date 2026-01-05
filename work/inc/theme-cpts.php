@@ -63,6 +63,9 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                 $this -> add_admin_columns( );
                 $this -> admin_column_css( );
 
+                // add the quick edit
+                $this -> add_quick_edit_support( );
+
             } );
 
         }
@@ -311,6 +314,64 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                 </style>';
             } );
 
+        }
+
+        private function add_quick_edit_support() : void {
+
+            // Add quick edit field
+            add_action('quick_edit_custom_box', function($column_name, $post_type) {
+                if($column_name !== 'social_posted' || $post_type !== 'post') return;
+                ?>
+                <fieldset class="inline-edit-col-right">
+                    <div class="inline-edit-col">
+                        <label>
+                            <span class="title"><?php _e('Posted on Social?', 'kpt'); ?></span>
+                            <select name="kpt_social_posted">
+                                <option value="">— No Change —</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </label>
+                    </div>
+                </fieldset>
+                <?php
+            }, 10, 2);
+
+            // Populate field with current value
+            add_action('admin_footer', function() {
+                global $pagenow;
+                if($pagenow !== 'edit.php') return;
+                ?>
+                <script type="text/javascript">
+                (function($) {
+                    var $inline_editor = inlineEditPost.edit;
+                    inlineEditPost.edit = function(id) {
+                        $inline_editor.apply(this, arguments);
+                        var post_id = 0;
+                        if(typeof(id) == 'object') {
+                            post_id = parseInt(this.getId(id));
+                        }
+                        if(post_id > 0) {
+                            var $row = $('#post-' + post_id);
+                            var social_posted = $row.find('.column-social_posted').text().trim();
+                            var value = social_posted === 'Yes' ? '1' : '0';
+                            $('select[name="kpt_social_posted"]').val(value);
+                        }
+                    };
+                })(jQuery);
+                </script>
+                <?php
+            });
+
+            // Save quick edit value
+            add_action('save_post', function($post_id) {
+                if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+                if(!isset($_POST['kpt_social_posted']) || $_POST['kpt_social_posted'] === '') return;
+                
+                $settings = get_post_meta($post_id, 'kpt_post_settings', true) ?: array();
+                $settings['post_social_posted'] = (bool)$_POST['kpt_social_posted'];
+                update_post_meta($post_id, 'kpt_post_settings', $settings);
+            });
         }
 
     }

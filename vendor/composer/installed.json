@@ -1,5 +1,58 @@
 {
-    "packages": [],
+    "packages": [
+        {
+            "name": "kevinpirnie/kpt-wpfieldframework",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kpirnie/kpt-wpfieldframework.git",
+                "reference": "1274b413aa131d1605895423a352aa370563a175"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kpirnie/kpt-wpfieldframework/zipball/1274b413aa131d1605895423a352aa370563a175",
+                "reference": "1274b413aa131d1605895423a352aa370563a175",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "time": "2025-12-15T22:08:13+00:00",
+            "default-branch": true,
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "KP\\WPStarterFramework\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Pirnie",
+                    "email": "iam@kevinpirnie.com"
+                }
+            ],
+            "description": "A PHP framework for creating WordPress Options Pages, Meta Boxes, and Gutenberg Blocks with repeatable field groups.",
+            "keywords": [
+                "blocks",
+                "framework",
+                "gutenberg",
+                "meta-box",
+                "options-page",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/kpirnie/kpt-wpfieldframework/issues",
+                "source": "https://github.com/kpirnie/kpt-wpfieldframework"
+            },
+            "install-path": "../kevinpirnie/kpt-wpfieldframework"
+        }
+    ],
     "dev": true,
     "dev-package-names": []
 }

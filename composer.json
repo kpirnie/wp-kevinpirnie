@@ -16,11 +16,11 @@
         }
     ],
     "require": {
-        "php": ">=8.2"
+        "php": ">=8.2",
+        "kevinpirnie/kpt-wpfieldframework": "dev-main"
     },
     "autoload": {
         "classmap": [
-            "vendor/custom-fields/",
             "work/inc/"
         ],
         "files": [
