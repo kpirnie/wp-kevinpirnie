@@ -192,6 +192,8 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
         */
         private function add_admin_columns( ) : void {
 
+
+
             // Add the secondary title
             add_filter( 'manage_page_posts_columns', function( $columns ) {
                 $new = array();
@@ -203,8 +205,6 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                 }
                 return $new;
             } );
-
-            // Display the thumbnail
             add_action( 'manage_page_posts_custom_column', function( $column, $post_id ) {
                 if ( $column === 'sec_title' ) {
                     $secondary_title = get_post_meta( $post_id, 'page_secondary_title', true );
@@ -223,7 +223,6 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                 }
                 return $new;
             } );
-
             add_action( 'manage_kpt_hero_posts_custom_column', function( $column, $post_id ) {
                 if ( $column === 'thumbnail' ) {
                     echo get_the_post_thumbnail( $post_id, array( 125, 125 ) );
@@ -237,15 +236,21 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                     $new[$key] = $value;
                     if ( $key === 'cb' ) {
                         $new['thumbnail'] = __( 'Image', 'kpt' );
+                        $new['link_out'] = __( 'Link', 'kpt' );
                     }
                 }
                 return $new;
             } );
-
             add_action( 'manage_kpt_portfolio_posts_custom_column', function( $column, $post_id ) {
                 if ( $column === 'thumbnail' ) {
                     echo get_the_post_thumbnail( $post_id, array( 125, 125 ) );
                 }
+                if ( $column === 'link_out' ) {
+                    $link = get_post_meta( $post_id, 'portfolio_url', true );
+                    $link = is_array($link) ? $link['url'] : '';
+                    echo "<a href='$link' target='_blank'>$link</a>";
+                }
+                
             }, 10, 2 );
 
             // CTAs
@@ -259,7 +264,6 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                 }
                 return $new;
             } );
-
             add_action( 'manage_kpt_cta_posts_custom_column', function( $column, $post_id ) {
                 if ( $column === 'thumbnail' ) {
                     echo get_the_post_thumbnail( $post_id, array( 125, 125 ) );
@@ -278,7 +282,6 @@ if( ! class_exists( 'KPT_CPTs' ) ) {
                 }
                 return $new;
             } );
-
             add_action( 'manage_posts_custom_column', function( $column, $post_id ) {
                 $post_type = get_post_type( $post_id );
                 if ( $column === 'social_posted' && 'post' === $post_type ) {
