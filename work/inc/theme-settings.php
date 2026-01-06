@@ -49,7 +49,7 @@ if( ! class_exists( 'KPT_Settings' ) ) {
         public function add_settings( ) : void {
 
             // setup the framework
-            $this -> fw = Loader::bootstrapTheme( );
+            $this -> fw = Loader::bootstrapTheme( 'vendor/kevinpirnie/kpt-wpfieldframework' );
 
             // call the admin settings
             $this -> create_theme_settings( );

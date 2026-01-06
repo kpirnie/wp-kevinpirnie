@@ -286,6 +286,7 @@ final class Framework
         // Framework admin script.
         $script_path = $this->assets_path . '/js/wsf-admin.js';
         if (file_exists($script_path)) {
+
             wp_enqueue_script('kp-wsf-admin', $this->assets_url . '/js/wsf-admin.js', array( 'jquery', 'wp-color-picker', 'jquery-ui-datepicker', 'jquery-ui-sortable' ), self::VERSION, true);
             // Localize script with framework data.
             wp_localize_script(
