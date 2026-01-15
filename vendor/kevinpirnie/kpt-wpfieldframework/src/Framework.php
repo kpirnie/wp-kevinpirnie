@@ -8,7 +8,7 @@
  * initialization, and serves as a facade for creating options pages,
  * meta boxes, and blocks.
  *
- * @package     KP\WPStarterFramework
+ * @package     KP\WPFieldFramework
  * @author      Kevin Pirnie <iam@kevinpirnie.com>
  * @copyright   2025 Kevin Pirnie
  * @license     MIT
@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace KP\WPStarterFramework;
+namespace KP\WPFieldFramework;
 
 // Prevent direct access.
 defined('ABSPATH') || exit;
@@ -286,7 +286,6 @@ final class Framework
         // Framework admin script.
         $script_path = $this->assets_path . '/js/wsf-admin.js';
         if (file_exists($script_path)) {
-
             wp_enqueue_script('kp-wsf-admin', $this->assets_url . '/js/wsf-admin.js', array( 'jquery', 'wp-color-picker', 'jquery-ui-datepicker', 'jquery-ui-sortable' ), self::VERSION, true);
             // Localize script with framework data.
             wp_localize_script(

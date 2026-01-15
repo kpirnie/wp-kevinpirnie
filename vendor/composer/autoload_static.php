@@ -13,12 +13,12 @@ class ComposerStaticInit24e41bbaee1332276f826502c7093d78
     public static $prefixLengthsPsr4 = array (
         'K' => 
         array (
-            'KP\\WPStarterFramework\\' => 22,
+            'KP\\WPFieldFramework\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'KP\\WPStarterFramework\\' => 
+        'KP\\WPFieldFramework\\' => 
         array (
             0 => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src',
         ),
@@ -39,15 +39,15 @@ class ComposerStaticInit24e41bbaee1332276f826502c7093d78
         'KPT_Top_Header_Nav_Walker' => __DIR__ . '/../..' . '/work/inc/theme-menu-walkers.php',
         'KPT_Utilities' => __DIR__ . '/../..' . '/work/inc/theme-utilities.php',
         'KPT_Widgets' => __DIR__ . '/../..' . '/work/inc/theme-widgets.php',
-        'KP\\WPStarterFramework\\BlockGenerator' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/BlockGenerator.php',
-        'KP\\WPStarterFramework\\FieldTypes' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/FieldTypes.php',
-        'KP\\WPStarterFramework\\Framework' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/Framework.php',
-        'KP\\WPStarterFramework\\Loader' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/Loader.php',
-        'KP\\WPStarterFramework\\MetaBox' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/MetaBox.php',
-        'KP\\WPStarterFramework\\OptionsPage' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/OptionsPage.php',
-        'KP\\WPStarterFramework\\Repeater' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/Repeater.php',
-        'KP\\WPStarterFramework\\Sanitizer' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/Sanitizer.php',
-        'KP\\WPStarterFramework\\Storage' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/Storage.php',
+        'KP\\WPFieldFramework\\BlockGenerator' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/BlockGenerator.php',
+        'KP\\WPFieldFramework\\FieldTypes' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/FieldTypes.php',
+        'KP\\WPFieldFramework\\Framework' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/Framework.php',
+        'KP\\WPFieldFramework\\Loader' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/Loader.php',
+        'KP\\WPFieldFramework\\MetaBox' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/MetaBox.php',
+        'KP\\WPFieldFramework\\OptionsPage' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/OptionsPage.php',
+        'KP\\WPFieldFramework\\Repeater' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/Repeater.php',
+        'KP\\WPFieldFramework\\Sanitizer' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/Sanitizer.php',
+        'KP\\WPFieldFramework\\Storage' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/Storage.php',
         'Tailwind_Menu_Walker' => __DIR__ . '/../..' . '/work/inc/theme-menu.php',
         'Tailwind_Responsive_Menu_Walker' => __DIR__ . '/../..' . '/work/inc/theme-menu.php',
     );

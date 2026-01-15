@@ -13,6 +13,8 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed' );
 
 // Get reCAPTCHA site key
 $recaptcha_site_key = KPT_Utilities::get_option( 'kpt_recaptcha_site_key' );
+var_dump($recaptcha_site_key);
+
 
 // Check if form was successfully submitted
 $success = isset( $_GET['contact_success'] ) && $_GET['contact_success'] == '1';
@@ -31,10 +33,13 @@ $success = isset( $_GET['contact_success'] ) && $_GET['contact_success'] == '1';
         
         <?php wp_nonce_field( 'kpt_contact_form', 'kpt_contact_nonce' ); ?>
         
-        <!-- Honeypot field (hidden from users) -->
+        <!-- Honeypot fields (hidden from users) -->
         <div style="position: absolute; left: -9999px;" aria-hidden="true">
             <input type="text" name="website_url" tabindex="-1" autocomplete="off">
+            <input type="text" name="company_name" tabindex="-1" autocomplete="off">
         </div>
+        <!-- Time-based honeypot -->
+        <input type="hidden" name="form_token" value="<?php echo esc_attr( base64_encode( time() ) ); ?>">
 
         <p class="text-sm text-gray-500 dark:text-gray-400 text-right">
             <span class="text-red-500">*</span> Required fields

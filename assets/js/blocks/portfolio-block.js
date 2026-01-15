@@ -19,9 +19,13 @@
             align: ['wide', 'full'],
         },
         attributes: {
-            imageSize: {
+            featuredImageSize: {
                 type: 'string',
-                default: 'portfolio-masonry'
+                default: 'portfolio-featured'
+            },
+            gridImageSize: {
+                type: 'string',
+                default: 'portfolio-grid'
             }
         },
 
@@ -31,7 +35,8 @@
             const blockProps = useBlockProps();
 
             const imageSizeOptions = [
-                { value: 'portfolio-masonry', label: 'Portfolio Masonry (800x600)' },
+                { value: 'portfolio-featured', label: 'Portfolio Featured (800x850)' },
+                { value: 'portfolio-grid', label: 'Portfolio Grid (400x275)' },
                 { value: 'hero', label: 'Hero (1920x350)' },
                 { value: 'articlehead', label: 'Article Head (963x385)' },
                 { value: 'articlelist', label: 'Article List (520x193)' },
@@ -53,23 +58,35 @@
                         PanelBody,
                         { title: 'Image Settings', initialOpen: true },
                         el(SelectControl, {
-                            label: 'Image Size',
-                            value: attributes.imageSize,
+                            label: 'Featured Image Size',
+                            value: attributes.featuredImageSize,
                             options: imageSizeOptions,
-                            onChange: function (value) { setAttributes({ imageSize: value }); },
-                            help: 'Select the image size to use for portfolio items'
+                            onChange: function (value) { setAttributes({ featuredImageSize: value }); },
+                            help: 'Select the image size for the large featured item'
+                        }),
+                        el(SelectControl, {
+                            label: 'Grid Image Size',
+                            value: attributes.gridImageSize,
+                            options: imageSizeOptions,
+                            onChange: function (value) { setAttributes({ gridImageSize: value }); },
+                            help: 'Select the image size for the smaller grid items'
                         })
                     )
                 ),
                 el(
                     'div',
-                    { className: 'kpt-portfolio-preview', style: { columnCount: '3', columnGap: '1rem', padding: '1rem', background: '#1f2937', borderRadius: '0.5rem' } },
-                    el('div', { style: { breakInside: 'avoid', marginBottom: '1rem', height: '256px', background: 'linear-gradient(135deg, #599bb8 0%, #2d7696 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px' } }, 'Portfolio Item 1'),
-                    el('div', { style: { breakInside: 'avoid', marginBottom: '1rem', height: '320px', background: 'linear-gradient(135deg, #43819c 0%, #1c375c 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px' } }, 'Portfolio Item 2'),
-                    el('div', { style: { breakInside: 'avoid', marginBottom: '1rem', height: '384px', background: 'linear-gradient(135deg, #2d7696 0%, #000d2d 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px' } }, 'Portfolio Item 3'),
-                    el('div', { style: { breakInside: 'avoid', marginBottom: '1rem', height: '288px', background: 'linear-gradient(135deg, #599bb8 0%, #2d7696 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px' } }, 'Portfolio Item 4'),
-                    el('div', { style: { breakInside: 'avoid', marginBottom: '1rem', height: '256px', background: 'linear-gradient(135deg, #43819c 0%, #1c375c 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px' } }, 'Portfolio Item 5'),
-                    el('div', { style: { breakInside: 'avoid', marginBottom: '1rem', height: '320px', background: 'linear-gradient(135deg, #2d7696 0%, #000d2d 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '14px' } }, 'Portfolio Item 6')
+                    { className: 'kpt-portfolio-preview', style: { display: 'flex', gap: '1rem', padding: '1rem', background: '#1f2937', borderRadius: '0.5rem' } },
+                    el('div', { style: { width: '50%', height: '400px', background: 'linear-gradient(135deg, #599bb8 0%, #2d7696 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-start', padding: '1rem' } },
+                        el('span', { style: { color: 'white', fontSize: '14px', fontWeight: 'bold' } }, 'Featured Item')
+                    ),
+                    el('div', { style: { width: '50%', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gridTemplateRows: 'repeat(3, 1fr)', gap: '0.5rem' } },
+                        el('div', { style: { background: 'linear-gradient(135deg, #43819c 0%, #1c375c 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'flex-end', padding: '0.5rem' } }, el('span', { style: { color: 'white', fontSize: '11px' } }, 'Grid 1')),
+                        el('div', { style: { background: 'linear-gradient(135deg, #2d7696 0%, #000d2d 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'flex-end', padding: '0.5rem' } }, el('span', { style: { color: 'white', fontSize: '11px' } }, 'Grid 2')),
+                        el('div', { style: { background: 'linear-gradient(135deg, #599bb8 0%, #2d7696 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'flex-end', padding: '0.5rem' } }, el('span', { style: { color: 'white', fontSize: '11px' } }, 'Grid 3')),
+                        el('div', { style: { background: 'linear-gradient(135deg, #43819c 0%, #1c375c 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'flex-end', padding: '0.5rem' } }, el('span', { style: { color: 'white', fontSize: '11px' } }, 'Grid 4')),
+                        el('div', { style: { background: 'linear-gradient(135deg, #2d7696 0%, #000d2d 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'flex-end', padding: '0.5rem' } }, el('span', { style: { color: 'white', fontSize: '11px' } }, 'Grid 5')),
+                        el('div', { style: { background: 'linear-gradient(135deg, #599bb8 0%, #2d7696 100%)', borderRadius: '0.375rem', display: 'flex', alignItems: 'flex-end', padding: '0.5rem' } }, el('span', { style: { color: 'white', fontSize: '11px' } }, 'Grid 6'))
+                    )
                 )
             );
 

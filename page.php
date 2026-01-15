@@ -28,7 +28,7 @@ get_template_part( 'partials/cpts/heroes' );
 
     <?php 
     // if this is NOT a parent page
-    if( ! is_parent_page( ) && ! is_front_page( ) ) {
+    if( ! is_parent_page( ) ) {
         get_template_part( 'partials/navigation/breadcrumbs' );
     }
     ?>

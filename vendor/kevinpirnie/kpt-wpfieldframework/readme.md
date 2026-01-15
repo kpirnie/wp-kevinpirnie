@@ -20,7 +20,7 @@ composer require kevinpirnie/kp-wp-starter-framework
 ```php
 <?php
 // In your main plugin file.
-use KP\WPStarterFramework\Loader;
+use KP\WPFieldFramework\Loader;
 
 // Bootstrap the framework.
 $framework = Loader::bootstrapPlugin(__FILE__);
@@ -78,7 +78,7 @@ $framework->addMetaBox([
 ```php
 <?php
 // In your theme's functions.php.
-use KP\WPStarterFramework\Loader;
+use KP\WPFieldFramework\Loader;
 
 add_action('after_setup_theme', function() {
     $framework = Loader::bootstrapTheme();
@@ -187,7 +187,7 @@ $framework->addOptionsPage([
 ### Retrieving Options
 
 ```php
-use KP\WPStarterFramework\Framework;
+use KP\WPFieldFramework\Framework;
 
 // Get all options using your custom option key.
 $options = get_option('my_theme_options');
@@ -886,7 +886,7 @@ if ($url) {
 ### Retrieving Repeater Data
 
 ```php
-use KP\WPStarterFramework\Repeater;
+use KP\WPFieldFramework\Repeater;
 
 // Get repeater data.
 $team_members = get_post_meta($post_id, 'team_members', true);
@@ -1053,7 +1053,7 @@ All fields support these common options:
 The Storage class provides a unified interface for all WordPress data storage:
 
 ```php
-use KP\WPStarterFramework\Framework;
+use KP\WPFieldFramework\Framework;
 
 $storage = Framework::getInstance()->getStorage();
 
@@ -1106,7 +1106,7 @@ $storage->setUseCache(false);
 ### Manual Initialization
 
 ```php
-use KP\WPStarterFramework\Framework;
+use KP\WPFieldFramework\Framework;
 
 $framework = Framework::getInstance();
 
@@ -1119,7 +1119,7 @@ $framework->init(
 ### Requirements Check
 
 ```php
-use KP\WPStarterFramework\Loader;
+use KP\WPFieldFramework\Loader;
 
 $requirements = Loader::checkRequirements('6.8', '8.2');
 
@@ -1137,9 +1137,9 @@ $framework = Loader::bootstrap();
 // Manually include and register the autoloader.
 require_once 'path/to/kp-wp-starter-framework/src/Loader.php';
 
-KP\WPStarterFramework\Loader::register();
+KP\WPFieldFramework\Loader::register();
 
-$framework = KP\WPStarterFramework\Loader::bootstrap();
+$framework = KP\WPFieldFramework\Loader::bootstrap();
 ```
 
 ## JavaScript Events

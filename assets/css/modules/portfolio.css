@@ -48,6 +48,9 @@
 .kpt-portfolio-item-overlay {
     background: linear-gradient(to top, rgba(0, 0, 0, 0.99) 0%, rgba(0, 0, 0, 0.90) 150px, transparent 100%);
 }
+.kpt-portfolio-small-item-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.99) 0%, rgba(0, 0, 0, 0.90) 75px, transparent 100%);
+}
 
 .line-clamp-2 {
     display: -webkit-box;

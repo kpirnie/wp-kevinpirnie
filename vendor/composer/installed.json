@@ -7,23 +7,23 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kpirnie/kpt-wpfieldframework.git",
-                "reference": "5efaff84a3e9ee6fd722a565993e70bd2b64bad1"
+                "reference": "78f6b81d254d19684c7c6621ceb86fa693af5812"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kpirnie/kpt-wpfieldframework/zipball/5efaff84a3e9ee6fd722a565993e70bd2b64bad1",
-                "reference": "5efaff84a3e9ee6fd722a565993e70bd2b64bad1",
+                "url": "https://api.github.com/repos/kpirnie/kpt-wpfieldframework/zipball/78f6b81d254d19684c7c6621ceb86fa693af5812",
+                "reference": "78f6b81d254d19684c7c6621ceb86fa693af5812",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.2"
             },
-            "time": "2026-01-05T14:23:32+00:00",
+            "time": "2026-01-11T13:07:10+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "KP\\WPStarterFramework\\": "src/"
+                    "KP\\WPFieldFramework\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",

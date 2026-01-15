@@ -14,7 +14,7 @@
 defined( 'ABSPATH' ) || die( 'No direct script access allowed' );
 
 // pull our framework
-use \KP\WPStarterFramework\Loader;
+use \KP\WPFieldFramework\Loader;
 
 // make sure this class doesnt already exist
 if( ! class_exists( 'KPT_Settings' ) ) {
@@ -49,7 +49,7 @@ if( ! class_exists( 'KPT_Settings' ) ) {
         public function add_settings( ) : void {
 
             // setup the framework
-            $this -> fw = Loader::bootstrapTheme( 'vendor/kevinpirnie/kpt-wpfieldframework' );
+            $this -> fw = Loader::init( );
 
             // call the admin settings
             $this -> create_theme_settings( );

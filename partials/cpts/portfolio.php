@@ -2,7 +2,7 @@
 /** 
  * partials/cpts/portfolio.php
  * 
- * Portfolio masonry grid with random corner overlays
+ * Portfolio layout: 1 featured image (50% width) + 6 grid items (2x3)
  * 
  * @since 8.4
  * @author Kevin Pirnie <me@kpirnie.com>
@@ -14,74 +14,110 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed' );
 
 $args = array(
     'post_type'      => 'kpt_portfolio',
-    'posts_per_page' => 9,
+    'posts_per_page' => 7,
     'post_status'    => 'publish',
     'orderby'        => 'rand',
 );
 
 $portfolio_items = get_posts( $args );
 
-if ( empty( $portfolio_items ) ) {
+if ( empty( $portfolio_items ) || count( $portfolio_items ) < 7 ) {
     return;
 }
 
-$positions = array( 'bottom-right' );
-$heights = array( 'h-64', 'h-80', 'h-96', 'h-72' );
+// Separate featured item from grid items
+$featured_item = $portfolio_items[0];
+$grid_items = array_slice( $portfolio_items, 1, 6 );
+
+// Get featured item data
+$featured_id = $featured_item->ID;
+$featured_title = $featured_item->post_title;
+$featured_excerpt = $featured_item->post_excerpt;
+$featured_content = $featured_item->post_content;
+$featured_image = get_the_post_thumbnail_url( $featured_id, get_query_var( 'portfolio_image_size', 'portfolio-featured' ) );
+$featured_url = get_permalink( $featured_id );
 ?>
 
-<div class="kpt-portfolio-masonry w-full my-8">
+<div class="kpt-portfolio-featured w-full my-8 bg-gray-800 rounded-md shadow-md p-4 border-2 border-kp-navy">
     
-    <?php foreach ( $portfolio_items as $index => $item ) : 
-        $item_id = $item->ID;
-        $title = $item->post_title;
-        $excerpt = $item->post_excerpt;
-        $content = $item->post_content;
-        $image_size = get_query_var( 'portfolio_image_size', 'portfolio-masonry' );
-        $image = get_the_post_thumbnail_url( $item_id, $image_size );
+    <div class="flex flex-col md:flex-row gap-4 items-stretch">
         
-        $settings = get_post_meta( $item_id, 'portfolio_url', true );
-        $link_data = isset( $settings ) ? $settings : array();
-        $url = get_permalink( $item_id );
+        <!-- Featured Item (50% width) -->
+        <!-- Height: 3 rows × 242px + 2 gaps × 16px = 758px -->
+        <div class="w-full md:w-1/2 h-[758px]">
+            <a href="<?php echo esc_url( $featured_url ); ?>" class="kpt-portfolio-item kpt-portfolio-featured-item relative overflow-hidden rounded-md group block h-[400px] md:h-[758px] border-2 border-kp-gray">
+                
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" 
+                     style="background-image: url('<?php echo esc_url( $featured_image ); ?>');">
+                </div>
+                
+                <div class="absolute inset-0 kpt-portfolio-item-overlay"></div>
+                
+                <div class="absolute bottom-0 left-0 right-0 p-6 transition-all duration-700 ease-out">
+                    
+                    <?php if ( $featured_title ) : ?>
+                        <h3 class="text-white font-bold text-xl md:text-2xl mb-3"><?php echo esc_html( $featured_title ); ?></h3>
+                    <?php endif; ?>
+                    
+                    <?php if ( $featured_excerpt ) : ?>
+                        <p class="text-gray-300 text-sm md:text-base mb-4 line-clamp-2"><?php echo esc_html( $featured_excerpt ); ?></p>
+                    <?php elseif ( $featured_content ) : ?>
+                        <p class="text-gray-300 text-sm md:text-base mb-4 line-clamp-2"><?php echo wp_trim_words( wp_strip_all_tags( $featured_content ), 20 ); ?></p>
+                    <?php endif; ?>
+                    
+                    <span class="inline-flex items-center text-[#599bb8] hover:text-[#43819c] text-sm font-medium transition-colors duration-300 group/link">
+                        <span>View Project</span>
+                        <span class="fa-solid fa-arrow-right ml-2 transition-transform duration-300 group-hover/link:translate-x-1"></span>
+                    </span>
+                    
+                </div>
+                
+            </a>
+        </div>
         
-        $position = $positions[ array_rand( $positions ) ];
-        $height = $heights[ array_rand( $heights ) ];
-        
-        $position_classes = array(
-            'top-left' => 'top-0 left-0',
-            'top-right' => 'top-0 right-0',
-            'bottom-left' => 'bottom-0 left-0',
-            'bottom-right' => 'bottom-0 right-0'
-        );
-    ?>
-        <div class="kpt-portfolio-item relative overflow-hidden rounded-md group mb-4 <?php echo esc_attr( $height ); ?>">
+        <!-- Grid Items (50% width, 2x3 grid) -->
+        <div class="w-full md:w-1/2 grid grid-cols-2 gap-4 h-full">
             
-            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110" 
-                 style="background-image: url('<?php echo esc_url( $image ); ?>');">
-            </div>
-            
-            <div class="absolute inset-0 bg-gradient-to-br from-black/60 to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out"></div>
-            
-            <div class="kpt-portfolio-overlay absolute <?php echo esc_attr( $position_classes[$position] ); ?> w-full p-4 bg-black/85 backdrop-blur-sm transition-all duration-700 ease-out group-hover:bg-black/95">
-                
-                <?php if ( $title ) : ?>
-                    <h4 class="text-white font-bold text-lg mb-2 line-clamp-2"><?php echo esc_html( $title ); ?></h4>
-                <?php endif; ?>
-                
-                <?php if ( $excerpt ) : ?>
-                    <p class="text-gray-300 text-sm mb-3 line-clamp-2"><?php echo esc_html( $excerpt ); ?></p>
-                <?php elseif ( $content ) : ?>
-                    <p class="text-gray-300 text-sm mb-3 line-clamp-2"><?php echo wp_trim_words( wp_strip_all_tags( $content ), 15 ); ?></p>
-                <?php endif; ?>
-                
-                <a href="<?php echo esc_url( $url ); ?>" 
-                   class="inline-flex items-center text-[#599bb8] hover:text-[#43819c] text-sm font-medium transition-colors duration-300 group/link">
-                    <span>View Project</span>
-                    <span class="fa-solid fa-arrow-right ml-2 transition-transform duration-300 group-hover/link:translate-x-1"></span>
+            <?php foreach ( $grid_items as $item ) : 
+                $item_id = $item->ID;
+                $title = $item->post_title;
+                $excerpt = $item->post_excerpt;
+                $content = $item->post_content;
+                $image = get_the_post_thumbnail_url( $item_id, get_query_var( 'portfolio_image_size', 'portfolio-grid' ) );
+                $url = get_permalink( $item_id );
+            ?>
+                <a href="<?php echo esc_url( $url ); ?>" class="kpt-portfolio-item kpt-portfolio-grid-item relative overflow-hidden rounded-md group block h-[190px] md:h-[242px] border-2 border-kp-darkest-blue">
+                    
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" 
+                         style="background-image: url('<?php echo esc_url( $image ); ?>');">
+                    </div>
+                    
+                    <div class="absolute inset-0 kpt-portfolio-small-item-overlay"></div>
+                    
+                    <div class="absolute bottom-0 left-0 right-0 p-3 md:p-4 transition-all duration-700 ease-out">
+                        
+                        <?php if ( $title ) : ?>
+                            <h4 class="text-white font-bold text-sm md:text-base mb-1 line-clamp-1"><?php echo esc_html( $title ); ?></h4>
+                        <?php endif; ?>
+                        
+                        <?php if ( $excerpt ) : ?>
+                            <p class="text-gray-300 text-xs mb-2 line-clamp-1 hidden md:block"><?php echo wp_trim_words( esc_html( $excerpt ), 8 ); ?></p>
+                        <?php elseif ( $content ) : ?>
+                            <p class="text-gray-300 text-xs mb-2 line-clamp-1 hidden md:block"><?php echo wp_trim_words( wp_strip_all_tags( $content ), 8 ); ?></p>
+                        <?php endif; ?>
+                        
+                        <span class="inline-flex items-center text-[#599bb8] text-xs font-medium transition-colors duration-300 group/link">
+                            <span>View</span>
+                            <span class="fa-solid fa-arrow-right ml-1 transition-transform duration-300 group-hover/link:translate-x-1"></span>
+                        </span>
+                        
+                    </div>
+                    
                 </a>
-                
-            </div>
+            <?php endforeach; ?>
             
         </div>
-    <?php endforeach; ?>
+        
+    </div>
     
 </div>

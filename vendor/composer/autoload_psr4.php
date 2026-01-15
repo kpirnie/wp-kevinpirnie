@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'KP\\WPStarterFramework\\' => array($vendorDir . '/kevinpirnie/kpt-wpfieldframework/src'),
+    'KP\\WPFieldFramework\\' => array($vendorDir . '/kevinpirnie/kpt-wpfieldframework/src'),
 );

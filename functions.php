@@ -24,7 +24,12 @@ add_action( 'after_setup_theme', function( ) {
 }, 999 );
 
 function is_parent_page( $page_id = null ) {
-    $page_id = $page_id ?: get_the_ID();
+    if( ( is_page( 'about-kevin-pirnie/privacy-policy' ) || is_page( 'about-kevin-pirnie/cookie-policy' ) || is_page( 'about-kevin-pirnie/lets-talk' ) ) || is_front_page( ) ) {
+        return true;
+    }
+    $page_id = $page_id ?: get_the_ID( );
     $children = get_pages( array( 'child_of' => $page_id ) );
-    return ! empty( $children );
+    $is_child = ( get_post( ) -> post_parent > 0 );
+    $is_parent = ( ! empty( $children ) && count( $children ) > 0 );
+    return $is_parent && ! $is_child;
 }
