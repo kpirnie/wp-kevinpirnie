@@ -13,8 +13,6 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed' );
 
 // Get reCAPTCHA site key
 $recaptcha_site_key = KPT_Utilities::get_option( 'kpt_recaptcha_site_key' );
-var_dump($recaptcha_site_key);
-
 
 // Check if form was successfully submitted
 $success = isset( $_GET['contact_success'] ) && $_GET['contact_success'] == '1';
