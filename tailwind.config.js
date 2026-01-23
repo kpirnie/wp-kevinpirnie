@@ -25,4 +25,14 @@ module.exports = {
         },
     },
     plugins: [],
+    safelist: [
+        'active',
+        'prev',
+        'hidden',
+        'opacity-0',
+        'opacity-100',
+        'visible',
+        'invisible',
+        'rotate-180',
+    ],
 }

@@ -1,9 +1,5 @@
-// DOM ready event
-DOMReady( function( ) {
+DOMReady(function () {
 
-    // ========================================
-    // Hero Slider
-    // ========================================
     const slideshow = document.querySelector('.kpt-hero-slideshow');
 
     if (slideshow) {
@@ -13,18 +9,37 @@ DOMReady( function( ) {
 
         let currentSlide = 0;
         let autoplayInterval;
+        let isVisible = false;
+
+        // Intersection Observer for lazy loading
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !isVisible) {
+                    isVisible = true;
+                    loadSlideBackground(slides[currentSlide]);
+                    startAutoplay();
+                }
+            });
+        }, { threshold: 0.1 });
+
+        observer.observe(slideshow);
+
+        function loadSlideBackground(slide) {
+            const bgUrl = slide.getAttribute('data-bg');
+            if (bgUrl && !slide.style.backgroundImage) {
+                slide.style.backgroundImage = `url('${bgUrl}')`;
+            }
+        }
 
         function goToSlide(n) {
-            // Remove all classes from all slides
             slides.forEach(slide => {
                 slide.classList.remove('active', 'prev');
             });
-            
-            // Mark current slide as previous
+
             slides[currentSlide].classList.add('prev');
-            
             currentSlide = (n + slides.length) % slides.length;
 
+            loadSlideBackground(slides[currentSlide]);
             slides[currentSlide].classList.add('active');
         }
 
@@ -36,11 +51,9 @@ DOMReady( function( ) {
             goToSlide(currentSlide - 1);
         }
 
-        // Event listeners
-        nextBtn.addEventListener('click', nextSlide);
         prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
 
-        // Autoplay
         function startAutoplay() {
             autoplayInterval = setInterval(nextSlide, 7000);
         }
@@ -49,19 +62,15 @@ DOMReady( function( ) {
             clearInterval(autoplayInterval);
         }
 
-        // Pause autoplay on hover
         slideshow.addEventListener('mouseenter', stopAutoplay);
-        slideshow.addEventListener('mouseleave', startAutoplay);
+        slideshow.addEventListener('mouseleave', () => {
+            if (isVisible) startAutoplay();
+        });
 
-        // Start autoplay
-        startAutoplay();
-
-        // Keyboard navigation
         document.addEventListener('keydown', function (e) {
             if (e.key === 'ArrowLeft') prevSlide();
             if (e.key === 'ArrowRight') nextSlide();
         });
     }
 
-
-} );
+});

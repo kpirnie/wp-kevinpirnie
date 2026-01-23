@@ -1,4 +1,5 @@
 <?php
+
 /** 
  * Assets class
  * 
@@ -9,13 +10,13 @@
  * @author Kevin Pirnie <me@kpirnie.com>
  * @package Kevin Pirnie's Theme
  * 
-*/
+ */
 
 // We don't want to allow direct access to this
-defined( 'ABSPATH' ) || die( 'No direct script access allowed' );
+defined('ABSPATH') || die('No direct script access allowed');
 
 // make sure this isn't already loaded in
-if( ! class_exists( 'KPT_Assets' ) ) {
+if (! class_exists('KPT_Assets')) {
 
     /** 
      * KPT_Assets
@@ -27,8 +28,9 @@ if( ! class_exists( 'KPT_Assets' ) ) {
      * @author Kevin Pirnie <me@kpirnie.com>
      * @package Kevin Pirnie's Theme
      * 
-    */
-    class KPT_Assets {
+     */
+    class KPT_Assets
+    {
 
         /** 
          * enqueue
@@ -40,35 +42,35 @@ if( ! class_exists( 'KPT_Assets' ) ) {
          * @author Kevin Pirnie <me@kpirnie.com>
          * @package Kevin Pirnie's Theme
          * 
-        */
-        public function enqueue( ) {
+         */
+        public function enqueue()
+        {
 
             // only run on the frontend, not in wp-admin
-            if ( is_admin() ) {
+            if (is_admin()) {
                 return;
             }
 
             // remove jquery from front-end
-            $this -> remove_frontend_jquery( );
+            $this->remove_frontend_jquery();
 
             // enqueue our styles
-            $this -> pull_css( );
+            $this->pull_css();
 
             // enqueue our scripts
-            $this -> pull_js( );
+            $this->pull_js();
 
             // Remove WordPress block library CSS on resume page
-            add_action( 'wp_enqueue_scripts', function() {
+            add_action('wp_enqueue_scripts', function () {
                 // Check if we're on the resume page (adjust slug as needed)
-                if ( is_page( 'kevin-pirnie-devops-support-lead-wordpress-hosting' ) ) {
+                if (is_page('kevin-pirnie-devops-support-lead-wordpress-hosting')) {
                     // Dequeue block library styles
-                    wp_dequeue_style( 'wp-block-library' );
-                    wp_dequeue_style( 'wp-block-library-theme' );
-                    wp_dequeue_style( 'wc-blocks-style' );
-                    wp_dequeue_style( 'global-styles' );
+                    wp_dequeue_style('wp-block-library');
+                    wp_dequeue_style('wp-block-library-theme');
+                    wp_dequeue_style('wc-blocks-style');
+                    wp_dequeue_style('global-styles');
                 }
-            }, 100 );
-
+            }, 100);
         }
 
         /** 
@@ -81,8 +83,9 @@ if( ! class_exists( 'KPT_Assets' ) ) {
          * @author Kevin Pirnie <me@kpirnie.com>
          * @package Kevin Pirnie's Theme
          * 
-        */
-        private function pull_css( ) : void {
+         */
+        private function pull_css(): void
+        {
 
             $is_debug = defined('KPT_DEBUG') && KPT_DEBUG;
 
@@ -95,7 +98,7 @@ if( ! class_exists( 'KPT_Assets' ) ) {
             );
 
             // if we are debugging, load individual CSS modules
-            if( $is_debug ) {
+            if ($is_debug) {
 
                 // Base Tailwind (processed)
                 wp_enqueue_style(
@@ -134,7 +137,7 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                 );
 
                 $last_dep = 'kpt_fa_icons';
-                foreach( $css_modules as $handle => $file ) {
+                foreach ($css_modules as $handle => $file) {
                     wp_enqueue_style(
                         $handle,
                         get_stylesheet_directory_uri() . '/assets/css/' . $file,
@@ -143,7 +146,6 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                     );
                     $last_dep = $handle;
                 }
-
             } else {
                 // Production: single minified file
                 wp_enqueue_style(
@@ -161,7 +163,6 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                 $is_debug ? array('kpt_utilities') : array('kpt_theme'),
                 $is_debug ? time() : null
             );
-
         }
 
         /** 
@@ -174,52 +175,57 @@ if( ! class_exists( 'KPT_Assets' ) ) {
          * @author Kevin Pirnie <me@kpirnie.com>
          * @package Kevin Pirnie's Theme
          * 
-        */
-        private function pull_js( ) : void {
+         */
+        private function pull_js(): void
+        {
 
             $is_debug = defined('KPT_DEBUG') && KPT_DEBUG;
 
             // if we are debugging
-            if( $is_debug ) {
+            if ($is_debug) {
 
                 // hold the debug scripts in dependency order
                 $js = array(
-                    'kpt_main' => array( 
-                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/main.js', 
-                        'deps' => array() 
+                    'kpt_main' => array(
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/main.js',
+                        'deps' => array()
                     ),
-                    'kpt_cookie' => array( 
-                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/cookie-notice.js', 
-                        'deps' => array( 'kpt_main' ) 
+                    'kpt_cookie' => array(
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/cookie-notice.js',
+                        'deps' => array('kpt_main')
                     ),
-                    'kpt_hero' => array( 
-                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/hero-carousel.js', 
-                        'deps' => array( 'kpt_main' ) 
+                    'kpt_hero' => array(
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/hero-carousel.js',
+                        'deps' => array('kpt_main')
                     ),
-                    'kpt_menu_main' => array( 
-                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/main-menu.js', 
-                        'deps' => array( 'kpt_main' ) 
+                    'kpt_menu_main' => array(
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/main-menu.js',
+                        'deps' => array('kpt_main')
                     ),
-                    'kpt_menu_mobile' => array( 
-                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/mobile-menu.js', 
-                        'deps' => array( 'kpt_main' ) 
+                    'kpt_menu_mobile' => array(
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/mobile-menu.js',
+                        'deps' => array('kpt_main')
                     ),
-                    'kpt_scroll' => array( 
-                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/scroll-to-top.js', 
-                        'deps' => array( 'kpt_main' ) 
+                    'kpt_scroll' => array(
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/scroll-to-top.js',
+                        'deps' => array('kpt_main')
                     ),
-                    'kpt_search' => array( 
-                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/search.js', 
-                        'deps' => array( 'kpt_main' ) 
+                    'kpt_search' => array(
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/search.js',
+                        'deps' => array('kpt_main')
                     ),
-                    'kpt_header' => array( 
-                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/top-header.js', 
-                        'deps' => array( 'kpt_main' ) 
+                    'kpt_header' => array(
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/top-header.js',
+                        'deps' => array('kpt_main')
+                    ),
+                    'kpt_portfolio_lazy' => array(
+                        'url' => get_stylesheet_directory_uri() . '/assets/js/modules/portfolio-lazy.js',
+                        'deps' => array('kpt_main'),
                     ),
                 );
 
                 // loop the js array
-                foreach( $js as $k => $v ) {
+                foreach ($js as $k => $v) {
 
                     // enqueue the script
                     wp_enqueue_script(
@@ -227,15 +233,14 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                         $v['url'],
                         $v['deps'],
                         time(),
-                        true
+                        ['in_footer' => true, 'strategy' => 'defer']
                     );
-
                 }
 
                 // clean up the js array
-                unset( $js );
+                unset($js);
 
-            // otherwise (production mode)
+                // otherwise (production mode)
             } else {
 
                 // enqueue the minified script
@@ -244,9 +249,8 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                     get_stylesheet_directory_uri() . '/assets/js/theme.min.js',
                     array(),
                     null,
-                    true
+                    ['in_footer' => true, 'strategy' => 'defer']
                 );
-
             }
 
             // always enqueue this one with a querystring
@@ -255,11 +259,10 @@ if( ! class_exists( 'KPT_Assets' ) ) {
                 get_stylesheet_directory_uri() . '/script.js',
                 array(),
                 time(),
-                true
+                ['in_footer' => true, 'strategy' => 'defer']
             );
-
         }
-        
+
 
         /** 
          * remove_frontend_jquery
@@ -271,54 +274,47 @@ if( ! class_exists( 'KPT_Assets' ) ) {
          * @author Kevin Pirnie <me@kpirnie.com>
          * @package Kevin Pirnie's Theme
          * 
-        */
-        private function remove_frontend_jquery( ) : void {
+         */
+        private function remove_frontend_jquery(): void
+        {
 
             // make sure we only do this in the front-end, and only on pages that are not our form
-            if( ! is_admin( ) ) {
+            if (! is_admin()) {
 
                 // remove it
-                add_action( 'wp_enqueue_scripts', function( ) {
+                add_action('wp_enqueue_scripts', function () {
 
                     // check for the contact me page
-                    if( ! is_page( 83 ) ) {
+                    if (! is_page(83)) {
 
                         // setup an array of items to be removed
-                        $_remove = array( 'jquery', 'wp-embed' );
+                        $_remove = array('jquery', 'wp-embed');
 
                         // loop over this array and properly remove them
-                        foreach( $_remove as $_hndl ) {
+                        foreach ($_remove as $_hndl) {
 
                             // dequeue it first
-                            wp_dequeue_script( $_hndl );
+                            wp_dequeue_script($_hndl);
 
                             // now unregister it
-                            wp_deregister_script( $_hndl );   
-                            
+                            wp_deregister_script($_hndl);
                         }
 
                         // do the same for unnecessary CSS
-                        $_remove = array( 'wp-block-library', 'classic-themes-styles', 'global-styles' );
+                        $_remove = array('wp-block-library', 'classic-themes-styles', 'global-styles');
 
                         // loop over this array and properly remove them
-                        foreach( $_remove as $_hndl ) {
+                        foreach ($_remove as $_hndl) {
 
                             // dequeue it first
-                            wp_dequeue_style( $_hndl );
+                            wp_dequeue_style($_hndl);
 
                             // now unregister it
-                            wp_deregister_style( $_hndl );   
-                            
+                            wp_deregister_style($_hndl);
                         }
-
                     }
-
-                }, PHP_INT_MAX - 1 );
-
+                }, PHP_INT_MAX - 1);
             }
-
         }
-
     }
-
 }

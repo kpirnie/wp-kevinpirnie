@@ -1,9 +1,5 @@
-// DOM ready event
-DOMReady( function( ) {
+DOMReady(function () {
 
-    // ========================================
-    // Mobile menu toggle
-    // ========================================
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
 
@@ -11,7 +7,6 @@ DOMReady( function( ) {
         mobileMenuToggle.addEventListener('click', function () {
             mobileMenu.classList.toggle('hidden');
 
-            // Ensure all mobile submenus are hidden when menu opens
             if (!mobileMenu.classList.contains('hidden')) {
                 document.querySelectorAll('.submenu-mobile').forEach(submenu => {
                     submenu.classList.add('hidden');
@@ -23,23 +18,21 @@ DOMReady( function( ) {
         });
     }
 
-    // ========================================
-    // Mobile submenu toggles
-    // ========================================
-    const submenuToggles = document.querySelectorAll('.submenu-toggle');
-    submenuToggles.forEach(toggle => {
-        toggle.addEventListener('click', function (e) {
+    // Event delegation for mobile submenu toggles
+    document.addEventListener('click', function (e) {
+        const toggle = e.target.closest('.submenu-toggle');
+
+        if (toggle) {
             e.preventDefault();
             e.stopPropagation();
 
-            const parentLi = this.closest('li');
+            const parentLi = toggle.closest('li');
             const submenu = parentLi.querySelector(':scope > .submenu-mobile');
-            const arrow = this.querySelector('svg');
+            const arrow = toggle.querySelector('svg');
 
             if (submenu) {
                 const isOpen = !submenu.classList.contains('hidden');
 
-                // Get all ancestor submenus (parent chain)
                 const ancestors = [];
                 let current = parentLi.parentElement;
                 while (current) {
@@ -49,14 +42,12 @@ DOMReady( function( ) {
                     current = current.parentElement;
                 }
 
-                // Close ALL mobile dropdowns except ancestors and the current one
                 document.querySelectorAll('.submenu-mobile').forEach(menu => {
                     if (menu !== submenu && !ancestors.includes(menu)) {
                         menu.classList.add('hidden');
                     }
                 });
 
-                // Reset ALL arrows except those in ancestor chain
                 document.querySelectorAll('.submenu-toggle svg').forEach(otherArrow => {
                     const otherParentLi = otherArrow.closest('li');
                     const otherSubmenu = otherParentLi?.querySelector(':scope > .submenu-mobile');
@@ -66,27 +57,24 @@ DOMReady( function( ) {
                     }
                 });
 
-                // Toggle current submenu
                 submenu.classList.toggle('hidden');
                 arrow.classList.toggle('rotate-180');
             }
-        });
+        }
     });
 
-    // Make parent links in mobile menu toggle submenus instead of navigating
-    const mobileParentLinks = document.querySelectorAll('.mobile-menu-list .has-submenu > div > a');
-    mobileParentLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
+    // Event delegation for mobile parent links
+    document.addEventListener('click', function (e) {
+        const link = e.target.closest('.mobile-menu-list .has-submenu > div > a');
+
+        if (link) {
             e.preventDefault();
 
-            const parentLi = this.closest('li');
+            const parentLi = link.closest('li');
             const submenu = parentLi.querySelector(':scope > .submenu-mobile');
-            const arrow = this.closest('div').querySelector('.submenu-toggle svg');
+            const arrow = link.closest('div').querySelector('.submenu-toggle svg');
 
             if (submenu) {
-                const isOpen = !submenu.classList.contains('hidden');
-
-                // Get all ancestor submenus (parent chain)
                 const ancestors = [];
                 let current = parentLi.parentElement;
                 while (current) {
@@ -96,14 +84,12 @@ DOMReady( function( ) {
                     current = current.parentElement;
                 }
 
-                // Close ALL mobile dropdowns except ancestors and the current one
                 document.querySelectorAll('.submenu-mobile').forEach(menu => {
                     if (menu !== submenu && !ancestors.includes(menu)) {
                         menu.classList.add('hidden');
                     }
                 });
 
-                // Reset ALL arrows except those in ancestor chain
                 document.querySelectorAll('.submenu-toggle svg').forEach(otherArrow => {
                     const otherParentLi = otherArrow.closest('li');
                     const otherSubmenu = otherParentLi?.querySelector(':scope > .submenu-mobile');
@@ -113,13 +99,12 @@ DOMReady( function( ) {
                     }
                 });
 
-                // Toggle current submenu
                 submenu.classList.toggle('hidden');
                 if (arrow) {
                     arrow.classList.toggle('rotate-180');
                 }
             }
-        });
+        }
     });
-    
-} );
+
+});

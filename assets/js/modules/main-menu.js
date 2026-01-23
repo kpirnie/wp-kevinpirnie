@@ -1,9 +1,6 @@
-// DOM ready event
-DOMReady( function( ) {
+DOMReady(function () {
 
-    // ========================================
-    // Desktop dropdown menu toggles
-    // ========================================
+    // Event delegation for all dropdown toggles
     document.addEventListener('click', function (e) {
         const toggle = e.target.closest('.dropdown-toggle');
 
@@ -46,15 +43,10 @@ DOMReady( function( ) {
                 });
 
                 // Toggle current dropdown
-                if (isOpen) {
-                    submenu.classList.add('hidden');
-                    arrow.classList.remove('rotate-180');
-                } else {
-                    submenu.classList.remove('hidden');
-                    arrow.classList.add('rotate-180');
-                }
+                submenu.classList.toggle('hidden');
+                arrow.classList.toggle('rotate-180');
             }
-        } else if (!e.target.closest('.submenu')) {
+        } else if (!e.target.closest('.submenu, .has-dropdown')) {
             // Close all dropdowns if clicking outside
             document.querySelectorAll('.submenu').forEach(menu => {
                 menu.classList.add('hidden');
@@ -65,19 +57,4 @@ DOMReady( function( ) {
         }
     });
 
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function (e) {
-        if (!e.target.closest('.has-dropdown')) {
-            document.querySelectorAll('.submenu').forEach(menu => {
-                menu.classList.add('hidden');
-            });
-            document.querySelectorAll('.dropdown-toggle .fa-chevron-down, .dropdown-toggle .fa-chevron-right').forEach(arrow => {
-                arrow.classList.remove('rotate-180');
-            });
-            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-                toggle.setAttribute('aria-expanded', 'false');
-            });
-        }
-    });
-
-} );
+});
