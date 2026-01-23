@@ -40,6 +40,7 @@ class ComposerStaticInit24e41bbaee1332276f826502c7093d78
         'KPT_Utilities' => __DIR__ . '/../..' . '/work/inc/theme-utilities.php',
         'KPT_Widgets' => __DIR__ . '/../..' . '/work/inc/theme-widgets.php',
         'KP\\WPFieldFramework\\BlockGenerator' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/BlockGenerator.php',
+        'KP\\WPFieldFramework\\ExportImport' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/ExportImport.php',
         'KP\\WPFieldFramework\\FieldTypes' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/FieldTypes.php',
         'KP\\WPFieldFramework\\Framework' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/Framework.php',
         'KP\\WPFieldFramework\\Loader' => __DIR__ . '/..' . '/kevinpirnie/kpt-wpfieldframework/src/Loader.php',

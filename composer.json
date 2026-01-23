@@ -10,14 +10,24 @@
     "authors": [
         {
             "name": "Kevin Pirnie",
-            "email": "me@kpirnie.com",
+            "email": "iam@kevinpirnie.com",
             "homepage": "https://kevinpirnie.com",
             "role": "Developer"
         }
     ],
+    "funding": [
+        {
+            "type": "paypal",
+            "url": "https://www.paypal.biz/kevinpirnie"
+        },
+        {
+            "type": "ko-fi",
+            "url": "https://ko-fi.com/kevinpirnie"
+        }
+    ],
     "require": {
-        "php": ">=8.2",
-        "kevinpirnie/kpt-wpfieldframework": "dev-develop"
+        "php": ">=8.4",
+        "kevinpirnie/kpt-wpfieldframework": ">=1"
     },
     "autoload": {
         "classmap": [
@@ -32,5 +42,9 @@
         "classmap-authoritative": true,
         "apcu-autoloader": true,
         "sort-packages": true
+    },
+    "scripts": {
+        "cs-check": "phpcs src --standard=PSR12 --ignore=*.js,*.css -n",
+        "cs-fix": "phpcbf src --standard=PSR12 --ignore=*.js,*.css -n"
     }
 }
